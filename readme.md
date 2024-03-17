@@ -36,3 +36,5 @@ Only the first navbar and first footer will work for the moment, you will need t
 [ ] Add sidebar in front or hide it if none are active
 
 [ ] Make the test
+
+This list will grow up soon ...
