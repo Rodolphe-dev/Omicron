@@ -1,4 +1,4 @@
-# Omicron CMS v1.0.0
+# Omicron CMS V0.1 Beta
 
 ## Description
 
