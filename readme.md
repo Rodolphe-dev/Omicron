@@ -16,6 +16,7 @@ A fixture need to be execute for create the data needed to be working => ```doct
 Admin panel
 
 _ _username:_ _ admin
+
 _ _password:_ _ password
 
 This must be change for your safety
@@ -29,6 +30,9 @@ Only the first navbar and first footer will work for the moment, you will need t
 ## TODO
 
 [ ] Make 404 error page for back and front
+
 [ ] Add a system for navbar, sidebar, footer to active only one like a button active, disabled in admin panel
+
 [ ] Add sidebar in front or hide it if none are active
+
 [ ] Make the test
