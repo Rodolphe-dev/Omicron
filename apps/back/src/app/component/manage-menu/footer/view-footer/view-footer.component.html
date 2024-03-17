@@ -1,0 +1,35 @@
+<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
+    <div class="col-end-6 md:col-end-5">
+        <a class="btn mx-1 btn-neutral" routerLink="/footer/list">
+            Back
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-4 gap-4 place-items-center p-3 bg-base-200">
+    <div class="col-span-1 w-full min-w-full">
+        <label class="form-control w-full">
+            <div class="label">
+                <span class="label-text font-semibold">Name</span>
+            </div>
+            <span class="w-full">{{footerNameValue}}</span>
+            <div class="label">
+                <span class="label-text-alt font-light">This name will not be show on your front office</span>
+            </div>
+        </label>
+    </div>
+    <div class="col-span-3 w-1/2">
+        <label class="form-control">
+            <div class="label">
+                <span class="label-text font-semibold">Content</span>
+            </div>
+            <span class="w-full">{{footerContentValue}}</span>
+        </label>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
+    <a routerLink="/footer/list" class="btn btn-success">
+        Quit
+    </a>
+</div>

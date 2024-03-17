@@ -1,0 +1,28 @@
+<nav class="navbar drawer bg-base-300 border-b border-primary">
+    <div class="navbar-start">
+        <a class="btn btn-ghost text-xl">Omicron Dashboard</a>
+    </div>
+    <div class="navbar-center">
+        <a class="btn btn-ghost text-sm">Front Office</a>
+    </div>
+    <div class="navbar-end">
+        <div class="form-control mr-5 w-3/5">
+            <input type="text" placeholder="Search WIP 2" class="input input-bordered w-24 md:w-auto" />
+        </div>
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <fa-icon [icon]="faUser" class="fa-2xl leading-lg"></fa-icon>
+            </div>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
+                <li>
+                    <a routerLink="/profile/edit/{{myId}}" routerLinkActive="activebutton" class="justify-between">
+                        Profile
+                    </a>
+                </li>
+                <li>
+                    <span (click)="logout()">Logout</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

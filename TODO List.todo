@@ -1,0 +1,211 @@
+Projects TO DO LIST:
+
+    API Symfony:
+        ☐ Add Footer entity
+        ☐ Add Page entity
+        ☐ Add Settings entity
+        ☐ Add Admin account entity
+
+        Ressources:
+            https://www.wanadev.fr/225-creer-facilement-une-api-rest-avec-symfony-api-platform/
+            https://grafikart.fr/tutoriels/api-platform-pagination-filtres-1906
+
+            IMPORTANT : This is for packaging the front and the back in the same angular app:
+                https://www.tektutorialshub.com/angular/angular-multiple-apps-in-one-project/
+
+            TinyMCE => WYSIWYG Editor
+            https://www.tiny.cloud/get-tiny/
+            free alternative : https://quilljs.com
+
+    BACK-OFFICE:
+        Menus:
+            ✔ @high Check Todo-Tree for actual work on: @done (13/01/2024 22:45:27)
+            ✔ FIXME : Fix drag and drop between grid on add navbar @done (13/01/2024 15:55:05)
+            ✔ FIXME : Fix drag and drop between grid edit navbar @done (13/01/2024 16:37:01)
+            ✔ TODO : Remove all "".nativeElement.classList.remove/add" and use function hide instead on edit navbar @done (13/01/2024 16:31:39)
+            ✔ FIXME : Fix probem item added on add sidebar @done (13/01/2024 22:41:15)
+            ✔ FIXME : Fix drag and drop between grid on add sidebar @done (13/01/2024 22:45:10)
+            ✔ TODO : Create page edit sidebar @done (14/01/2024 13:00:53)
+            ✔ TODO : Create page view sidebar @done (14/01/2024 13:11:29)
+            ✔ FIXME : add navbar interface on view navbar @done (14/01/2024 13:13:02)
+            ✔ TODO : Check if part manage sidebar work well @done (14/01/2024 13:19:10)
+
+            Part footer:
+                ✔ Create service footer @done (14/01/2024 14:02:06)
+                ✔ Create interface footer @done (14/01/2024 14:02:40)
+                ✔ Create list footer @done (14/01/2024 15:12:35)
+                ✔ Create Add footer @done (14/01/2024 15:58:02)
+                ✔ Create Edit footer @done (14/01/2024 16:07:44)
+                ✔ Create View footer @done (14/01/2024 16:11:47)
+                ✔ Check if every thing work like intended @done (14/01/2024 16:13:47)
+
+
+        Content:
+            ✔ TODO : Create service page @done (14/01/2024 22:44:15)
+            ✔ TODO : Create interface page @done (14/01/2024 22:45:49)
+            ✔ TODO : Create list pages @done (14/01/2024 23:06:59)
+            ✔ TODO : Create add page @done (14/01/2024 23:38:37)
+            ✔ TODO : Change theme TinyMCE color by any mean @done (15/01/2024 02:43:25)
+            ✔ TODO : Create Edit page @done (15/01/2024 12:04:02)
+
+        System:
+            ✔ TODO : Create part settings @done (17/01/2024 11:39:00)
+                ✔ Create entity name: settings : [name website, status maintenance] @done (16/01/2024 13:43:30)
+                ✔ input : name website, radio site on maintenance @done (16/01/2024 13:43:36)
+                ✔ TODO : Apply status maintenance on toggle button @done (17/01/2024 11:38:59)
+            ✔ TODO : Create part admin accounts @done (18/01/2024 15:19:58)
+                ✔ Create entity : [id, username, email, password, superadmin(bool)] @done (17/01/2024 15:31:00)
+                ✔ Add symfony setting for password @done (17/01/2024 20:01:35)
+                ✔ TODO : Create service admin accounts @done (17/01/2024 15:04:12)
+                ✔ TODO : Create interface admin accounts @done (17/01/2024 15:04:25)
+                ✔ TODO : Create list admin accounts @done (17/01/2024 15:04:41)
+                ✔ TODO : Create Add admin account @done (17/01/2024 23:43:29)
+                ✔ TODO : Create Edit admin account @done (18/01/2024 15:11:30)
+                    ✔ TODO : make two form separate for update profile and password @done (18/01/2024 15:11:28)
+                    ✔ TODO : Fix problem we will get in api @done (18/01/2024 15:11:29)
+                ✔ TODO : Create View admin account @done (18/01/2024 15:18:58)
+
+                Ressources:
+                    https://api-platform.com/docs/core/user/
+                    https://symfony.com/doc/current/security/passwords.html#configuring-a-password-hasher
+
+        Auth system:
+            ✔ TODO : Install the auth system and understand it @done (19/01/2024 00:27:17)
+            ✔ TODO : Login page @done (21/01/2024 15:49:20)
+                ✔ TODO : View of the page @done (19/01/2024 12:25:52)
+                ✔ TODO : Make the form function @done (21/01/2024 15:41:47)
+            ✔ TODO : Logout system @done (21/01/2024 15:41:49)
+            ✔ FIXME : Fix loggedIn variable, the problem is NgOnInit is not fire after this.router.navigate @done (21/01/2024 20:47:39)
+            ✔ FIXME : Fix the token problem to prevent bullshit token to access dashboard @done (23/01/2024 16:48:52)
+                ✔ TODO : http request inside authService in function isLoggedIn() @done (23/01/2024 15:30:20)
+                ✔ FIXME : FIX THE AUTH CONTROLLER ERROR FOR VERIFY @done (23/01/2024 15:25:57)
+                Ressources:
+                    https://stackoverflow.com/questions/55319512/how-to-validate-a-jwt-token-programmatically-in-symfony
+                    https://stackoverflow.com/questions/59442021/verify-token-with-api-in-angular8-canactivate-method-of-authguard
+                    https://api-platform.com/docs/core/controllers/
+                    https://aymeric-cucherousset.fr/authentification-jwt-api-platform/
+                    https://github.com/lexik/LexikJWTAuthenticationBundle/blob/2.x/OpenApi/OpenApiFactory.php
+                    https://grafikart.fr/tutoriels/api-platform-auth-jwt-1915
+            
+            ✔ FIXME : Fix localstorage not defined problem was SSR, I did remove SSR Angular @done (23/01/2024 21:40:47)
+            ✔ TODO : create env file @done (24/01/2024 18:32:08)
+                Ressources:
+                    https://angular.fr/services/environment.html
+            ✔ TODO : Fix header Auth Interceptor @done (24/01/2024 13:26:05)
+            ✔ TODO : AuthInterceptor if error come like expired, invalid and unverified @done (24/01/2024 21:26:38)
+                Ressources:
+                    https://stackoverflow.com/questions/75183747/authentication-guard-with-angular
+                    what i'm gonna use this one below
+                    https://stackoverflow.com/questions/68695582/http-call-inside-angular-guard-to-verify-jwt
+                    -----------------
+            
+            Ressources:
+                https://api-platform.com/docs/core/jwt/
+                https://angular.io/guide/router#preventing-unauthorized-access
+        
+        Sidebar:
+            ✔ TODO : Show or hide Settings / Admin accounts if role superadmin = true/false @done (25/01/2024 22:04:08)
+                ✔ TODO : Create endpoint in API with controller, route @done (25/01/2024 20:27:21)
+
+        Top Right dropdown menu:
+            ✔ TODO : Manage my profile account @done (26/01/2024 12:00:36)
+        
+        Dashboard:
+            Think about what to put on dashboard below block visit
+
+        Security system:
+            back-office:
+                ✔ TODO : Add System Alert success, error @done (27/01/2024 18:29:20)
+                    Ressources: 
+                        https://jasonwatmore.com/post/2022/11/23/angular-14-alert-toaster-notifications-tutorial-example
+                    ✔ TODO : Login ok alert @done (27/01/2024 18:29:37)
+                    ✔ TODO : Logout ok alert @done (27/01/2024 18:29:47)
+                    ✔ TODO : Change Fa Icon on wich alert is triggered @done (28/01/2024 13:00:56)
+                    ✔ TODO : Login error alert username or password @done (28/01/2024 13:08:40)
+                    ✔ TODO : Navbar alert @done (28/01/2024 20:50:02)
+                    ✔ TODO : Sidebar alert @done (31/01/2024 20:52:34)
+                    ✔ TODO : Footer alert @done (31/01/2024 20:55:36)
+                    ✔ TODO : Page alert @done (31/01/2024 20:57:13)
+                    ✔ TODO : Setting alert @done (31/01/2024 20:58:13)
+                    ✔ TODO : Admin account alert @done (31/01/2024 21:00:33)
+                    ☐ TODO : Profile alert
+                        Problem ? 
+                            profile component use admin account service
+                        Solution ? 
+                ✔ TODO : Add validator with error if needed @done (29/02/2024 18:59:17)
+                    ✔ TODO : Login validator @done (01/02/2024 22:11:53)
+                    ✔ TODO : Login error @done (01/02/2024 22:15:16)
+                    ✔ TODO : Add Navbar validator @done (22/02/2024 15:27:26)
+                    ✔ TODO : Add Navbar error @done (22/02/2024 15:27:30)
+                    ✔ TODO : Edit Navbar validator @done (22/02/2024 16:18:47)
+                    ✔ TODO : Edit Navbar error @done (22/02/2024 16:18:47)
+                    ✔ TODO : Make a check in add item for the select box sub parent, if parent is not selected so sub parent need to be disabled @done (25/02/2024 20:47:48)
+                    ✔ TODO : Add Sidebar validator @done (26/02/2024 16:04:16)
+                    ✔ TODO : Add Sidebar error @done (26/02/2024 16:04:16)
+                    ✔ TODO : Edit Sidebar validator @done (26/02/2024 18:09:55)
+                    ✔ TODO : Edit Sidebar error @done (26/02/2024 18:09:57)
+                    ✔ TODO : Add Footer validator @done (26/02/2024 19:00:49)
+                    ✔ TODO : Add Footer error @done (26/02/2024 19:00:50)
+                    ✔ TODO : Edit Footer validator @done (26/02/2024 19:36:55)
+                    ✔ TODO : Edit Footer error @done (26/02/2024 19:36:56)
+                    ✔ TODO : Add Page validator @done (27/02/2024 19:25:21)
+                    ✔ TODO : Add Page error @done (27/02/2024 19:25:22)
+                    ✔ TODO : Edit Page validator @done (27/02/2024 19:25:23)
+                    ✔ TODO : Edit Page error @done (27/02/2024 19:25:24)
+                    ✔ TODO : Setting validator @done (27/02/2024 19:30:15)
+                    ✔ TODO : Setting error @done (27/02/2024 19:30:16)
+                    ✔ TODO : Add Admin account validator @done (27/02/2024 20:43:26)
+                    ✔ TODO : Add Admin account error @done (27/02/2024 20:43:27)
+                    ✔ TODO : Edit Admin account validator @done (27/02/2024 22:14:38)
+                    ✔ TODO : Edit Admin account error @done (27/02/2024 22:14:40)
+                    Ressources:
+                        https://angular.io/guide/form-validation
+            
+                ✔ TODO : Fix TinyMCE Editor in add page and edit page, by the solution in my mailbox in github @done (28/02/2024 00:00:56)
+                ✔ TODO : Disable all buttons if form validator invalid @done (28/02/2024 00:02:51)
+                ✔ TODO : Change set value in angular by that : https://stackoverflow.com/questions/58627303/how-to-set-value-for-textarea-in-angular-7 @done (28/02/2024 12:41:27)
+
+                ✔ TODO : Dom Sanitazer @done (28/02/2024 15:38:18)
+                    Ressources:
+                        https://angular.io/guide/security
+                        https://www.stackhawk.com/blog/angular-xss-guide-examples-and-prevention/
+                
+                ✔ TODO : Content-Security-Policy @done (28/02/2024 20:13:03)
+                    Ressources:
+                        https://www.stackhawk.com/blog/angular-content-security-policy-guide-what-it-is-and-how-to-enable-it/
+                        https://dev-academy.com/content-security-policy-in-angular/
+                ✔ TODO : Uncomment login button disabled @done (28/02/2024 20:15:54)
+                    Ressources:
+                        https://medium.com/front-end-weekly/how-to-implement-custom-validator-confirm-password-in-angular2-rc-3-622288ba809d
+                
+                ✔ TODO : Add input route for page @done (08/03/2024 11:56:38)
+                
+                ---------------------------------------------------------------------------------------
+
+                ☐ TODO : make 404 error page
+
+            API:
+                ✔ TODO : Add and check all validator in API Platform @done (29/02/2024 17:31:28)
+                Ressources:
+                    https://api-platform.com/docs/core/security/
+    
+    FRONT-OFFICE:
+        ✔ TODO : Make a basic template with Tailwind CSS and DaisyUI @done (02/03/2024 13:51:17)
+            Dependancy :
+                Tailwind CSS, DaisyUI
+        ✔ TODO : Add basic content @done (02/03/2024 17:48:14)
+        ✔ TODO : Add basic menu navbar @done (02/03/2024 17:48:16)
+        ☐ TODO : Add basic menu sidebar
+        ✔ TODO : Add basic footer @done (02/03/2024 17:48:18)
+        ✔ TODO : Retrieve Navbar in navbar component @done (07/03/2024 21:42:08)
+        ✔ TODO : Retrieve Footer in footer component @done (07/03/2024 21:56:12)
+        ✔ TODO : Retrieve page content in page component @done (08/03/2024 14:51:46)
+        ☐ TODO : make 404 error page
+            Ressources:
+                https://levelup.gitconnected.com/angular-dynamic-routing-299c04ca75b1
+
+    GIT:
+        ✔ TODO : Make a readme with 1/ Description of the project 2/ Instructions for instrall the CMS 3/ Todo list @done (12/03/2024 20:13:00)
+        ✔ TODO : NX Mono Repo migration @done (17/03/2024 19:34:38)
+        ☐ TODO : Publish Monorepo with github software
+        ☐ TODO : Make a release

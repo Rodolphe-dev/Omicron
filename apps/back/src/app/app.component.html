@@ -1,0 +1,24 @@
+@if (loggedIn === true) {
+    <app-header></app-header>
+
+    <main>
+        <div class="grid grid-cols-8">
+            <div class="col-span-1">
+                <app-sidebar></app-sidebar>
+            </div>
+            <div class="col-span-7 p-5">
+                <app-breadcrumbs></app-breadcrumbs>
+                <div class="p-5">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <app-footer></app-footer>
+}@else {
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+}
+<app-alert></app-alert>

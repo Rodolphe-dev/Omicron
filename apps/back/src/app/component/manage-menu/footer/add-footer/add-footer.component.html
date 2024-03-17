@@ -1,0 +1,48 @@
+<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
+    <div class="col-end-6 md:col-end-5">
+        <a class="btn mx-1 btn-neutral" routerLink="/footer/list">
+            Back
+        </a>
+    </div>
+</div>
+
+<form [formGroup]="addFooterForm" (ngSubmit)="addFooter()">
+    <div class="grid grid-cols-4 gap-4 place-items-center p-3 bg-base-200">
+        <div class="col-span-1 w-full min-w-full">
+            <label class="form-control w-full">
+                <div class="label">
+                    <span class="label-text font-semibold">Name</span>
+                </div>
+                <input type="text" id="name" formControlName="name" placeholder="Type here" class="{{ nameFooter.invalid && (nameFooter.dirty || nameFooter.touched) ? 'input-error' : '' }} input input-bordered w-full" />
+
+                @if(nameFooter.invalid && (nameFooter.dirty || nameFooter.touched)){
+                    @if(nameFooter.errors?.['required']){
+                        <div class="label">
+                            <span class="label-text-alt text-error">Name is required.</span>
+                        </div>
+                    }
+                }
+            </label>
+        </div>
+        <div class="col-span-3 w-1/2">
+            <label class="form-control">
+                <div class="label">
+                    <span class="label-text font-semibold">Content</span>
+                </div>
+                <textarea name="content" formControlName="content" placeholder="Type Content here" class="textarea textarea-bordered w-full"></textarea>
+            </label>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
+        @if(nameFooter.invalid && (nameFooter.dirty || nameFooter.touched)){
+            <button class="btn btn-success" disabled>
+                Confirm
+            </button>
+        }@else {
+            <button class="btn btn-success">
+                Confirm
+            </button>
+        }
+    </div>
+</form>

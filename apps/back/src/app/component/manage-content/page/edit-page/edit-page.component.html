@@ -1,0 +1,78 @@
+<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
+    <div class="col-end-6 md:col-end-5">
+        <a class="btn mx-1 btn-neutral" routerLink="/page/list">
+            Back
+        </a>
+    </div>
+</div>
+
+<form [formGroup]="pageForm" (ngSubmit)="editPageForm()">
+    <div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text font-semibold">Name</span>
+            </div>
+            <input type="text" name="pageName" #pageName formControlName="name" placeholder="Type here" class="{{ namePage.invalid && (namePage.dirty || namePage.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+
+            @if(namePage.invalid && (namePage.dirty || namePage.touched)){
+                @if(namePage.errors?.['required']){
+                    <div class="label">
+                        <span class="label-text-alt text-error">Name is required.</span>
+                    </div>
+                }
+            }
+        </label>
+    </div>
+    
+    <div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text font-semibold">Route</span>
+            </div>
+            <input type="text" name="pageRoute" #pageRoute formControlName="route" placeholder="Type here" class="{{ routePage.invalid && (routePage.dirty || routePage.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+
+            @if(routePage.invalid && (routePage.dirty || routePage.touched)){
+                @if(namePage.errors?.['required']){
+                    <div class="label">
+                        <span class="label-text-alt text-error">Route is required.</span>
+                    </div>
+                }
+            }
+        </label>
+    </div>
+
+    <div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
+        <label class="form-control w-full col-span-5">
+            <div class="label">
+                <span class="label-text font-semibold">Content</span>
+            </div>
+            <editor
+                [init]="{ 
+                        plugins: 'lists link image table code wordcount',
+                        toolbar: 'undo redo | fontsize blocks | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify indent outdent | blockquote bullist numlist table | link image',
+                        menubar: false,
+                        base_url: '/tinymce',
+                        suffix: '.min',
+                        branding: false,
+                        promotion: false,
+                        skin: 'custom',
+                        content_style: 'body { background-color: #171717; color: #CBCBCB; }'
+                    }" 
+                formControlName="content" 
+                class="w-full"
+            ></editor>
+        </label>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
+        @if((namePage.invalid && (namePage.dirty || namePage.touched)) || (routePage.invalid && (routePage.dirty || routePage.touched))){
+            <button class="btn btn-success" disabled>
+                Confirm
+            </button>
+        }@else {
+            <button class="btn btn-success" type="submit">
+                Confirm
+            </button>
+        }
+    </div>
+</form>

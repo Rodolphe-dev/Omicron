@@ -1,0 +1,48 @@
+<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
+    <div class="col-end-6 md:col-end-5">
+        <a class="btn mx-1 btn-neutral" routerLink="/system/admin/list">
+            Back
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-12 gap-4 p-3 bg-base-200">
+    <div class="col-span-3 w-full min-w-full">
+        <div class="grid grid-rows-4 grid-col-1 gap-4">
+            <div class="w-full min-w-full">
+                <label class="form-control w-full">
+                    <div class="label">
+                        <span class="label-text font-semibold">Username</span>
+                    </div>
+                    <span class="w-full">{{adminUsernameValue}}</span>
+                </label>
+            </div>
+    
+            <div class="w-full min-w-full">
+                <label class="form-control w-full">
+                    <div class="label">
+                        <span class="label-text font-semibold">Email</span>
+                    </div>
+                    <span class="w-full">{{adminEmailValue}}</span>
+                </label>
+            </div>
+    
+            <div class="w-full min-w-full">
+                <label class="form-control w-full max-w-xs">
+                    <div class="label">
+                        <span class="label-text font-semibold">Role Admin</span>
+                    </div>
+                    @if(adminSuperAdminValue === true){
+                        <div class="badge badge-info gap-2">
+                            Super Admin
+                        </div>
+                    }@else{
+                        <div class="badge badge-info gap-2">
+                            Admin
+                        </div>
+                    }
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

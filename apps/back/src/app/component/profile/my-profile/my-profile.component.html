@@ -1,0 +1,80 @@
+<div class="grid grid-cols-12 gap-4 p-3 bg-base-200">
+    <div class="col-span-3 w-full min-w-full">
+        <form [formGroup]="adminForm" (ngSubmit)="editAdminForm()">
+            <div class="grid grid-rows-4 grid-col-1 gap-4">
+                <div class="w-full min-w-full">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text font-semibold">Username</span>
+                        </div>
+                        <input type="text" name="username" #username formControlName="username" value="{{adminUsernameValue}}" placeholder="Type here" class="input input-bordered w-full" />
+                    </label>
+                </div>
+        
+                <div class="w-full min-w-full">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text font-semibold">Email</span>
+                        </div>
+                        <input type="email" name="email" #email formControlName="email" value="{{adminEmailValue}}" placeholder="Type here" class="input input-bordered w-full" />
+                    </label>
+                </div>
+        
+                <div class="w-full min-w-full">
+                    <label class="form-control w-full max-w-xs">
+                        <div class="label">
+                            <span class="label-text font-semibold">Super Admin</span>
+                        </div>
+                        <input type="checkbox" class="toggle"  name="superAdmin" #superAdmin formControlName="superAdmin" />
+                    </label>
+                </div>
+        
+                <div class="w-full min-w-full place-self-center flex justify-center">
+                    <button class="btn btn-success items-center" type="submit">
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-span-1 place-self-center h-full min-h-full">
+        <div class="divider divider-horizontal h-full min-h-full"></div>
+    </div>
+
+    <div class="col-span-3 w-full min-w-full">
+        <form [formGroup]="adminPasswordForm" (ngSubmit)="editAdminPasswordForm()">
+            <div class="grid grid-rows-4 grid-col-1 gap-4">
+                <div class="w-full min-w-full">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text font-semibold">New password</span>
+                        </div>
+                        <div class="relative">
+                            <input type="{{ showPassword ? 'text' : 'password' }}" name="password" #password formControlName="password" placeholder="Type here" class="input input-bordered w-full" />
+                            <fa-icon [icon]="showPassword ? faEyeSlash : faEye" class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg" (click)="togglePasswordVisibility()"></fa-icon>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="w-full min-w-full">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text font-semibold">Confirm New password</span>
+                        </div>
+                        <div class="relative">
+                            <input type="{{ showPassword ? 'text' : 'password' }}" name="confirmPassword" #confirmPassword formControlName="confirmPassword" placeholder="Type here" class="input input-bordered w-full" />
+                            <fa-icon [icon]="showPassword ? faEyeSlash : faEye" class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg" (click)="togglePasswordVisibility()"></fa-icon>
+                        </div>
+                    </label>
+                </div>
+        
+                <div class="w-full min-w-full row-end-5 place-self-center flex justify-center">
+                    <button class="btn btn-success items-center" type="submit">
+                        Change password
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

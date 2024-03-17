@@ -1,0 +1,78 @@
+<!-- Statistic -->
+<div class="grid grid-cols-1 place-items-center">
+    <div class="stats shadow mb-3 bg-base-200">
+        <div class="stat">
+            <div class="stat-figure text-secondary">
+                <fa-icon [icon]="faUser" class="fa-xl leading-lg"></fa-icon>
+            </div>
+            <div class="stat-title">User</div>
+            <!-- Total -->
+            <div class="stat-value">31K (total)</div>
+            <!-- $var1 = new this month and $var2 percentage based on $var1 -->
+            <div class="stat-desc text-success"><fa-icon [icon]="faArrowTrendUp" class="leading-lg"></fa-icon> 400 (22%)</div>
+        </div>
+        
+        <div class="stat">
+            <div class="stat-figure text-secondary">
+                <fa-icon [icon]="faEye" class="fa-xl leading-lg"></fa-icon>
+            </div>
+            <div class="stat-title">Page View</div>
+            <!-- Total -->
+            <div class="stat-value">4,200 (total)</div>
+            <!-- $var1 = new this month and $var2 percentage based on $var1 -->
+            <div class="stat-desc text-success"><fa-icon [icon]="faArrowTrendUp" class="leading-lg"></fa-icon> 400 (22%)</div>
+        </div>
+        
+        <div class="stat">
+            <div class="stat-figure text-secondary">
+                <fa-icon [icon]="faBolt" class="fa-xl leading-lg"></fa-icon>
+            </div>
+            <div class="stat-title">Performance</div>
+            <!-- Total -->
+            <div class="stat-value">-80 %</div>
+            <!-- $var1 = new this month and $var2 percentage based on $var1 -->
+            <div class="stat-desc text-error"><fa-icon [icon]="faArrowTrendDown" class="leading-lg"></fa-icon> 90 (14%)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Table page view -->
+
+<div class="grid grid-cols-1 p-3 place-items-center bg-base-200">
+    <div class="w-5/6 overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Favorite Color</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- row 1 -->
+            <tr>
+                <th>1</th>
+                <td>Cy Ganderton</td>
+                <td>Quality Control Specialist</td>
+                <td>Blue</td>
+            </tr>
+            <!-- row 2 -->
+            <tr class="hover">
+                <th>2</th>
+                <td>Hart Hagerty</td>
+                <td>Desktop Support Technician</td>
+                <td>Purple</td>
+            </tr>
+            <!-- row 3 -->
+            <tr>
+                <th>3</th>
+                <td>Brice Swyre</td>
+                <td>Tax Accountant</td>
+                <td>Red</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

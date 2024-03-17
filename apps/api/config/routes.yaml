@@ -1,0 +1,27 @@
+controllers:
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
+
+auth:
+  path: /auth
+  methods: ["POST"]
+
+verify:
+  path: /verify
+  methods: ["POST"]
+  defaults:
+    _controller: App\Controller\AuthController::verify
+
+getAdminAccountByUsername:
+  path: /api/admin_accounts/getAdminAccountByUsername/{username}
+  methods: ["GET"]
+  defaults:
+    _controller: App\Controller\AdminAccountController::getAdminAccountByUsername
+
+getPageByRoute:
+  path: /api/pages/getPageByRoute/{route}
+  methods: ["GET"]
+  defaults:
+    _controller: App\Controller\PageController::getPageByRoute

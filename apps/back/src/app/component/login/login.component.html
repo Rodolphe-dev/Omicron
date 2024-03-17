@@ -1,0 +1,90 @@
+<div class="grid grid-cols-2 m-auto justify-center w-1/4 min-h-screen">
+    <div class="col-span-2 m-auto p-8 bg-base-300 shadow-xl card">
+        <div class="w-full p-2 justify-center justify-self-center m-auto text-center">
+            <h2 class="text-xl font-bold">Login</h2>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="loginAuthForm()">
+            <div class="w-full p-2 justify-center justify-self-center m-auto">
+                <label class="form-control w-full max-w-xs">
+                    <div class="label">
+                        <span class="label-text font-semibold">Username</span>
+                    </div>
+
+                    <input type="text" name="username" formControlName="username" placeholder="Type here" class="{{ username.invalid && (username.dirty || username.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+
+                        @if(username.invalid && (username.dirty || username.touched)){
+                            @if(username.errors?.['required']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Username is required.</span>
+                                </div>
+                            }
+                            @if(username.errors?.['minlength']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Username must be 3 characters minimum.</span>
+                                </div>
+                            }
+                            @if(username.errors?.['maxlength']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Username must be 25 characters maximum.</span>
+                                </div>
+                            }
+                            @if(username.errors?.['pattern']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Username must be only normal characters like letters, numbers, uppercase, lowercase.</span>
+                                </div>
+                            }
+                        }
+                </label>
+            </div>
+
+            <div class="w-full p-2 justify-center justify-self-center m-auto">
+                <label class="form-control w-full">
+                    <div class="label">
+                        <span class="label-text font-semibold">Password</span>
+                    </div>
+
+                    <div class="relative">
+                        <input type="{{ showPassword ? 'text' : 'password' }}" name="password" formControlName="password" placeholder="Type here" class="{{ password.invalid && (password.dirty || password.touched) ? 'input-error' : '' }} input input-bordered w-full" />
+                        <fa-icon [icon]="showPassword ? faEyeSlash : faEye" class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg" (click)="togglePasswordVisibility()"></fa-icon>
+                    </div>
+
+                        @if(password.invalid && (password.dirty || password.touched)){
+                            @if(password.errors?.['required']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Password is required.</span>
+                                </div>
+                            }
+                            @if(password.errors?.['minlength']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Password must be 8 characters minimum.</span>
+                                </div>
+                            }
+                            @if(password.errors?.['maxlength']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Password must be 25 characters maximum.</span>
+                                </div>
+                            }
+                            @if(password.errors?.['pattern']){
+                                <div class="label">
+                                    <span class="label-text-alt text-error">Password must be only normal characters like letters, numbers, uppercase, lowercase, special characters.</span>
+                                </div>
+                            }
+                        }
+                </label>
+            </div>
+
+            <div class="w-full p-2 justify-center justify-self-center m-auto mt-3 text-center">
+                @if(password.invalid && (password.dirty || password.touched)){
+                    <button class="btn btn-success w-full" type="submit" disabled>
+                        Login
+                    </button>
+                }@else {
+                    <button class="btn btn-success w-full" type="submit">
+                        Login
+                    </button>
+                }
+            </div>
+        </form>
+    </div>
+</div>
