@@ -3,12 +3,15 @@
 ## Description
 
 Omicron is a little CMS made with NX, Angular, Symfony, API Platform, Tailwind CSS and DaisyUI.
+
 This is open source and free to use.
 
 ## How to install ?
 
 We use monorepo NX and this come with a new CLI => https://nx.dev/
+
 You need to build the angular apps with NX
+
 Environments need to be rewrite with the new path in the angular apps, the path in apps front and back is ```src/environments```
 
 A fixture need to be execute for create the data needed to be working => ```doctrine:fixtures:load```
