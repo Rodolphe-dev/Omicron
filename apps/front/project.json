@@ -1,72 +1,87 @@
 {
-  "name": "front",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "omicron-nx",
-  "sourceRoot": "apps/front/src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/front",
-        "index": "apps/front/src/index.html",
-        "browser": "apps/front/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/front/tsconfig.app.json",
-        "assets": ["apps/front/src/favicon.ico", "apps/front/src/assets"],
-        "styles": ["apps/front/src/styles.css"],
-        "scripts": []
-      },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+    "name": "front",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "omicron-nx",
+    "sourceRoot": "apps/front/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:application",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "options": {
+                "outputPath": "dist/apps/front",
+                "index": "apps/front/src/index.html",
+                "browser": "apps/front/src/main.ts",
+                "polyfills": [
+                    "zone.js"
+                ],
+                "tsConfig": "apps/front/tsconfig.app.json",
+                "assets": [
+                    "apps/front/src/favicon.ico",
+                    "apps/front/src/assets"
+                ],
+                "styles": [
+                    "apps/front/src/styles.css"
+                ],
+                "scripts": []
             },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "2kb",
+                            "maximumError": "4kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true,
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/back/src/environments/environment.ts",
+                            "with": "apps/back/src/environments/environment.development.ts"
+                        }
+                    ]
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "front:build:production"
+                },
+                "development": {
+                    "buildTarget": "front:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "buildTarget": "front:build"
             }
-          ],
-          "outputHashing": "all"
         },
-        "development": {
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
+        "serve-static": {
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "front:build",
+                "staticFilePath": "dist/apps/front/browser"
+            }
         }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "front:build:production"
-        },
-        "development": {
-          "buildTarget": "front:build:development"
-        }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "front:build"
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "front:build",
-        "staticFilePath": "dist/apps/front/browser"
-      }
     }
-  }
 }
