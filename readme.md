@@ -14,22 +14,16 @@ Serve the apps:
 
 ```
 nx serve front
-
 nx serve back
-
 nx serve api
-
 ```
 
 Build the apps:
 
 ```
 nx build front
-
 nx build back
-
 nx build api
-
 ```
 
 Environments need to be rewrite with the new path in the angular apps, the path in apps front and back is ```src/environments```
@@ -38,9 +32,9 @@ A fixture need to be execute for create the data needed to be working => ```doct
 
 Admin panel
 
-_ _username:_ _ admin
+_username:_ admin
 
-_ _password:_ _ password
+_password:_ password
 
 This must be change for your safety
 
