@@ -26,9 +26,9 @@ nx build back
 nx build api
 ```
 
-Environments need to be rewrite with the new path in the angular apps, the path in apps front and back is ```src/environments```
+Environments need to be rewrite with the new path in the angular apps, the path in apps front and back is ```src/environments``` for production
 
-A fixture need to be execute for create the data needed to be working => ```doctrine:fixtures:load```
+A fixture need to be execute for create the data needed to be working on both local and online => ```doctrine:fixtures:load```
 
 Admin panel
 
