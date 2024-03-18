@@ -32,9 +32,10 @@ A fixture need to be execute for create the data needed to be working => ```doct
 
 Admin panel
 
+```
 _username:_ admin
-
 _password:_ password
+```
 
 This must be change for your safety
 
