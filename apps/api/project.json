@@ -1,0 +1,36 @@
+{
+    "name": "api",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "omicron-nx",
+    "sourceRoot": "apps/api",
+    "targets": {
+        "build": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "rm -rf dist\\apps\\api",
+                    "mkdir dist\\apps\\api",
+                    "xcopy apps\\api dist\\apps\\api /E /Q /Y"
+                ],
+                "parallel": false
+            }
+        },
+        "serve": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "symfony serve --dir=apps/api"
+                ]
+            }
+        },
+        "stop": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "symfony server:stop --dir=apps/api"
+                ]
+            }
+        }
+    }
+}

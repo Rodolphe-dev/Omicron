@@ -10,7 +10,27 @@ This is open source and free to use.
 
 We use monorepo NX and this come with a new CLI => https://nx.dev/
 
-You need to build the angular apps with NX
+Serve the apps:
+
+```
+nx serve front
+
+nx serve back
+
+nx serve api
+
+```
+
+Build the apps:
+
+```
+nx build front
+
+nx build back
+
+nx build api
+
+```
 
 Environments need to be rewrite with the new path in the angular apps, the path in apps front and back is ```src/environments```
 
