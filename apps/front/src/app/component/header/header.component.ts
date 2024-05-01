@@ -1,69 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faHouse } from '@fortawesome/free-solid-svg-icons';
-import { NavbarService } from '../../service/navbar/navbar.service';
-import { SettingService } from '../../service/setting/setting.service';
 import { INavbar } from '../../model/navbar';
 
 @Component({
-    selector: 'app-header',
+    selector: 'omicron-nx-header',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
         FontAwesomeModule,
         FormsModule
     ],
-    providers: [
-        NavbarService,
-        SettingService
-    ],
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent  {
+    faBars = faBars;
+    faHouse = faHouse;
 
-	faBars = faBars;
-	faHouse = faHouse;
-
-    actualSetting: any = {};
     appName!: string;
+    items: INavbar[] = [];
 
-    items : INavbar[] = [];
-    
-    constructor(
-        private navbar : NavbarService,
-        private setting : SettingService,
-        ) { }
+    setNavbar(data: INavbar[]){
+        this.items = data
+    }
 
-    ngOnInit() {
-        this.navbar.getNavbars()
-            .subscribe({
-                next: value => {
-                    let stringValue = JSON.stringify(value);
-                    let parseValue = JSON.parse(stringValue);
-                    let fisrtNavbar = parseValue[0];
-
-                    this.items = fisrtNavbar.items;
-                },
-                error: () => {},
-                complete: () => {}
-        });
-        
-        this.setting.getThisSetting(1)
-            .subscribe({
-                next: value => {
-                    this.actualSetting = value;
-                    this.appName = this.actualSetting.nameApp;
-                },
-                error: () => { },
-                complete: () => { }
-            });
+    setNameApp(data: string){
+        this.appName = data
     }
 
 }

@@ -24,92 +24,140 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        /** 
-         * FOR TESTING ONLY
-         */
-
-        /*
-        for ($i = 0; $i < 10; $i++) {
-            $navbar = new Navbar();
-            $navbar->setName('Navbar name ' . $i);
-            $items = array(
-                (object) [
-                    'parent' => true,
-                    'parentName' => 'Parent Item ' . $i,
-                    'name' => 'Item Name ' . $i,
-                    'url' => 'route_' . $i
-                ]
-            );
-            $navbar->setitems($items);
-            $manager->persist($navbar);
-        }
-
-        for ($i = 0; $i < 10; $i++) {
-            $sidebar = new Sidebar();
-            $sidebar->setName('sidebar name ' . $i);
-            $items = array(
-                (object) [
-                    'parent' => true,
-                    'parentName' => 'Parent Item ' . $i,
-                    'name' => 'Item Name ' . $i,
-                    'url' => 'route_' . $i
-                ]
-            );
-            $sidebar->setitems($items);
-            $manager->persist($sidebar);
-        }
-
-        for ($i = 0; $i < 10; $i++) {
-            $footer = new Footer();
-            $footer->setName('footer name ' . $i);
-            $footer->setContent('footer content ' . $i);
-            $manager->persist($footer);
-        }
-        */
-
-        /** Create first component */
+        /** Create default navbar */
 
         $navbar = new Navbar();
         $navbar->setName('Default Navbar');
+        $navbar->setStatus(true);
         $items = array(
             (object) [
+                'id' => 1,
                 'parent' => false,
                 'parentName' => '',
                 'name' => 'Item 1',
-                'url' => 'home'
+                'url' => 'home',
+                'inParent' => false,
+                'children' => ''
             ],
             (object) [
+                'id' => 2,
                 'parent' => false,
                 'parentName' => '',
                 'name' => 'Item 2',
-                'url' => 'route_2'
+                'url' => 'route_2',
+                'inParent' => false,
+                'children' => ''
             ],
             (object) [
+                'id' => 3,
                 'parent' => false,
                 'parentName' => '',
                 'name' => 'Item 3',
-                'url' => 'route_3'
+                'url' => 'route_3',
+                'inParent' => false,
+                'children' => ''
             ],
             (object) [
+                'id' => 4,
                 'parent' => false,
                 'parentName' => '',
                 'name' => 'Item 4',
-                'url' => 'route_4'
+                'url' => 'route_4',
+                'inParent' => false,
+                'children' => ''
             ],
             (object) [
+                'id' => 5,
                 'parent' => false,
                 'parentName' => '',
                 'name' => 'Item 5',
-                'url' => 'route_5'
+                'url' => 'route_5',
+                'inParent' => false,
+                'children' => ''
             ],
         );
         $navbar->setitems($items);
         $manager->persist($navbar);
 
+        /** Create default sidebar */
+
+        $sidebar = new Sidebar();
+        $sidebar->setName('Default Sidebar');
+        $sidebar->setStatus(true);
+        $items = array(
+            (object) [
+                'id' => 1,
+                'parent' => false,
+                'subParent' => false,
+                'parentName' => '',
+                'subParentName' => '',
+                'name' => 'Item 1',
+                'url' => 'home',
+                'inParent' => false,
+                'inSubParent' => false,
+                'children' => ''
+            ],
+            (object) [
+                'id' => 2,
+                'parent' => false,
+                'subParent' => false,
+                'parentName' => '',
+                'subParentName' => '',
+                'name' => 'Item 2',
+                'url' => 'route_2',
+                'inParent' => false,
+                'inSubParent' => false,
+                'children' => ''
+            ],
+            (object) [
+                'id' => 3,
+                'parent' => false,
+                'subParent' => false,
+                'parentName' => '',
+                'subParentName' => '',
+                'name' => 'Item 3',
+                'url' => 'route_3',
+                'inParent' => false,
+                'inSubParent' => false,
+                'children' => ''
+            ],
+            (object) [
+                'id' => 4,
+                'parent' => false,
+                'subParent' => false,
+                'parentName' => '',
+                'subParentName' => '',
+                'name' => 'Item 4',
+                'url' => 'route_4',
+                'inParent' => false,
+                'inSubParent' => false,
+                'children' => ''
+            ],
+            (object) [
+                'id' => 5,
+                'parent' => false,
+                'subParent' => false,
+                'parentName' => '',
+                'subParentName' => '',
+                'name' => 'Item 5',
+                'url' => 'route_5',
+                'inParent' => false,
+                'inSubParent' => false,
+                'children' => ''
+            ],
+        );
+        $sidebar->setitems($items);
+        $manager->persist($sidebar);
+
+        /** Create default footer */
+
         $footer = new Footer();
         $footer->setName('Default footer');
+        $footer->setStatus(true);
         $footer->setContent('Copyright © 2023 - All right reserved - Powered by Omicron');
         $manager->persist($footer);
+
+        /** Create default page */
 
         $page = new Page();
         $page->setName('Home');

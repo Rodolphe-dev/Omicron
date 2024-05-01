@@ -6,8 +6,8 @@
     </div>
 </div>
 
-<div class="grid grid-cols-4 gap-4 place-items-center p-3 bg-base-200">
-    <div class="col-span-1 w-full min-w-full">
+<div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
+    <div class="col-span-1 w-full min-w-full justify-self-start self-start">
         <label class="form-control w-full">
             <div class="label">
                 <span class="label-text font-semibold">Name</span>
@@ -18,7 +18,15 @@
             </div>
         </label>
     </div>
-    <div class="col-span-3 w-1/2">
+    <div class="col-span-1 justify-self-start self-start">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text font-semibold">Status:</span>
+            </div>
+            <span class="">{{footerStatus}}</span>
+        </label>
+    </div>
+    <div class="col-span-3 w-1/2 justify-self-start self-start">
         <label class="form-control">
             <div class="label">
                 <span class="label-text font-semibold">Content</span>

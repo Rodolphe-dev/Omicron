@@ -13,22 +13,24 @@ export class AuthInterceptor implements HttpInterceptor {
         ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        const authToken = this.auth.getAuthToken();
         
-        if (!this.route.url.includes('login')) 
-        {  
             req = req.clone({
-                setHeaders: {
-                    Authorization: "Bearer " + authToken
-                }
+                withCredentials: true
             });
-        }
 
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
                 if(error.error.message === "Invalid JWT Token" && error.status === 401)
                 {
-
+                    this.auth.logout();
+                    this.route.navigate(['/login']).then(() => {
+                        window.location.reload();
+                    });
+                }else if(error.error.message === "JWT Token not found" && error.status === 401){
+                    this.auth.logout();
+                    this.route.navigate(['/login']).then(() => {
+                        window.location.reload();
+                    });
                 }else if(error.error.message === "Expired JWT Token" && error.status === 401){
                     this.auth.logout();
                     this.route.navigate(['/login']).then(() => {

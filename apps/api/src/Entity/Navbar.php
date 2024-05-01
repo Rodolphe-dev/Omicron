@@ -21,23 +21,29 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:create', 'user:update']],
     operations: [
-        new GetCollection(),
+        new GetCollection(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
+            securityMessage: 'Only super admins can access this.'
+        ),
         new Post(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
+            securityMessage: 'Only super admins can access this.'
+        ),
+        new Get(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
-        new Get(),
         new Put(
-            security: "is_granted('ROLE_ADMIN')",
-            securityMessage: 'Only admins can access this.'
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
+            securityMessage: 'Only super admins can access this.'
         ),
         new Patch(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Delete(
-            security: "is_granted('ROLE_ADMIN')",
-            securityMessage: 'Only admins can access this.'
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
+            securityMessage: 'Only super admins can access this.'
         ),
     ],
     paginationItemsPerPage: 20,
@@ -61,6 +67,12 @@ class Navbar
     private ?string $name = null;
 
     #[Groups(['user:read', 'user:create', 'user:update'])]
+    #[ORM\Column]
+    #[Assert\Type('boolean')]
+    #[Assert\NotNull]
+    private ?bool $status = null;
+
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     #[ORM\Column(nullable: true)]
     private ?array $items = null;
 
@@ -77,6 +89,18 @@ class Navbar
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

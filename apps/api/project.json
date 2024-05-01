@@ -24,6 +24,14 @@
                 ]
             }
         },
+        "serve-no-tls": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "symfony serve -no-tls --dir=apps/api"
+                ]
+            }
+        },
         "stop": {
             "executor": "nx:run-commands",
             "options": {

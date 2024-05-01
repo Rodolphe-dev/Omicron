@@ -22,22 +22,28 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:create', 'user:update']],
     operations: [
-        new GetCollection(),
-        new Post(
-            security: "is_granted('ROLE_ADMIN')",
+        new GetCollection(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
-        new Get(),
+        new Post(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
+            securityMessage: 'Only admins can access this.'
+        ),
+        new Get(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
+            securityMessage: 'Only admins can access this.'
+        ),
         new Put(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Patch(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Delete(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
     ],
@@ -61,6 +67,12 @@ class Footer
     #[Assert\NotBlank]
     #[Assert\NoSuspiciousCharacters]
     private ?string $name = null;
+
+    #[Groups(['user:read', 'user:create', 'user:update'])]
+    #[ORM\Column]
+    #[Assert\Type('boolean')]
+    #[Assert\NotNull]
+    private ?bool $status = null;
 
     #[Groups(['user:read', 'user:create', 'user:update'])]
     #[ORM\Column(length: 300, nullable: true)]
@@ -88,6 +100,18 @@ class Footer
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

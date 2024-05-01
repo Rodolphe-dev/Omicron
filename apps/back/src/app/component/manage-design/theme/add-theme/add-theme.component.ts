@@ -5,7 +5,7 @@ import { RouterLinkActive } from '@angular/router';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 
 @Component({
-    selector: 'app-add-theme',
+    selector: 'omicron-nx-add-theme',
     standalone: true,
     imports: [CommonModule, RouterLink, RouterLinkActive],
     templateUrl: './add-theme.component.html',
@@ -13,7 +13,7 @@ import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.
 })
 export class AddThemeComponent implements OnInit {
 
-    constructor(private breadcrumbs : BreadcrumbsService) {
+    constructor(private breadcrumbs: BreadcrumbsService) {
     }
 
     ngOnInit() {

@@ -11,14 +11,14 @@ export class PageService {
     private getUrl = '/api/pages/';
     private deleteUrl = '/api/pages/';
     private LDJsonHeader = new HttpHeaders()
-    .set('Accept', 'application/ld+json')
-    .set('Content-Type', 'application/ld+json');
+        .set('Accept', 'application/ld+json')
+        .set('Content-Type', 'application/ld+json');
     private JsonHeader = new HttpHeaders()
-    .set('Accept', 'application/json')
-    .set('Content-Type', 'application/json');
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json');
     private MergeJsonHeader = new HttpHeaders()
-    .set('Accept', 'application/json')
-    .set('Content-Type', 'application/merge-patch+json');
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/merge-patch+json');
 
     constructor(
         private httpClient: HttpClient,
@@ -58,7 +58,7 @@ export class PageService {
     }
 
     /** Get Page by id */
-    getThisPage(value : any){
+    getThisPage(value : number){
         return this.httpClient.get(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader});
     }
 
@@ -67,7 +67,7 @@ export class PageService {
         this.httpClient.post(this.baseUrl + this.normalUrl, value)
         .subscribe({
             next: () => {
-                let options = {
+                const options = {
                     autoClose: true,
                     keepAfterRouteChange: true
                 }
@@ -75,14 +75,13 @@ export class PageService {
                 this.alert.success('This page is added', options);
             },
             error: () => {
-                let options = {
+                const options = {
                     autoClose: false,
                     keepAfterRouteChange: true
                 }
 
                 this.alert.error('This page is not edited', options);
-            },
-            complete: () => {}
+            }
         });
     }
 
@@ -91,7 +90,7 @@ export class PageService {
         this.httpClient.patch(this.baseUrl + this.getUrl + id,  value, {headers: this.MergeJsonHeader})
         .subscribe({
             next: () => {
-                let options = {
+                const options = {
                     autoClose: true,
                     keepAfterRouteChange: true
                 }
@@ -99,14 +98,13 @@ export class PageService {
                 this.alert.success('This page is edited', options);
             },
             error: () => {
-                let options = {
+                const options = {
                     autoClose: false,
                     keepAfterRouteChange: true
                 }
 
                 this.alert.error('This page is not edited', options);
-            },
-            complete: () => {}
+            }
         });
     }
 
@@ -115,7 +113,7 @@ export class PageService {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
         .subscribe({
             next: () => {
-                let options = {
+                const options = {
                     autoClose: true,
                     keepAfterRouteChange: true
                 }
@@ -123,14 +121,13 @@ export class PageService {
                 this.alert.success('This page is deleted', options);
             },
             error: () => {
-                let options = {
+                const options = {
                     autoClose: false,
                     keepAfterRouteChange: true
                 }
 
                 this.alert.error('This page is not deleted', options);
-            },
-            complete: () => {}
+            }
         });
     }
 }

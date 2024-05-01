@@ -11,10 +11,10 @@
         <div class="label">
             <span class="label-text font-semibold">Name</span>
         </div>
-        <input type="text" name="sidebarName" formControlName="sidebarNameInput" #sidebarName placeholder="Type here" class="{{ sidebarNameInput.invalid && (sidebarNameInput.dirty || sidebarNameInput.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+        <input type="text" name="sidebarName" formControlName="sidebarNameInput" #sidebarName placeholder="Type here" class="{{ sidebarNameInput?.invalid && (sidebarNameInput?.dirty || sidebarNameInput?.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
 
-        @if(sidebarNameInput.invalid && (sidebarNameInput.dirty || sidebarNameInput.touched)){
-            @if(sidebarNameInput.errors?.['required']){
+        @if(sidebarNameInput?.invalid && (sidebarNameInput?.dirty || sidebarNameInput?.touched)){
+            @if(sidebarNameInput?.errors?.['required']){
                 <div class="label">
                     <span class="label-text-alt text-error">Sidebar name is required.</span>
                 </div>
@@ -54,21 +54,21 @@
                 }
             </select>
 
-            <input type="text" id="name" formControlName="name" placeholder="Item name" class="{{ nameItem.invalid && (nameItem.dirty || nameItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" id="name" formControlName="name" placeholder="Item name" class="{{ nameItem?.invalid && (nameItem?.dirty || nameItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
-            <input type="text" id="url" formControlName="url" placeholder="Item url" class="{{ urlItem.invalid && (urlItem.dirty || urlItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" id="url" formControlName="url" placeholder="Item url" class="{{ urlItem?.invalid && (urlItem?.dirty || urlItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideItemHtml()">Cancel</a>
 
-            @if(nameItem.invalid && (nameItem.dirty || nameItem.touched) || urlItem.invalid && (urlItem.dirty || urlItem.touched)){
-                @if(nameItem.errors?.['required']){
+            @if(nameItem?.invalid && (nameItem?.dirty || nameItem?.touched) || urlItem?.invalid && (urlItem?.dirty || urlItem?.touched)){
+                @if(nameItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Name is required.</span>
                     </div>
                 }
 
-                @if(urlItem.errors?.['required']){
+                @if(urlItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Url is required.</span>
                     </div>
@@ -110,21 +110,21 @@
                 }
             </select>
 
-            <input type="text" value="{{editItemName}}" id="name" formControlName="name" placeholder="Item name" class="{{ nameEditItem.invalid && (nameEditItem.dirty || nameEditItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" value="{{editItemName}}" id="name" formControlName="name" placeholder="Item name" class="{{ nameEditItem?.invalid && (nameEditItem?.dirty || nameEditItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
-            <input type="text" value="{{editItemUrl}}" id="url" formControlName="url" placeholder="Item url" class="{{ urlEditItem.invalid && (urlEditItem.dirty || urlEditItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" value="{{editItemUrl}}" id="url" formControlName="url" placeholder="Item url" class="{{ urlEditItem?.invalid && (urlEditItem?.dirty || urlEditItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Edit</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideEditItemHtml()">Cancel</a>
 
-            @if(nameEditItem.invalid && (nameEditItem.dirty || nameEditItem.touched) || urlEditItem.invalid && (urlEditItem.dirty || urlEditItem.touched)){
-                @if(nameEditItem.errors?.['required']){
+            @if(nameEditItem?.invalid && (nameEditItem?.dirty || nameEditItem?.touched) || urlEditItem?.invalid && (urlEditItem?.dirty || urlEditItem?.touched)){
+                @if(nameEditItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Name is required.</span>
                     </div>
                 }
 
-                @if(urlEditItem.errors?.['required']){
+                @if(urlEditItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Url is required.</span>
                     </div>
@@ -138,13 +138,13 @@
 <div #addParentItemBlock class="hidden grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <div>
         <form [formGroup]="addParentForm" (ngSubmit)="addParentItem()">
-            <input type="text" id="name" formControlName="name" placeholder="Parent item name" class="{{ nameParentItem.invalid && (nameParentItem.dirty || nameParentItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" id="name" formControlName="name" placeholder="Parent item name" class="{{ nameParentItem?.invalid && (nameParentItem?.dirty || nameParentItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideParentItemHtml()">Cancel</a>
 
-            @if(nameParentItem.invalid && (nameParentItem.dirty || nameParentItem.touched)){
-                @if(nameParentItem.errors?.['required']){
+            @if(nameParentItem?.invalid && (nameParentItem?.dirty || nameParentItem?.touched)){
+                @if(nameParentItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Parent name is required.</span>
                     </div>
@@ -158,13 +158,13 @@
 <div #editParentItemBlock class="hidden grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <div>
         <form [formGroup]="editParentForm" (ngSubmit)="editParentItem(editParentItemId)">
-            <input type="text" value="{{editParentName}}" id="name" formControlName="name" placeholder="Parent item name" class="{{ nameEditParentItem.invalid && (nameEditParentItem.dirty || nameEditParentItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" value="{{editParentName}}" id="name" formControlName="name" placeholder="Parent item name" class="{{ nameEditParentItem?.invalid && (nameEditParentItem?.dirty || nameEditParentItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideEditParentItemHtml()">Cancel</a>
 
-            @if(nameEditParentItem.invalid && (nameEditParentItem.dirty || nameEditParentItem.touched)){
-                @if(nameEditParentItem.errors?.['required']){
+            @if(nameEditParentItem?.invalid && (nameEditParentItem?.dirty || nameEditParentItem?.touched)){
+                @if(nameEditParentItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Parent name is required.</span>
                     </div>
@@ -178,7 +178,7 @@
 <div #addSubParentItemBlock class="hidden grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <div>
         <form [formGroup]="addSubParentForm" (ngSubmit)="addSubParentItem()">
-            <select id="parent" formControlName="parent" class="{{ nameParentFromSubParentItem.invalid && (nameParentFromSubParentItem.dirty || nameParentFromSubParentItem.touched) ? 'input-error' : '' }} select select-md select-bordered max-w-xs mx-1">
+            <select id="parent" formControlName="parent" class="{{ nameParentFromSubParentItem?.invalid && (nameParentFromSubParentItem?.dirty || nameParentFromSubParentItem?.touched) ? 'input-error' : '' }} select select-md select-bordered max-w-xs mx-1">
                 <option selected value="">No parent</option>
                 @for(item of items; track $index){
                     @if(item.parent === true && editParentItemName === item.parentName){
@@ -190,21 +190,21 @@
                 }
             </select>
 
-            <input type="text" id="name" formControlName="name" placeholder="Sub Parent item name" class="{{ nameSubParentItem.invalid && (nameSubParentItem.dirty || nameSubParentItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" id="name" formControlName="name" placeholder="Sub Parent item name" class="{{ nameSubParentItem?.invalid && (nameSubParentItem?.dirty || nameSubParentItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideSubParentItemHtml()">Cancel</a>
 
-            @if(nameParentFromSubParentItem.invalid && (nameParentFromSubParentItem.dirty || nameParentFromSubParentItem.touched)){
-                @if(nameParentFromSubParentItem.errors?.['required']){
+            @if(nameParentFromSubParentItem?.invalid && (nameParentFromSubParentItem?.dirty || nameParentFromSubParentItem?.touched)){
+                @if(nameParentFromSubParentItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Parent is required.</span>
                     </div>
                 }
             }
 
-            @if(nameSubParentItem.invalid && (nameSubParentItem.dirty || nameSubParentItem.touched)){
-                @if(nameSubParentItem.errors?.['required']){
+            @if(nameSubParentItem?.invalid && (nameSubParentItem?.dirty || nameSubParentItem?.touched)){
+                @if(nameSubParentItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Sub parent name is required.</span>
                     </div>
@@ -218,7 +218,7 @@
 <div #editSubParentItemBlock class="hidden grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <div>
         <form [formGroup]="editSubParentForm" (ngSubmit)="editSubParentItem(editParentItemId)">
-            <select id="parent" formControlName="parent" class="{{ nameEditParentFromSubParentItem.invalid && (nameEditParentFromSubParentItem.dirty || nameEditParentFromSubParentItem.touched) ? 'input-error' : '' }} select select-md select-bordered max-w-xs mx-1">
+            <select id="parent" formControlName="parent" class="{{ nameEditParentFromSubParentItem?.invalid && (nameEditParentFromSubParentItem?.dirty || nameEditParentFromSubParentItem?.touched) ? 'input-error' : '' }} select select-md select-bordered max-w-xs mx-1">
                 <option selected value="">No parent</option>
                 @for(item of items; track $index){
                     actual parent : {{editSubParentNameFirst}} list parent :  {{item.parentName}}
@@ -231,21 +231,21 @@
                 }
             </select>
 
-            <input type="text" value="{{editSubParentName}}" id="name" formControlName="name" placeholder="Sub Parent item name" class="{{ nameEditSubParentItem.invalid && (nameEditSubParentItem.dirty || nameEditSubParentItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" value="{{editSubParentName}}" id="name" formControlName="name" placeholder="Sub Parent item name" class="{{ nameEditSubParentItem?.invalid && (nameEditSubParentItem?.dirty || nameEditSubParentItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideEditSubParentItemHtml()">Cancel</a>
 
-            @if(nameEditParentFromSubParentItem.invalid && (nameEditParentFromSubParentItem.dirty || nameEditParentFromSubParentItem.touched)){
-                @if(nameEditParentFromSubParentItem.errors?.['required']){
+            @if(nameEditParentFromSubParentItem?.invalid && (nameEditParentFromSubParentItem?.dirty || nameEditParentFromSubParentItem?.touched)){
+                @if(nameEditParentFromSubParentItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Parent is required.</span>
                     </div>
                 }
             }
 
-            @if(nameEditSubParentItem.invalid && (nameEditSubParentItem.dirty || nameEditSubParentItem.touched)){
-                @if(nameEditSubParentItem.errors?.['required']){
+            @if(nameEditSubParentItem?.invalid && (nameEditSubParentItem?.dirty || nameEditSubParentItem?.touched)){
+                @if(nameEditSubParentItem?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Sub parent name is required.</span>
                     </div>
@@ -323,7 +323,7 @@
 
 
 <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
-    @if(sidebarNameInput.invalid && (sidebarNameInput.dirty || sidebarNameInput.touched)){
+    @if(sidebarNameInput?.invalid && (sidebarNameInput?.dirty || sidebarNameInput?.touched)){
         <a class="btn btn-success" disabled>
             Confirm
         </a>

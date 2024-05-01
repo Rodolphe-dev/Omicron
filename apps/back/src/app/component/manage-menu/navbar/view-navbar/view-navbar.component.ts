@@ -7,9 +7,9 @@ import { SettingService } from '../../../../service/setting/setting.service';
 import { INavbar } from '../../../../model/navbar';
 
 @Component({
-    selector: 'app-view-navbar',
+    selector: 'omicron-nx-view-navbar',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive
@@ -27,20 +27,19 @@ export class ViewNavbarComponent implements OnInit {
     actualNavbar: any = {};
     navbarIdValue!: number;
     navbarNameValue!: string;
-
+    navbarStatus!: string;
     actualSetting: any = {};
     appName!: string;
-
-    items : INavbar[] = [];
+    items: INavbar[] = [];
 
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
-        private navbar : NavbarService,
-        private setting : SettingService,
-        public router : Router,
+        private breadcrumbs: BreadcrumbsService,
+        private navbar: NavbarService,
+        private setting: SettingService,
+        public router: Router,
         private route: ActivatedRoute
-        ) { }
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(3);
@@ -56,21 +55,24 @@ export class ViewNavbarComponent implements OnInit {
                     this.actualNavbar = value;
                     this.navbarIdValue = this.actualNavbar.id;
                     this.navbarNameValue = this.actualNavbar.name;
-                    this.items = this.actualNavbar.items[0];
-                },
-                error: () => {},
-                complete: () => {}
-        });
 
-        
+                    if (this.actualNavbar.status === true) {
+                        this.navbarStatus = "Enabled";
+                    } else {
+                        this.navbarStatus = "Disabled";
+                    }
+
+                    this.items = this.actualNavbar.items[0];
+                }
+            });
+
+
         this.setting.getThisSetting(1)
             .subscribe({
                 next: value => {
                     this.actualSetting = value;
                     this.appName = this.actualSetting.nameApp;
-                },
-                error: () => { },
-                complete: () => { }
+                }
             });
     }
 }

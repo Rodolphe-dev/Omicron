@@ -38,7 +38,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
             securityMessage: 'Only super admins can access this.'
         ),
         new Get(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Put(
@@ -48,7 +48,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
         ),
         new Patch(
             processor: UserPasswordHasher::class,
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Delete(
@@ -177,8 +177,6 @@ class AdminAccount implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-
         if ($this->superadmin === true) {
             $roles[] = 'ROLE_SUPER_ADMIN';
         } else {

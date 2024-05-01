@@ -22,24 +22,24 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
     denormalizationContext: ['groups' => ['user:create', 'user:update']],
     operations: [
         new GetCollection(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Post(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Get(),
         new Put(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Patch(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Delete(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
     ],
@@ -50,11 +50,10 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 class Setting
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['user:read'])]
     #[ApiFilter(SearchFilter::class, strategy: "exact")]
-    private ?int $id = null;
+    private ?int $id = 1;
 
     #[Groups(['user:read', 'user:create', 'user:update'])]
     #[ORM\Column(length: 255)]

@@ -7,9 +7,9 @@ import { PageService } from '../../../../service/page/page.service';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @Component({
-    selector: 'app-edit-page',
+    selector: 'omicron-nx-edit-page',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
@@ -41,12 +41,12 @@ export class EditPageComponent implements OnInit {
     );
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private page : PageService,
-        public router : Router,
+        private page: PageService,
+        public router: Router,
         private route: ActivatedRoute
-        ) { }
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(2);
@@ -70,11 +70,9 @@ export class EditPageComponent implements OnInit {
                             content: this.actualPage.content
                         }
                     );
-                },
-                error: () => { },
-                complete: () => { }
+                }
             });
-        
+
 
         this.pageForm = new FormGroup({
             name: new FormControl('', [
@@ -90,17 +88,17 @@ export class EditPageComponent implements OnInit {
     }
 
     get namePage() {
-        return this.pageForm.get('name') !;
+        return this.pageForm.get('name')!;
     }
 
     get routePage() {
-        return this.pageForm.get('route') !;
+        return this.pageForm.get('route')!;
     }
 
     editPageForm() {
-        let pageName = this.pageForm.value.name;
-        let pageRoute = this.pageForm.value.route;
-        let pageContent = this.pageForm.value.content;
+        const pageName = this.pageForm.value.name;
+        const pageRoute = this.pageForm.value.route;
+        const pageContent = this.pageForm.value.content;
         const body = {
             name: pageName,
             route: pageRoute,

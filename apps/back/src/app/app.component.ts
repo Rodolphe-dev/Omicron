@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './service/auth/auth.service';
 
 @Component({
-    selector: 'app-root',
+    selector: 'omicron-nx-root',
     standalone: true,
     imports: [
         CommonModule,
@@ -32,17 +32,16 @@ import { AuthService } from './service/auth/auth.service';
 export class AppComponent implements OnInit {
 
     title = 'back-office';
-    loggedIn : boolean = false;
+    loggedIn = false;
 
     constructor(
-        private auth: AuthService,
-        private router: Router
+        private auth: AuthService
     ) {
     }
-    
-    changeIsLoggedIn(value : boolean) {
+
+    changeIsLoggedIn(value: boolean) {
         this.loggedIn = value;
-        
+
     }
 
     ngOnInit() {

@@ -22,24 +22,27 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
     denormalizationContext: ['groups' => ['user:create', 'user:update']],
     operations: [
         new GetCollection(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Post(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
-        new Get(),
+        new Get(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
+            securityMessage: 'Only admins can access this.'
+        ),
         new Put(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Patch(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
         new Delete(
-            security: "is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')",
             securityMessage: 'Only admins can access this.'
         ),
     ],
@@ -65,6 +68,12 @@ class Sidebar
     private ?string $name = null;
 
     #[Groups(['user:read', 'user:create', 'user:update'])]
+    #[ORM\Column]
+    #[Assert\Type('boolean')]
+    #[Assert\NotNull]
+    private ?bool $status = null;
+
+    #[Groups(['user:read', 'user:create', 'user:update'])]
     #[ORM\Column(nullable: true)]
     private ?array $items = null;
 
@@ -88,6 +97,18 @@ class Sidebar
     public function setName(?string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

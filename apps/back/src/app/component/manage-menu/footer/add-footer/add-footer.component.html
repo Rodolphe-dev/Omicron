@@ -13,10 +13,10 @@
                 <div class="label">
                     <span class="label-text font-semibold">Name</span>
                 </div>
-                <input type="text" id="name" formControlName="name" placeholder="Type here" class="{{ nameFooter.invalid && (nameFooter.dirty || nameFooter.touched) ? 'input-error' : '' }} input input-bordered w-full" />
+                <input type="text" id="name" formControlName="name" placeholder="Type here" class="{{ nameFooter?.invalid && (nameFooter?.dirty || nameFooter?.touched) ? 'input-error' : '' }} input input-bordered w-full" />
 
-                @if(nameFooter.invalid && (nameFooter.dirty || nameFooter.touched)){
-                    @if(nameFooter.errors?.['required']){
+                @if(nameFooter?.invalid && (nameFooter?.dirty || nameFooter?.touched)){
+                    @if(nameFooter?.errors?.['required']){
                         <div class="label">
                             <span class="label-text-alt text-error">Name is required.</span>
                         </div>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
-        @if(nameFooter.invalid && (nameFooter.dirty || nameFooter.touched)){
+        @if(nameFooter?.invalid && (nameFooter?.dirty || nameFooter?.touched)){
             <button class="btn btn-success" disabled>
                 Confirm
             </button>

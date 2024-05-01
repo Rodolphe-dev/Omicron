@@ -6,9 +6,9 @@ import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.
 import { FooterService } from '../../../../service/footer/footer.service';
 
 @Component({
-    selector: 'app-edit-footer',
+    selector: 'omicron-nx-edit-footer',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
@@ -25,6 +25,7 @@ export class EditFooterComponent implements OnInit {
     actualFooter: any = {};
     footerIdValue!: number;
     footerNameValue!: string;
+    footerStatus!: boolean;
     footerContentValue!: string;
 
     editFooterForm = this.formBuilder.group(
@@ -56,12 +57,11 @@ export class EditFooterComponent implements OnInit {
                     this.actualFooter = value;
                     this.footerIdValue = this.actualFooter.id;
                     this.footerNameValue = this.actualFooter.name;
+                    this.footerStatus = this.actualFooter.status;
                     this.footerContentValue = this.actualFooter.content;
 
-                    this.editFooterForm.setValue({name: this.actualFooter.name, content: this.actualFooter.content});
-                },
-                error: () => { },
-                complete: () => { }
+                    this.editFooterForm.setValue({ name: this.actualFooter.name, content: this.actualFooter.content });
+                }
             });
 
         this.editFooterForm = new FormGroup({
@@ -76,12 +76,12 @@ export class EditFooterComponent implements OnInit {
     }
 
     get nameFooter() {
-        return this.editFooterForm.get('name') !;
+        return this.editFooterForm.get('name');
     }
 
     editFooter() {
-        let name = this.editFooterForm.value.name;
-        let content = this.editFooterForm.value.content;
+        const name = this.editFooterForm.value.name;
+        const content = this.editFooterForm.value.content;
         const body = {
             name: name,
             content: content
@@ -90,6 +90,21 @@ export class EditFooterComponent implements OnInit {
         this.footer.editFooter(this.footerIdValue, body);
 
         this.router.navigate(['/footer/list']);
+    }
+
+    toggleFooter(id: number) {
+        this.footer.toggleFooterStatus(id)
+            .subscribe(
+                (value) => {
+                    if (value === true) {
+                        const status_item = document.getElementById('status_item') || <HTMLElement><unknown>{ statuts_item: "" };
+                        status_item.textContent = 'Enabled';
+                    } else {
+                        const status_item = document.getElementById('status_item') || <HTMLElement><unknown>{ statuts_item: "" };
+                        status_item.textContent = 'Disabled';
+                    }
+                }
+            );
     }
 
 }

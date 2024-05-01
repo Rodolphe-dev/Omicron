@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { AppComponent } from '../../app.component';
 import { AuthService } from '../../service/auth/auth.service';
 import { AdminAccountService } from '../../service/adminAccount/adminAccount.service';
 import { AlertService } from '../../service/alert/alert.service';
-import { AppComponent } from '../../app.component';
 
 @Component({
-    selector: 'app-login',
+    selector: 'omicron-nx-login',
     standalone: true,
     imports: [
         CommonModule,
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     faEye = faEye
     faEyeSlash = faEyeSlash
 
-    showPassword: boolean = false;
+    showPassword = false;
 
     loginForm = this.formBuilder.group(
         {
@@ -42,12 +42,12 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private auth : AuthService,
-        private admin : AdminAccountService,
-        private alert : AlertService,
-        public router : Router,
-        private appComp : AppComponent
-        ) { }
+        public router: Router,
+        private appComp: AppComponent,
+        private auth: AuthService,
+        private admin: AdminAccountService,
+        private alert: AlertService
+    ) { }
 
     ngOnInit() {
         this.loginForm = new FormGroup({
@@ -67,20 +67,20 @@ export class LoginComponent implements OnInit {
     }
 
     get username() {
-        return this.loginForm.get('username') !;
+        return this.loginForm.get('username');
     }
 
     get password() {
-        return this.loginForm.get('password') !;
+        return this.loginForm.get('password');
     }
 
-    togglePasswordVisibility(){
+    togglePasswordVisibility() {
         this.showPassword = !this.showPassword;
     }
 
-    loginAuthForm(){
-        let username = this.loginForm.value.username;
-        let password = this.loginForm.value.password;
+    loginAuthForm() {
+        const username = this.loginForm.value.username;
+        const password = this.loginForm.value.password;
 
         const body = {
             username: username,
@@ -91,49 +91,43 @@ export class LoginComponent implements OnInit {
             .subscribe({
                 next: value => {
                     this.actualAdmin = value;
+                    localStorage.setItem('isLogged', 'true');
                     localStorage.setItem('superadmin', this.actualAdmin.superadmin);
                     localStorage.setItem('userId', this.actualAdmin.id);
 
-                    this.auth.setAuthToken(body)
-                    .subscribe({
-                        next: (value : any) => {
-                            
-                            let removeToken = localStorage.removeItem('token');
-                            if (removeToken == null) {
-                                localStorage.setItem('token', value.token);
-            
-                                let options = {
+                    this.auth.login(body)
+                        .subscribe({
+                            next: (value: any) => {
+
+                                const options = {
                                     autoClose: true,
                                     keepAfterRouteChange: true
                                 }
 
                                 this.alert.success('Login successful', options);
-                                
+
                                 this.appComp.changeIsLoggedIn(true);
 
                                 this.router.navigate(['dashboard']);
-                            }
-                        },
-                        error: () => {
-                            let options = {
-                                autoClose: false,
-                                keepAfterRouteChange: true
-                            }
+                            },
+                            error: () => {
+                                const options = {
+                                    autoClose: false,
+                                    keepAfterRouteChange: true
+                                }
 
-                            this.alert.error('This username or password must be wrong', options);
-                        },
-                        complete: () => {}
-                    });
+                                this.alert.error('This username or password must be wrong', options);
+                            }
+                        });
                 },
                 error: () => {
-                    let options = {
+                    const options = {
                         autoClose: false,
                         keepAfterRouteChange: true
                     }
 
                     this.alert.error('This username is wrong', options);
-                },
-                complete: () => { }
+                }
             });
     }
 

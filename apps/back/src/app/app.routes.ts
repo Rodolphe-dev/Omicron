@@ -40,8 +40,11 @@ import { MyProfileComponent } from './component/profile/my-profile/my-profile.co
 import { LoginComponent } from './component/login/login.component';
 import { AuthGuard } from "./service/auth/auth.guard";
 
+import { NotFoundComponent } from './component/not-found/NotFound.component';
+
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full'},
+
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
 
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -78,6 +81,8 @@ export const routes: Routes = [
     { path: 'system/admin/view/:id', component: ViewAdminComponent, canActivate: [AuthGuard] },
 
     { path: 'profile/edit/:id', component: MyProfileComponent, canActivate: [AuthGuard] },
+
+    { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];
 
 @NgModule({

@@ -5,3 +5,30 @@ lexik_jwt_authentication:
   user_identity_field: username
   api_platform:
     enabled: false
+  set_cookies:
+    BEARER: ~
+  token_extractors:
+    # look for a token as Authorization Header
+    authorization_header:
+        enabled: false
+        prefix:  Bearer
+        name:    Authorization
+
+    # check token in a cookie
+    cookie:
+        enabled: true
+        name:    BEARER
+
+    # check token in query string parameter
+    query_parameter:
+        enabled: false
+        name:    bearer
+
+    # check token in a cookie
+    split_cookie:
+        enabled: false
+        cookies:
+            - jwt_hp
+            - jwt_s
+  # remove the token from the response body when using cookies
+  remove_token_from_body_when_cookies_used: true

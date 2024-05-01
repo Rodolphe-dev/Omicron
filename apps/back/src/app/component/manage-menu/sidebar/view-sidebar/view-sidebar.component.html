@@ -7,64 +7,80 @@
 </div>
 
 <div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
-    <label class="form-control w-full max-w-xs">
-        <div class="label">
-            <span class="label-text font-semibold">Name</span>
-        </div>
-        <span class="">{{sidebarNameValue}}</span>
-        <div class="label">
-            <span class="label-text-alt font-light">This name will not be show on your front office</span>
-        </div>
-    </label>
+    <div class="col-span-2 justify-self-start self-start">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text font-semibold">Name</span>
+            </div>
+            <span class="">{{sidebarNameValue}}</span>
+            <div class="label">
+                <span class="label-text-alt font-light">This name will not be show on your front office</span>
+            </div>
+        </label>
+    </div>
+    <div class="col-span-2 justify-self-start self-start">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text font-semibold">Status:</span>
+            </div>
+            <span class="">{{sidebarStatus}}</span>
+        </label>
+    </div>
 </div>
 
 <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <ul class="menu bg-base-100 w-56 rounded-box">
         @for (item of items; track $index) {
-            @if(item.inParent === false && item.parent === false && item.inSubParent === false && item.subParent === false){
-                <li class="indicator">
-                    <a routerLink="{{item.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
-                </li>
-            }
+        @if(item.inParent === false && item.parent === false && item.inSubParent === false && item.subParent === false){
+        <li class="indicator">
+            <a routerLink="{{item.url}}" routerLinkActive="activebutton"
+                [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
+        </li>
+        }
 
 
-            @if(item.parent === true){
-                <li class="indicator">
-                    <details open>
-                        <summary>
-                            {{item.name}}
-                        </summary>
-                        <ul>
-                            @for (itemChildren of item.children; track $index) {
-                                @if(itemChildren.parentName != '' && itemChildren.parent === false && itemChildren.inParent === true && itemChildren.subParent === false){
-                                    <li>
-                                        <a routerLink="{{itemChildren.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{itemChildren.name}}</a>
-                                    </li>
+        @if(item.parent === true){
+        <li class="indicator">
+            <details open>
+                <summary>
+                    {{item.name}}
+                </summary>
+                <ul>
+                    @for (itemChildren of item.children; track $index) {
+                    @if(itemChildren.parentName != '' && itemChildren.parent === false && itemChildren.inParent === true
+                    && itemChildren.subParent === false){
+                    <li>
+                        <a routerLink="{{itemChildren.url}}" routerLinkActive="activebutton"
+                            [routerLinkActiveOptions]="{exact: true}">{{itemChildren.name}}</a>
+                    </li>
+                    }
+
+                    @if(itemChildren.subParentName != '' && itemChildren.parent === false && itemChildren.inParent ===
+                    true && itemChildren.subParent === true){
+                    <li class="indicator">
+                        <details open>
+                            <summary>
+                                {{itemChildren.name}}
+                            </summary>
+                            <ul>
+                                @for (itemFromSubParent of itemChildren.children; track $index) {
+                                @if(itemFromSubParent.parent === false && itemFromSubParent.subParentName != '' &&
+                                itemFromSubParent.subParent === false){
+                                <li>
+                                    <a routerLink="{{itemFromSubParent.url}}" routerLinkActive="activebutton"
+                                        [routerLinkActiveOptions]="{exact: true}">{{itemFromSubParent.name}}</a>
+                                </li>
                                 }
-                            
-                                @if(itemChildren.subParentName != '' && itemChildren.parent === false && itemChildren.inParent === true && itemChildren.subParent === true){
-                                        <li class="indicator">
-                                            <details open>
-                                                <summary>
-                                                    {{itemChildren.name}}
-                                                </summary>
-                                                <ul>
-                                                    @for (itemFromSubParent of itemChildren.children; track $index) {
-                                                        @if(itemFromSubParent.parent === false  && itemFromSubParent.subParentName != '' && itemFromSubParent.subParent === false){
-                                                            <li>
-                                                                <a routerLink="{{itemFromSubParent.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{itemFromSubParent.name}}</a>
-                                                            </li>
-                                                        }
-                                                    }
-                                                </ul>
-                                            </details>
-                                        </li>
                                 }
-                            }
-                        </ul>
-                    </details>
-                </li>
-            }
+                            </ul>
+                        </details>
+                    </li>
+                    }
+                    }
+                </ul>
+            </details>
+        </li>
+        }
         }
     </ul>
 </div>

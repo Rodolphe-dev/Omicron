@@ -11,9 +11,6 @@ export class BreadcrumbsService {
     public LevelTwoValue: BehaviorSubject<string> = new BehaviorSubject<string>('');
     public LevelThreeValue: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-    constructor() { 
-    }
-
     // Max 3 level
     public getLevel()
     {

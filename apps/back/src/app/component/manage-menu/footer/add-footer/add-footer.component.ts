@@ -6,9 +6,9 @@ import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.
 import { FooterService } from '../../../../service/footer/footer.service';
 
 @Component({
-    selector: 'app-add-footer',
+    selector: 'omicron-nx-add-footer',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
@@ -20,7 +20,7 @@ import { FooterService } from '../../../../service/footer/footer.service';
     styleUrls: ['./add-footer.component.css']
 })
 export class AddFooterComponent implements OnInit {
-    
+
     addFooterForm = this.formBuilder.group(
         {
             name: new FormControl<string>('', { validators: Validators.required }),
@@ -29,11 +29,11 @@ export class AddFooterComponent implements OnInit {
     );
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private footer : FooterService,
-        public router : Router
-        ) { }
+        private footer: FooterService,
+        public router: Router
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(3);
@@ -53,15 +53,15 @@ export class AddFooterComponent implements OnInit {
     }
 
     get nameFooter() {
-        return this.addFooterForm.get('name') !;
+        return this.addFooterForm.get('name');
     }
 
-    addFooter(){
-        let name = this.addFooterForm.value.name;
-        let content = this.addFooterForm.value.content;
+    addFooter() {
+        const name = this.addFooterForm.value.name;
+        const content = this.addFooterForm.value.content;
         const body = {
             name: name,
-            content : content
+            content: content
         };
 
         this.footer.addFooter(body);

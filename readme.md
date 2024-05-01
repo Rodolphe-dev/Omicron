@@ -1,4 +1,4 @@
-# Omicron CMS V0.1 Beta
+# Omicron CMS V0.2
 
 ## Description
 
@@ -18,6 +18,12 @@ nx serve back
 nx serve api
 ```
 
+Stop the apps:
+
+```
+nx stop api
+```
+
 Build the apps:
 
 ```
@@ -28,7 +34,9 @@ nx build api
 
 Environments need to be rewrite with the new path in the angular apps, the path in apps front and back is ```src/environments``` for production
 
-A fixture need to be execute for create the data needed to be working on both local and online => ```doctrine:fixtures:load```
+A proxy is used for local machine in root of each angular apps ```src/proxy.conf.json``` and already configured to be used with nx serve command
+
+A fixture need to be executed for create the data needed to be working on both local and online => ```php bin/console doctrine:fixtures:load``` (This will be auto in the futur)
 
 Admin panel
 
@@ -41,18 +49,16 @@ This must be change for your safety
 
 every thing else is like a regular symfony app and angular app
 
-## Important Note
-
-Only the first navbar and first footer will work for the moment, you will need to only have one
-
 ## TODO
 
-[ ] Make 404 error page for back and front
+[ ] Fix ESLint error and warning inside all httpRequest and service
 
-[ ] Add a system for navbar, sidebar, footer to active only one like a button active, disabled in admin panel
+[ ] Clean the code
 
-[ ] Add sidebar in front or hide it if none are active
+[ ] Make all the tests
 
-[ ] Make the test
+[ ] Configure CI workflow
+
+[ ] Make a simple dashboard
 
 This list will grow up soon ...

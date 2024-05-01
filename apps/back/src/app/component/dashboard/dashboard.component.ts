@@ -4,18 +4,22 @@ import { faUser, faBolt, faArrowTrendUp, faArrowTrendDown } from '@fortawesome/f
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { AlertService } from '../../service/alert/alert.service';
 import { BreadcrumbsService } from '../../service/breadcrumbs/breadcrumbs.service';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'omicron-nx-dashboard',
     standalone: true,
-	imports: [FontAwesomeModule],
+    imports: [FontAwesomeModule],
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
-    constructor(private breadcrumbs : BreadcrumbsService,
-        private alert : AlertService) { 
+    constructor(
+        private breadcrumbs: BreadcrumbsService,
+        private alert: AlertService,
+        private auth: AuthService,
+    ) {
     }
 
     ngOnInit() {
@@ -23,9 +27,9 @@ export class DashboardComponent implements OnInit {
         this.breadcrumbs.setLevelOneValue('Dashboard');
     }
 
-	faUser = faUser;
-	faEye = faEye;
-	faBolt = faBolt;
-	faArrowTrendUp = faArrowTrendUp;
-	faArrowTrendDown = faArrowTrendDown;
+    faUser = faUser;
+    faEye = faEye;
+    faBolt = faBolt;
+    faArrowTrendUp = faArrowTrendUp;
+    faArrowTrendDown = faArrowTrendDown;
 }

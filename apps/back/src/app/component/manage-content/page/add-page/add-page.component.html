@@ -12,10 +12,10 @@
             <div class="label">
                 <span class="label-text font-semibold">Name</span>
             </div>
-            <input type="text" name="pageName" #pageName formControlName="name" placeholder="Type here" class="{{ namePage.invalid && (namePage.dirty || namePage.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+            <input type="text" name="pageName" #pageName formControlName="name" placeholder="Type here" class="{{ namePage?.invalid && (namePage?.dirty || namePage?.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
 
-            @if(namePage.invalid && (namePage.dirty || namePage.touched)){
-                @if(namePage.errors?.['required']){
+            @if(namePage?.invalid && (namePage?.dirty || namePage?.touched)){
+                @if(namePage?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Name is required.</span>
                     </div>
@@ -29,10 +29,10 @@
             <div class="label">
                 <span class="label-text font-semibold">Route</span>
             </div>
-            <input type="text" name="pageRoute" #pageRoute formControlName="route" placeholder="Type here" class="{{ routePage.invalid && (routePage.dirty || routePage.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+            <input type="text" name="pageRoute" #pageRoute formControlName="route" placeholder="Type here" class="{{ routePage?.invalid && (routePage?.dirty || routePage?.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
 
-            @if(routePage.invalid && (routePage.dirty || routePage.touched)){
-                @if(routePage.errors?.['required']){
+            @if(routePage?.invalid && (routePage?.dirty || routePage?.touched)){
+                @if(routePage?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Route is required.</span>
                     </div>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
-        @if((namePage.invalid && (namePage.dirty || namePage.touched)) || (routePage.invalid && (routePage.dirty || routePage.touched))){
+        @if((namePage?.invalid && (namePage?.dirty || namePage?.touched)) || (routePage?.invalid && (routePage?.dirty || routePage?.touched))){
             <button class="btn btn-success" disabled>
                 Confirm
             </button>

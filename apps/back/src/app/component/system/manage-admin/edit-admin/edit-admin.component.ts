@@ -6,10 +6,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { AdminAccountService } from '../../../../service/adminAccount/adminAccount.service';
-import { IAdminAccount } from '../../../../model/adminAccount';
 
 @Component({
-    selector: 'app-edit-admin',
+    selector: 'omicron-nx-edit-admin',
     standalone: true,
     imports: [
         CommonModule,
@@ -27,9 +26,7 @@ export class EditAdminComponent implements OnInit {
 
     faEye = faEye
     faEyeSlash = faEyeSlash
-
-    showPassword: boolean = false;
-
+    showPassword = false;
     id!: string | null;
     actualAdmin: any = {};
     adminIdValue!: number;
@@ -37,6 +34,7 @@ export class EditAdminComponent implements OnInit {
     adminEmailValue!: string;
     adminPasswordValue!: string;
     adminSuperAdminValue!: boolean;
+    superAdmin!: boolean;
 
     adminForm = this.formBuilder.group(
         {
@@ -54,12 +52,12 @@ export class EditAdminComponent implements OnInit {
     );
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private admin : AdminAccountService,
-        public router : Router,
+        private admin: AdminAccountService,
+        public router: Router,
         private route: ActivatedRoute
-        ) { }
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(3);
@@ -77,13 +75,11 @@ export class EditAdminComponent implements OnInit {
                     this.adminUsernameValue = this.actualAdmin.username;
                     this.adminEmailValue = this.actualAdmin.email;
                     this.adminSuperAdminValue = this.actualAdmin.superadmin;
-                    
-                    this.adminForm.setValue({username: this.actualAdmin.username, email: this.actualAdmin.email, superAdmin: this.actualAdmin.superadmin});
-                },
-                error: () => { },
-                complete: () => { }
+
+                    this.adminForm.setValue({ username: this.actualAdmin.username, email: this.actualAdmin.email, superAdmin: this.actualAdmin.superadmin });
+                }
             });
-        
+
         this.adminForm = new FormGroup({
             username: new FormControl('', [
                 Validators.required,
@@ -98,7 +94,7 @@ export class EditAdminComponent implements OnInit {
             ]),
             superAdmin: new FormControl(''),
         });
-        
+
         this.adminPasswordForm = new FormGroup({
             password: new FormControl('', [
                 Validators.required,
@@ -116,47 +112,46 @@ export class EditAdminComponent implements OnInit {
     }
 
     get usernameInput() {
-        return this.adminForm.get('username') !;
+        return this.adminForm.get('username');
     }
 
     get emailInput() {
-        return this.adminForm.get('email') !;
+        return this.adminForm.get('email');
     }
 
     get passwordInput() {
-        return this.adminPasswordForm.get('password') !;
+        return this.adminPasswordForm.get('password');
     }
 
-    togglePasswordVisibility(){
+    togglePasswordVisibility() {
         this.showPassword = !this.showPassword;
     }
 
     editAdminForm() {
-        let username = this.adminForm.value.username;
-        let email = this.adminForm.value.email;
+        const username = this.adminForm.value.username;
+        const email = this.adminForm.value.email;
 
         // BUG checkbox at render dont have value so here a quick fix
-        if(this.adminForm.value.superAdmin){
-            var superAdmin = Boolean(this.adminForm.value.superAdmin);
-        }else{
-            var superAdmin = false;
+        if (this.adminForm.value.superAdmin) {
+            this.superAdmin = Boolean(this.adminForm.value.superAdmin);
+        } else {
+            this.superAdmin = false;
         }
 
         const body = {
             username: username,
-            email : email,
-            superadmin: superAdmin
+            email: email,
+            superadmin: this.superAdmin
         };
 
         this.admin.editAdminAccount(this.adminIdValue, body);
     }
 
     editAdminPasswordForm() {
-        let password = this.adminPasswordForm.value.password;
-        let confirmPassword = this.adminPasswordForm.value.confirmPassword;
+        const password = this.adminPasswordForm.value.password;
+        const confirmPassword = this.adminPasswordForm.value.confirmPassword;
 
-        if(confirmPassword === password)
-        {
+        if (confirmPassword === password) {
             const body = {
                 plainPassword: password
             };

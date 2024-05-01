@@ -5,7 +5,7 @@ import { RouterLinkActive } from '@angular/router';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 
 @Component({
-    selector: 'app-view-page',
+    selector: 'omicron-nx-view-page',
     standalone: true,
     imports: [CommonModule, RouterLink, RouterLinkActive],
     templateUrl: './view-page.component.html',
@@ -13,7 +13,7 @@ import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.
 })
 export class ViewPageComponent implements OnInit {
 
-    constructor(private breadcrumbs : BreadcrumbsService) {
+    constructor(private breadcrumbs: BreadcrumbsService) {
     }
 
     ngOnInit() {

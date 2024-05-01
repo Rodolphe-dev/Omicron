@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, FormsModule, FormControl, Validators, FormGroup } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,15 +10,15 @@ import { SidebarService } from '../../../../service/sidebar/sidebar.service';
 import { ISidebar } from '../../../../model/sidebar';
 
 @Component({
-    selector: 'app-add-sidebar',
+    selector: 'omicron-nx-add-sidebar',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
         FormsModule,
         ReactiveFormsModule,
-        FontAwesomeModule, 
+        FontAwesomeModule,
         CdkDropList,
         CdkDrag
     ],
@@ -28,9 +28,8 @@ import { ISidebar } from '../../../../model/sidebar';
 })
 export class AddSidebarComponent implements OnInit {
 
-	faTrash = faTrash;
-	faPencil = faPencil;
-
+    faTrash = faTrash;
+    faPencil = faPencil;
     @ViewChild('sidebarName') _sidebarName!: ElementRef;
     @ViewChild('addItemBlock') addItemBlock!: ElementRef;
     @ViewChild('editItemBlock') editItemBlock!: ElementRef;
@@ -38,10 +37,8 @@ export class AddSidebarComponent implements OnInit {
     @ViewChild('editParentItemBlock') editParentItemBlock!: ElementRef;
     @ViewChild('addSubParentItemBlock') addSubParentItemBlock!: ElementRef;
     @ViewChild('editSubParentItemBlock') editSubParentItemBlock!: ElementRef;
-
-    itemId : number = 0;
-
-    items : ISidebar[] = [];
+    itemId = 0;
+    items: ISidebar[] = [];
 
     addSidebarFormGroup = this.formBuilder.group(
         {
@@ -94,26 +91,25 @@ export class AddSidebarComponent implements OnInit {
     );
 
     editItemId!: number;
-    editParentItemName: string | undefined;
-    editSubParentItemName: string | undefined;
-    editItemName: string | undefined;
-    editItemUrl: string | undefined;
-
+    editParentItemName: string | null | undefined;
+    editSubParentItemName: string | null | undefined;
+    editItemName: string | null | undefined;
+    editItemUrl: string | null | undefined;
     editParentItemId!: number;
-    editParentName: string | undefined;
+    editParentName: string | null | undefined;
 
     editSubParentItemId!: number;
-    editSubParentNameFirst: string | undefined;
-    editSubParentName: string | undefined;
+    editSubParentNameFirst: string | null | undefined;
+    editSubParentName: string | null | undefined;
 
-    parent : string | null | undefined;
+    parent: string | null | undefined;
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private sidebar : SidebarService,
-        public router : Router
-        ) { }
+        private sidebar: SidebarService,
+        public router: Router
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(3);
@@ -178,83 +174,83 @@ export class AddSidebarComponent implements OnInit {
     }
 
     get sidebarNameInput() {
-        return this.addSidebarFormGroup.get('sidebarNameInput') !;
+        return this.addSidebarFormGroup.get('sidebarNameInput');
     }
 
     get nameItem() {
-        return this.addItemForm.get('name') !;
+        return this.addItemForm.get('name');
     }
 
     get urlItem() {
-        return this.addItemForm.get('url') !;
+        return this.addItemForm.get('url');
     }
 
     get nameEditItem() {
-        return this.editItemForm.get('name') !;
+        return this.editItemForm.get('name');
     }
 
     get urlEditItem() {
-        return this.editItemForm.get('url') !;
+        return this.editItemForm.get('url');
     }
 
     get nameParentItem() {
-        return this.addParentForm.get('name') !;
+        return this.addParentForm.get('name');
     }
 
     get nameEditParentItem() {
-        return this.editParentForm.get('name') !;
+        return this.editParentForm.get('name');
     }
 
     get nameParentFromSubParentItem() {
-        return this.addSubParentForm.get('parent') !;
+        return this.addSubParentForm.get('parent');
     }
 
     get nameSubParentItem() {
-        return this.addSubParentForm.get('name') !;
+        return this.addSubParentForm.get('name');
     }
 
     get nameEditParentFromSubParentItem() {
-        return this.editSubParentForm.get('parent') !;
+        return this.editSubParentForm.get('parent');
     }
 
     get nameEditSubParentItem() {
-        return this.editSubParentForm.get('name') !;
+        return this.editSubParentForm.get('name');
     }
 
-    hideItemHtml(){
+    hideItemHtml() {
         this.addItemBlock.nativeElement.classList.remove('grid');
         this.addItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideEditItemHtml(){
+    hideEditItemHtml() {
         this.editItemBlock.nativeElement.classList.remove('grid');
         this.editItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideParentItemHtml(){
+    hideParentItemHtml() {
         this.addParentItemBlock.nativeElement.classList.remove('grid');
         this.addParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideEditParentItemHtml(){
+    hideEditParentItemHtml() {
         this.editParentItemBlock.nativeElement.classList.remove('grid');
         this.editParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideSubParentItemHtml(){
+    hideSubParentItemHtml() {
         this.addSubParentItemBlock.nativeElement.classList.remove('grid');
         this.addSubParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideEditSubParentItemHtml(){
+    hideEditSubParentItemHtml() {
         this.editSubParentItemBlock.nativeElement.classList.remove('grid');
         this.editSubParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    showItemHtml(){
+    showItemHtml() {
         this.addItemBlock.nativeElement.classList.remove('hidden');
         this.addItemBlock.nativeElement.classList.add('grid');
-        
+
         this.hideEditItemHtml();
         this.hideParentItemHtml();
         this.hideEditParentItemHtml();
@@ -262,13 +258,13 @@ export class AddSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditItemHtml(item: any){
+    showEditItemHtml(item: ISidebar) {
         this.hideItemHtml();
         this.hideParentItemHtml();
         this.hideEditParentItemHtml();
         this.hideSubParentItemHtml();
         this.hideEditSubParentItemHtml();
-        
+
         this.editItemBlock.nativeElement.classList.remove('hidden');
         this.editItemBlock.nativeElement.classList.add('grid');
 
@@ -279,7 +275,7 @@ export class AddSidebarComponent implements OnInit {
         this.editItemId = item.id;
     }
 
-    showParentItemHtml(){
+    showParentItemHtml() {
         this.addParentItemBlock.nativeElement.classList.remove('hidden');
         this.addParentItemBlock.nativeElement.classList.add('grid');
 
@@ -290,13 +286,13 @@ export class AddSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditParentItemHtml(item: any){
+    showEditParentItemHtml(item: ISidebar) {
         this.hideItemHtml();
         this.hideParentItemHtml();
         this.hideEditParentItemHtml();
         this.hideSubParentItemHtml();
         this.hideEditSubParentItemHtml();
-        
+
         this.editParentItemBlock.nativeElement.classList.remove('hidden');
         this.editParentItemBlock.nativeElement.classList.add('grid');
 
@@ -304,10 +300,10 @@ export class AddSidebarComponent implements OnInit {
         this.editParentItemId = item.id;
     }
 
-    showSubParentItemHtml(){
+    showSubParentItemHtml() {
         this.addSubParentItemBlock.nativeElement.classList.remove('hidden');
         this.addSubParentItemBlock.nativeElement.classList.add('grid');
-        
+
         this.hideItemHtml();
         this.hideEditItemHtml();
         this.hideEditParentItemHtml();
@@ -315,13 +311,13 @@ export class AddSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditSubParentItemHtml(item: any){
+    showEditSubParentItemHtml(item: ISidebar) {
         this.hideItemHtml();
         this.hideEditItemHtml();
         this.hideEditParentItemHtml();
         this.hideParentItemHtml();
         this.hideSubParentItemHtml();
-        
+
         this.editSubParentItemBlock.nativeElement.classList.remove('hidden');
         this.editSubParentItemBlock.nativeElement.classList.add('grid');
 
@@ -330,75 +326,78 @@ export class AddSidebarComponent implements OnInit {
         this.editParentItemId = item.id;
     }
 
-    addItem(){
+    addItem() {
         this.itemId++;
 
-        let itemParent = false;
-        let itemSubParent = false;
-        let itemName = this.addItemForm.value.name;
-        let itemUrl = this.addItemForm.value.url;
+        const itemParent = false;
+        const itemSubParent = false;
+        const itemName = this.addItemForm.value.name;
+        const itemUrl = this.addItemForm.value.url;
 
         // Item child from parent
-        if(this.addItemForm.value.parent != '' && this.addItemForm.value.subParent === ''){
-            let itemParentName = this.addItemForm.value.parent;
-            let itemSubParentName = this.addItemForm.value.subParent;
-            let inParent = true;
-            let inSubParent = false;
-            let children = {
-                id: this.itemId, 
-                parent: itemParent, 
-                subParent: itemSubParent, 
-                parentName: itemParentName, 
-                subParentName: itemSubParentName, 
-                name: itemName, 
+        if (this.addItemForm.value.parent != '' && this.addItemForm.value.subParent === '') {
+            const itemParentName = this.addItemForm.value.parent;
+            const itemSubParentName = this.addItemForm.value.subParent;
+            const inParent = true;
+            const inSubParent = false;
+            const children = {
+                id: this.itemId,
+                parent: itemParent,
+                subParent: itemSubParent,
+                parentName: itemParentName,
+                subParentName: itemSubParentName,
+                name: itemName,
+                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 inSubParent: inSubParent,
                 children: []
             };
 
-            this.items.forEach(item=>{
-                if(item.name==itemParentName){
+            this.items.forEach(item => {
+                if (item.name == itemParentName) {
                     item.children.push(children);
                 }
             });
 
-        // Item from sub parent
-        }else if(this.addItemForm.value.subParent != ''){
-            let itemParentName = this.addItemForm.value.parent;
-            let itemSubParentName = this.addItemForm.value.subParent;
-            let inParent = false;
-            let inSubParent = true;
-            let children = {
-                id: this.itemId, 
-                parent: itemParent, 
-                subParent: itemSubParent, 
-                parentName: itemParentName, 
-                subParentName: itemSubParentName, 
-                name: itemName, 
+            // Item from sub parent
+        } else if (this.addItemForm.value.subParent != '') {
+            const itemParentName = this.addItemForm.value.parent;
+            const itemSubParentName = this.addItemForm.value.subParent;
+            const inParent = false;
+            const inSubParent = true;
+            const children = {
+                id: this.itemId,
+                parent: itemParent,
+                subParent: itemSubParent,
+                parentName: itemParentName,
+                subParentName: itemSubParentName,
+                name: itemName,
+                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 inSubParent: inSubParent,
                 children: []
             };
 
-            this.items.forEach(item=>{
-                    item.children.forEach(itemChildrenParent=>{
-                        itemChildrenParent.children.push(children);
-                    });
+            this.items.forEach(item => {
+                item.children.forEach(itemChildrenParent => {
+                    itemChildrenParent.children.push(children);
+                });
             });
 
-        // Item normal
-        }else{
-            let inParent = false;
-            let inSubParent = false;
+            // Item normal
+        } else {
+            const inParent = false;
+            const inSubParent = false;
 
             this.items.push(
                 {
-                    id: this.itemId, 
-                    parent: itemParent, 
-                    subParent: itemSubParent, 
-                    name: itemName, 
+                    id: this.itemId,
+                    parent: itemParent,
+                    subParent: itemSubParent,
+                    name: itemName,
+                    status: undefined,
                     url: itemUrl,
                     inParent: inParent,
                     inSubParent: inSubParent,
@@ -411,14 +410,14 @@ export class AddSidebarComponent implements OnInit {
         this.addItemBlock.nativeElement.classList.add('hidden');
     }
 
-    editItem(itemId : number){
-        let itemParentName = this.editItemForm.value.parent;
-        let itemSubParentName = this.editItemForm.value.subParent;
-        let itemName = this.editItemForm.value.name;
-        let itemUrl = this.editItemForm.value.url;
+    editItem(itemId: number) {
+        const itemParentName = this.editItemForm.value.parent;
+        const itemSubParentName = this.editItemForm.value.subParent;
+        const itemName = this.editItemForm.value.name;
+        const itemUrl = this.editItemForm.value.url;
 
-        this.items.forEach(item=>{
-            if(item.id==itemId){
+        this.items.forEach(item => {
+            if (item.id == itemId) {
                 item.parentName = itemParentName;
                 item.subParentName = itemSubParentName;
                 item.name = itemName;
@@ -430,24 +429,25 @@ export class AddSidebarComponent implements OnInit {
         this.editItemBlock.nativeElement.classList.add('hidden');
     }
 
-    addParentItem(){
+    addParentItem() {
         this.itemId++;
-        
-        let itemParent = true;
-        let itemSubParent = false;
-        let itemParentName = this.addParentForm.value.name;
-        let itemName = this.addParentForm.value.name;
-        let itemUrl = '';
-        let inParent = false;
-        let inSubParent = false;
+
+        const itemParent = true;
+        const itemSubParent = false;
+        const itemParentName = this.addParentForm.value.name;
+        const itemName = this.addParentForm.value.name;
+        const itemUrl = '';
+        const inParent = false;
+        const inSubParent = false;
 
         this.items.push(
             {
-                id: this.itemId, 
-                parent: itemParent, 
-                subParent: itemSubParent, 
-                parentName: itemParentName, 
-                name: itemName, 
+                id: this.itemId,
+                parent: itemParent,
+                subParent: itemSubParent,
+                parentName: itemParentName,
+                name: itemName,
+                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 inSubParent: inSubParent,
@@ -459,47 +459,47 @@ export class AddSidebarComponent implements OnInit {
         this.addParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    editParentItem(editParentItemId : number){
-        let itemName = this.editParentForm.value.name;
+    editParentItem(editParentItemId: number) {
+        const itemName = this.editParentForm.value.name;
 
-        this.items.forEach( item =>
-            {
-                if(item.id==editParentItemId){
-                    item.name = itemName;
-                }
+        this.items.forEach(item => {
+            if (item.id == editParentItemId) {
+                item.name = itemName;
             }
+        }
         );
 
         this.editParentItemBlock.nativeElement.classList.remove('grid');
         this.editParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    addSubParentItem(){
+    addSubParentItem() {
         this.itemId++;
-        
-        let itemParent = false;
-        let itemSubParent = true;
-        let itemParentName = this.addSubParentForm.value.parent;
-        let itemSubParentName = this.addSubParentForm.value.name;
-        let itemName = this.addSubParentForm.value.name;
-        let itemUrl = '';
-        let inParent = true;
-        let inSubParent = true;
-        let children = {
-            id: this.itemId, 
-            parent: itemParent, 
-            subParent: itemSubParent, 
-            parentName: itemParentName, 
-            subParentName: itemSubParentName, 
-            name: itemName, 
+
+        const itemParent = false;
+        const itemSubParent = true;
+        const itemParentName = this.addSubParentForm.value.parent;
+        const itemSubParentName = this.addSubParentForm.value.name;
+        const itemName = this.addSubParentForm.value.name;
+        const itemUrl = '';
+        const inParent = true;
+        const inSubParent = true;
+        const children = {
+            id: this.itemId,
+            parent: itemParent,
+            subParent: itemSubParent,
+            parentName: itemParentName,
+            subParentName: itemSubParentName,
+            name: itemName,
+            status: undefined,
             url: itemUrl,
             inParent: inParent,
             inSubParent: inSubParent,
             children: []
         };
 
-        this.items.forEach(item=>{
-            if(item.name==itemParentName){
+        this.items.forEach(item => {
+            if (item.name == itemParentName) {
                 item.children.push(children);
             }
         });
@@ -508,61 +508,62 @@ export class AddSidebarComponent implements OnInit {
         this.addSubParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    editSubParentItem(editParentItemId : number){
-        let itemName = this.editSubParentForm.value.name;
-        let itemParentName = this.editSubParentForm.value.parent;
+    editSubParentItem(editParentItemId: number) {
+        const itemName = this.editSubParentForm.value.name;
+        const itemParentName = this.editSubParentForm.value.parent;
 
-        this.items.forEach( item =>
-            {
-                if(item.id==editParentItemId){
-                    item.parentName = itemParentName;
-                    item.name = itemName;
-                }
+        this.items.forEach(item => {
+            if (item.id == editParentItemId) {
+                item.parentName = itemParentName;
+                item.name = itemName;
             }
+        }
         );
 
         this.editSubParentItemBlock.nativeElement.classList.remove('grid');
         this.editSubParentItemBlock.nativeElement.classList.add('hidden');
     }
-    
-    deleteItem(value: number){
-        this.items.forEach( (item,index) =>
-            {
-                if(item.id==value) this.items.splice(index,1);
-            }
+
+    deleteItem(value: number) {
+        this.items.forEach((item, index) => {
+            if (item.id == value) this.items.splice(index, 1);
+        }
         );
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drop(event: CdkDragDrop<any[]>) {
         moveItemInArray(this.items, event.previousIndex, event.currentIndex);
     }
-    
-    dropChild(event: CdkDragDrop<any[]>, itemParent : any) {
-        
-        this.items.forEach(item=>{
-            if(item.id === itemParent.id){
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dropChild(event: CdkDragDrop<any[]>, itemParent: any) {
+
+        this.items.forEach(item => {
+            if (item.id === itemParent.id) {
                 moveItemInArray(item.children, event.previousIndex, event.currentIndex);
             }
         });
     }
-    
-    dropSubChild(event: CdkDragDrop<any[]>, itemParent : any) {
-        
-        this.items.forEach(item=>{
-            if(item.id === itemParent.id){
-                
-                item.children.forEach(itemChildrenParent=>{
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dropSubChild(event: CdkDragDrop<any[]>, itemParent: any) {
+
+        this.items.forEach(item => {
+            if (item.id === itemParent.id) {
+
+                item.children.forEach(itemChildrenParent => {
                     moveItemInArray(itemChildrenParent.children, event.previousIndex, event.currentIndex);
                 });
             }
         });
     }
 
-    addSidebarForm(){
-        let sidebarName = this._sidebarName.nativeElement.value;
+    addSidebarForm() {
+        const sidebarName = this._sidebarName.nativeElement.value;
         const body = {
             name: sidebarName,
-            items : [ this.items ]
+            items: [this.items]
         };
 
         this.sidebar.addSidebar(body);

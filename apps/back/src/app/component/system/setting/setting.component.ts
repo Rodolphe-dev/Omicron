@@ -6,9 +6,9 @@ import { BreadcrumbsService } from '../../../service/breadcrumbs/breadcrumbs.ser
 import { SettingService } from '../../../service/setting/setting.service';
 
 @Component({
-    selector: 'app-setting',
+    selector: 'omicron-nx-setting',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
@@ -33,13 +33,13 @@ export class SettingComponent implements OnInit {
             maintenanceStatus: ''
         }
     );
-    
+
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private setting : SettingService,
-        public router : Router
-        ) { }
+        private setting: SettingService,
+        public router: Router
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(2);
@@ -53,8 +53,8 @@ export class SettingComponent implements OnInit {
                     this.actualSetting = value;
                     this.appName = this.actualSetting.nameApp;
                     this.maintenanceStatus = this.actualSetting.statusMaintenance;
-                    
-                    this.settingForm.setValue({appName: this.actualSetting.nameApp, maintenanceStatus: this.actualSetting.statusMaintenance});
+
+                    this.settingForm.setValue({ appName: this.actualSetting.nameApp, maintenanceStatus: this.actualSetting.statusMaintenance });
                 },
                 error: () => { },
                 complete: () => { }
@@ -70,15 +70,15 @@ export class SettingComponent implements OnInit {
     }
 
     get nameApp() {
-        return this.settingForm.get('appName') !;
+        return this.settingForm.get('appName')!;
     }
-    
-    editSettingForm(){
+
+    editSettingForm() {
         let settingNameWebsite = this.settingForm.value.appName;
         let settingMaintenance = this.settingForm.value.maintenanceStatus;
         const body = {
             nameApp: settingNameWebsite,
-            statusMaintenance : settingMaintenance
+            statusMaintenance: settingMaintenance
         };
 
         this.setting.editSetting(1, body);

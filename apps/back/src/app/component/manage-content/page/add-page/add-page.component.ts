@@ -7,9 +7,9 @@ import { PageService } from '../../../../service/page/page.service';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @Component({
-    selector: 'app-add-page',
+    selector: 'omicron-nx-add-page',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
@@ -35,11 +35,11 @@ export class AddPageComponent implements OnInit {
     );
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private page : PageService,
-        public router : Router
-        ) { }
+        private page: PageService,
+        public router: Router
+    ) { }
 
 
     ngOnInit() {
@@ -62,17 +62,17 @@ export class AddPageComponent implements OnInit {
     }
 
     get namePage() {
-        return this.pageForm.get('name') !;
+        return this.pageForm.get('name');
     }
 
     get routePage() {
-        return this.pageForm.get('route') !;
+        return this.pageForm.get('route');
     }
 
-    addPageForm(){
-        let pageName = this.pageForm.value.name;
-        let pageRoute = this.pageForm.value.route;
-        let pageContent = this.pageForm.value.content;
+    addPageForm() {
+        const pageName = this.pageForm.value.name;
+        const pageRoute = this.pageForm.value.route;
+        const pageContent = this.pageForm.value.content;
         const body = {
             name: pageName,
             route: pageRoute,

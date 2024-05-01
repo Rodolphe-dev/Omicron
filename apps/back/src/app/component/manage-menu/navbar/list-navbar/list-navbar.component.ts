@@ -4,14 +4,15 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { NavbarService } from '../../../../service/navbar/navbar.service';
+import { AlertService } from '../../../../service/alert/alert.service';
 import { INavbar } from '../../../../model/navbar';
 
 @Component({
-    selector: 'app-list-navbar',
+    selector: 'omicron-nx-list-navbar',
     standalone: true,
-	imports: [
-        CommonModule, 
-        RouterLink, 
+    imports: [
+        CommonModule,
+        RouterLink,
         RouterLinkActive,
         FormsModule
     ],
@@ -32,20 +33,22 @@ export class ListNavbarComponent implements OnInit {
     numberPreviousPage!: number;
     nextPage: string | undefined;
     numberNextPage!: number;
-
-    listNumberPage : number[]= [];
-
-    checked: boolean = false;
-    checkedList : any[] = [];
+    listNumberPage: number[] = [];
+    checked = false;
+    checkedList: number[] = [];
+    offsetMinGetPage!: number;
+    offsetMaxGetPage!: number;
+    offsetMinSwitchPage!: number;
+    offsetMaxSwitchPage!: number;
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
-        public router : Router,
-        private navbar : NavbarService
-        ) {}
+        private breadcrumbs: BreadcrumbsService,
+        public router: Router,
+        private navbar: NavbarService,
+        private alert: AlertService
+    ) { }
 
-    ngOnInit()
-    {
+    ngOnInit() {
         this.breadcrumbs.setLevel(3);
         this.breadcrumbs.setLevelOneValue('Menus');
         this.breadcrumbs.setLevelTwoValue('Navbar');
@@ -57,58 +60,55 @@ export class ListNavbarComponent implements OnInit {
                     this.navbars = value.listItem;
 
                     this.totalItems = value.totalItems;
-                    
-                    if(value.actual != undefined){
+
+                    if (value.actual != undefined) {
                         this.numberActualPage = value.actual.match(/\d+/g).at(0);
-                    }else{
+                    } else {
                         this.numberFirstPage = 1;
                     }
 
                     this.firstPage = value.first;
-                    if(value.first != undefined){
+                    if (value.first != undefined) {
                         this.numberFirstPage = value.first.match((/\d+/g)).at(0);
-                    }else{
+                    } else {
                         this.numberFirstPage = 1;
                     }
-                    
+
                     this.lastPage = value.last;
-                    if(value.last != undefined){
+                    if (value.last != undefined) {
                         this.numberLastPage = value.last.match(/\d+/g).at(0);
-                    }else{
+                    } else {
                         this.numberLastPage = 1;
                     }
 
                     this.previousPage = value.previous;
-                    if(value.previous != undefined){
+                    if (value.previous != undefined) {
                         this.numberPreviousPage = value.previous.match(/\d+/g).at(0);
-                    }else{
+                    } else {
                         this.numberPreviousPage = 1;
                     }
-                    
+
                     this.nextPage = value.next;
-                    if(value.next != undefined){
+                    if (value.next != undefined) {
                         this.numberNextPage = value.next.match(/\d+/g).at(0);
-                    }else{
+                    } else {
                         this.numberNextPage = 1;
                     }
 
-                    let offsetMin = this.numberFirstPage;
-                    if(Number(this.numberNextPage)+1 > Number(this.numberLastPage)){
-                        var offsetMax = Number(this.numberLastPage);
-                    }else{
-                        var offsetMax = Number(this.numberNextPage)+3;
+                    this.offsetMinGetPage = this.numberFirstPage;
+                    if (this.numberNextPage + 1 > this.numberLastPage) {
+                        this.offsetMaxGetPage = this.numberLastPage;
+                    } else {
+                        this.offsetMaxGetPage = this.numberNextPage + 3;
                     }
-                    for (let i = offsetMin; i <= offsetMax; i++) {
+                    for (let i = this.offsetMinGetPage; i <= this.offsetMaxGetPage; i++) {
                         this.listNumberPage.push(i);
                     }
-                },
-                error: () => {},
-                complete: () => {}
-        });
+                }
+            });
     }
 
-    switchPage(pageValue: string)
-    {
+    switchPage(pageValue: string) {
         this.navbar.getNavbarsByPage(pageValue)
             .subscribe({
                 next: value => {
@@ -117,89 +117,102 @@ export class ListNavbarComponent implements OnInit {
                     this.totalItems = value.totalItems;
                     this.numberActualPage = value.actual.match(/\d+/g).at(0);
 
-                    if(value.first != undefined){
+                    if (value.first != undefined) {
                         this.numberFirstPage = value.first.match((/\d+/g)).at(0);
-                    }else{
+                    } else {
                         this.numberFirstPage = 1;
                     }
-                    
+
                     this.lastPage = value.last;
-                    if(value.last != undefined){
+                    if (value.last != undefined) {
                         this.numberLastPage = value.last.match(/\d+/g).at(0);
-                    }else{
+                    } else {
                         this.numberLastPage = 1;
                     }
 
                     this.previousPage = value.previous;
-                    if(value.previous != undefined){
+                    if (value.previous != undefined) {
                         this.numberPreviousPage = value.previous.match(/\d+/g).at(0);
-                    }else{
+                    } else {
                         this.numberPreviousPage = 1;
                     }
-                    
+
                     this.nextPage = value.next;
-                    if(value.next != undefined){
+                    if (value.next != undefined) {
                         this.numberNextPage = value.next.match(/\d+/g).at(0);
-                    }else{
+                    } else {
                         this.numberNextPage = 1;
                     }
 
                     this.listNumberPage.splice(0);
-                    
-                    if(Number(this.numberPreviousPage)-1 < Number(this.numberFirstPage)){
-                        var offsetMin = Number(this.numberFirstPage);
-                    }else{
-                        var offsetMin = Number(this.numberPreviousPage)-1;
+
+                    if (this.numberPreviousPage - 1 < this.numberFirstPage) {
+                        this.offsetMinSwitchPage = this.numberFirstPage;
+                    } else {
+                        this.offsetMinSwitchPage = this.numberPreviousPage - 1;
                     }
-                    if(Number(this.numberNextPage)+1 > Number(this.numberLastPage)){
-                        var offsetMax = Number(this.numberLastPage);
-                    }else{
-                        var offsetMax = Number(this.numberNextPage)+1;
+                    if (this.numberNextPage + 1 > this.numberLastPage) {
+                        this.offsetMaxSwitchPage = this.numberLastPage;
+                    } else {
+                        this.offsetMaxSwitchPage = this.numberNextPage + 1;
                     }
-                    for (let i = offsetMin; i <= offsetMax; i++) {
+                    for (let i = this.offsetMinSwitchPage; i <= this.offsetMaxSwitchPage; i++) {
                         this.listNumberPage.push(i);
                     }
-                },
-                error: () => {},
-                complete: () => {}
-        });
+                }
+            });
     }
 
-    deleteNavbar(id : number)
-    {
+    deleteNavbar(id: number) {
         this.navbar.deleteNavbar(id);
 
-        this.navbars.forEach((item,index)=>{
-            if(item.id==id) this.navbars.splice(index,1);
+        this.navbars.forEach((item, index) => {
+            if (item.id == id) this.navbars.splice(index, 1);
         });
     }
 
     toggleCheckbox() {
-        if(this.checked === false) {
+        if (this.checked === false) {
             this.checked = true;
-            this.navbars.forEach(item=>{
+            this.navbars.forEach(item => {
                 this.checkedList.push(item.id);
             });
-        }else{
+        } else {
             this.checked = false;
             this.checkedList = [];
         }
     }
 
-    onCheckboxChange(event : any) {
-        if (event.target.checked) {
-            this.checkedList.push(event.target.value);
-        }else{
-            this.checkedList.forEach((item,index)=>{
-                if(item==event.target.value) this.checkedList.splice(index,1);
+    onCheckboxChange(event: Event) {
+        const dataCheckedList = <number><unknown>(event.target as HTMLInputElement).value;
+        if ((event.target as HTMLInputElement).checked) {
+            this.checkedList.push(dataCheckedList);
+        } else {
+            this.checkedList.forEach((item, index) => {
+                if (item == dataCheckedList) this.checkedList.splice(index, 1);
             });
         }
     }
 
-    deleteSelectionNavbar(){
-        this.checkedList.forEach(checkedItem=>{
+    deleteSelectionNavbar() {
+        this.checkedList.forEach(checkedItem => {
             this.navbar.deleteNavbar(Number(checkedItem));
         });
+    }
+
+    toggleNavbar(id: number) {
+        this.navbar.toggleNavbarStatus(id)
+            .subscribe(
+                (value) => {
+                    if (value === true) {
+                        const status_item = document.getElementById('status_item') || <HTMLElement><unknown>{ statuts_item: "" };
+                        status_item.textContent = 'Enabled';
+                    } else {
+                        const status_item = document.getElementById('status_item') || <HTMLElement><unknown>{ statuts_item: "" };
+                        status_item.textContent = 'Disabled';
+                    }
+                }
+            );
     }
 
 }

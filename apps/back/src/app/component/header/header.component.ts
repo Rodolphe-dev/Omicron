@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router, NavigationEnd, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../../service/auth/auth.service';
@@ -7,9 +7,9 @@ import { AlertService } from '../../service/alert/alert.service';
 import { AppComponent } from '../../app.component';
 
 @Component({
-    selector: 'app-header',
+    selector: 'omicron-nx-header',
     standalone: true,
-	imports: [
+    imports: [
         RouterLink,
         RouterLinkActive,
         FontAwesomeModule
@@ -23,16 +23,16 @@ export class HeaderComponent implements OnInit {
     myId!: string | null;
 
     constructor(
-        private auth : AuthService,
-        private alert : AlertService,
-        private appComp : AppComponent
-        ) { }
+        private auth: AuthService,
+        private alert: AlertService,
+        private appComp: AppComponent
+    ) { }
 
     ngOnInit() {
         this.myId = this.auth.getUserId();
     }
 
-    logout(){
+    logout() {
         this.appComp.changeIsLoggedIn(false);
         this.auth.logout();
     }

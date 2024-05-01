@@ -5,9 +5,9 @@ import { AuthService } from '../../service/auth/auth.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-    selector: 'app-sidebar',
+    selector: 'omicron-nx-sidebar',
     standalone: true,
-	imports: [CommonModule, RouterLink, RouterLinkActive],
+    imports: [CommonModule, RouterLink, RouterLinkActive],
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css']
 })
@@ -20,76 +20,76 @@ export class SidebarComponent implements OnInit {
 
     docAPIUrl!: string;
     isSuperAdmin!: string | null;
-    
+
     constructor(
-        public router : Router,
-        private auth : AuthService
-        ) { 
+        public router: Router,
+        private auth: AuthService
+    ) {
     }
 
     ngOnInit() {
         this.docAPIUrl = environment.apiURL + '/api';
-        
+
         this.isSuperAdmin = this.auth.getSuperAdmin();
 
         //Check if route contain parent menu for open/close the parent
         this.router.events.subscribe(e => {
             if (e instanceof NavigationEnd) {
-                let actualRoute = e.url;
+                const actualRoute = e.url;
 
                 //Check Parent -> Menu
-                let menuNavbar = actualRoute.includes('navbar');
-                let menuSidebar = actualRoute.includes('sidebar');
-                let menuFooter = actualRoute.includes('footer');
+                const menuNavbar = actualRoute.includes('navbar');
+                const menuSidebar = actualRoute.includes('sidebar');
+                const menuFooter = actualRoute.includes('footer');
 
-                if(menuNavbar === true ||  menuSidebar === true || menuFooter === true){
+                if (menuNavbar === true || menuSidebar === true || menuFooter === true) {
                     this.detailsMenu.nativeElement.setAttribute('open', '');
                     this.detailsMenu.nativeElement.removeAttribute('close');
-                }else{
+                } else {
                     this.detailsMenu.nativeElement.setAttribute('close', '');
                     this.detailsMenu.nativeElement.removeAttribute('open');
                 }
 
                 //Check Parent -> Content
-                let contentPage = actualRoute.includes('page');
+                const contentPage = actualRoute.includes('page');
 
-                if(contentPage === true){
+                if (contentPage === true) {
                     this.detailsContent.nativeElement.setAttribute('open', '');
                     this.detailsContent.nativeElement.removeAttribute('close');
-                }else{
+                } else {
                     this.detailsContent.nativeElement.setAttribute('close', '');
                     this.detailsContent.nativeElement.removeAttribute('open');
                 }
 
                 //Check Parent -> Design
-                let contentTheme = actualRoute.includes('theme');
+                const contentTheme = actualRoute.includes('theme');
 
-                if(contentTheme === true){
+                if (contentTheme === true) {
                     this.detailsDesign.nativeElement.setAttribute('open', '');
                     this.detailsDesign.nativeElement.removeAttribute('close');
-                }else{
+                } else {
                     this.detailsDesign.nativeElement.setAttribute('close', '');
                     this.detailsDesign.nativeElement.removeAttribute('open');
                 }
 
                 //Check Parent -> Account
-                let contentAccount = actualRoute.includes('account');
+                const contentAccount = actualRoute.includes('account');
 
-                if(contentAccount === true){
+                if (contentAccount === true) {
                     this.detailsAccount.nativeElement.setAttribute('open', '');
                     this.detailsAccount.nativeElement.removeAttribute('close');
-                }else{
+                } else {
                     this.detailsAccount.nativeElement.setAttribute('close', '');
                     this.detailsAccount.nativeElement.removeAttribute('open');
                 }
 
                 //Check Parent -> System
-                let contentSystem = actualRoute.includes('system');
+                const contentSystem = actualRoute.includes('system');
 
-                if(contentSystem === true){
+                if (contentSystem === true) {
                     this.detailsSystem.nativeElement.setAttribute('open', '');
                     this.detailsSystem.nativeElement.removeAttribute('close');
-                }else{
+                } else {
                     this.detailsSystem.nativeElement.setAttribute('close', '');
                     this.detailsSystem.nativeElement.removeAttribute('open');
                 }

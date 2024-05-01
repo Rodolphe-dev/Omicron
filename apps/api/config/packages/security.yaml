@@ -25,6 +25,21 @@ security:
       stateless: true
       provider: users
       jwt: ~
+    updateNavbarStatus:
+      pattern: ^/api/navbars/updateNavbarStatus/[0-9]+$
+      stateless: true
+      provider: users
+      jwt: ~
+    updateSidebarStatus:
+      pattern: ^/api/sidebars/updateSidebarStatus/[0-9]+$
+      stateless: true
+      provider: users
+      jwt: ~
+    updateFooterStatus:
+      pattern: ^/api/footers/updateFooterStatus/[0-9]+$
+      stateless: true
+      provider: users
+      jwt: ~
     main:
       json_login:
         check_path: /auth # The name in routes.yaml is enough for mapping
@@ -33,7 +48,8 @@ security:
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
   access_control:
-    - { path: ^/api, roles: PUBLIC_ACCESS } # Allows accessing API documentations and Swagger UI docs
     - { path: ^/auth, roles: PUBLIC_ACCESS }
-    - { path: ^/verify, roles: PUBLIC_ACCESS }
-    - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/verify, roles: IS_AUTHENTICATED_FULLY }
+    - { path: '^/api/navbars/updateNavbarStatus/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }
+    - { path: '^/api/sidebars/updateSidebarStatus/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }
+    - { path: '^/api/footers/updateFooterStatus/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }

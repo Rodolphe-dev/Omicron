@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -11,15 +11,15 @@ import { INavbar } from '../../../../model/navbar';
 import { SettingService } from '../../../../service/setting/setting.service';
 
 @Component({
-    selector: 'app-add-navbar',
+    selector: 'omicron-nx-add-navbar',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
         FormsModule,
         ReactiveFormsModule,
-        FontAwesomeModule, 
+        FontAwesomeModule,
         CdkDropList,
         CdkDrag
     ],
@@ -32,8 +32,8 @@ import { SettingService } from '../../../../service/setting/setting.service';
 })
 export class AddNavbarComponent implements OnInit {
 
-	faTrash = faTrash;
-	faPencil = faPencil;
+    faTrash = faTrash;
+    faPencil = faPencil;
 
     @ViewChild('navbarName') _navbarName!: ElementRef;
     @ViewChild('addItemBlock') addItemBlock!: ElementRef;
@@ -44,9 +44,9 @@ export class AddNavbarComponent implements OnInit {
     actualSetting: any = {};
     website!: string;
 
-    itemId : number = 0;
+    itemId = 0;
 
-    items : INavbar[] = [];
+    items: INavbar[] = [];
 
     addNavbarFormGroup = this.formBuilder.group(
         {
@@ -83,20 +83,20 @@ export class AddNavbarComponent implements OnInit {
     );
 
     editItemId!: number;
-    editParentItemName: string | undefined;
-    editItemName: string | undefined;
-    editItemUrl: string | undefined;
+    editParentItemName: string | null | undefined;
+    editItemName: string | null | undefined;
+    editItemUrl: string | null | undefined;
 
     editParentItemId!: number;
-    editParentName: string | undefined;
+    editParentName: string | null | undefined;
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private navbar : NavbarService,
-        private setting : SettingService,
-        public router : Router
-        ) { }
+        private navbar: NavbarService,
+        private setting: SettingService,
+        public router: Router
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(3);
@@ -109,9 +109,7 @@ export class AddNavbarComponent implements OnInit {
                 next: value => {
                     this.actualSetting = value;
                     this.website = this.actualSetting.nameApp;
-                },
-                error: () => { },
-                complete: () => { }
+                }
             });
 
         this.addNavbarFormGroup = new FormGroup({
@@ -155,63 +153,63 @@ export class AddNavbarComponent implements OnInit {
     }
 
     get navbarNameInput() {
-        return this.addNavbarFormGroup.get('navbarNameInput') !;
+        return this.addNavbarFormGroup.get('navbarNameInput');
     }
 
     get nameItem() {
-        return this.addItemForm.get('name') !;
+        return this.addItemForm.get('name');
     }
 
     get urlItem() {
-        return this.addItemForm.get('url') !;
+        return this.addItemForm.get('url');
     }
 
     get nameEditItem() {
-        return this.editItemForm.get('name') !;
+        return this.editItemForm.get('name');
     }
 
     get urlEditItem() {
-        return this.editItemForm.get('url') !;
+        return this.editItemForm.get('url');
     }
 
     get nameParentItem() {
-        return this.addParentForm.get('name') !;
+        return this.addParentForm.get('name');
     }
 
     get nameEditParentItem() {
-        return this.editParentForm.get('name') !;
+        return this.editParentForm.get('name');
     }
-    
-    hideItemHtml(){
+
+    hideItemHtml() {
         this.addItemBlock.nativeElement.classList.remove('grid');
         this.addItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideEditItemHtml(){
+    hideEditItemHtml() {
         this.editItemBlock.nativeElement.classList.remove('grid');
         this.editItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideParentItemHtml(){
+    hideParentItemHtml() {
         this.addParentItemBlock.nativeElement.classList.remove('grid');
         this.addParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    hideEditParentItemHtml(){
+    hideEditParentItemHtml() {
         this.editItemBlock.nativeElement.classList.remove('grid');
         this.editItemBlock.nativeElement.classList.add('hidden');
     }
 
-    showItemHtml(){
+    showItemHtml() {
         this.addItemBlock.nativeElement.classList.remove('hidden');
         this.addItemBlock.nativeElement.classList.add('grid');
-        
+
         this.hideParentItemHtml();
         this.hideEditItemHtml();
         this.hideEditParentItemHtml();
     }
 
-    showEditItemHtml(item: any){
+    showEditItemHtml(item: INavbar) {
         this.editItemBlock.nativeElement.classList.remove('hidden');
         this.editItemBlock.nativeElement.classList.add('grid');
 
@@ -225,7 +223,7 @@ export class AddNavbarComponent implements OnInit {
         this.editItemId = item.id;
     }
 
-    showParentItemHtml(){
+    showParentItemHtml() {
         this.addParentItemBlock.nativeElement.classList.remove('hidden');
         this.addParentItemBlock.nativeElement.classList.add('grid');
 
@@ -234,7 +232,7 @@ export class AddNavbarComponent implements OnInit {
         this.hideEditParentItemHtml();
     }
 
-    showEditParentItemHtml(item: any){
+    showEditParentItemHtml(item: INavbar) {
         this.editParentItemBlock.nativeElement.classList.remove('hidden');
         this.editParentItemBlock.nativeElement.classList.add('grid');
 
@@ -246,42 +244,43 @@ export class AddNavbarComponent implements OnInit {
         this.editParentItemId = item.id;
     }
 
-    addItem(){
+    addItem() {
         this.itemId++;
 
-        let itemParent = false;
-        let itemName = this.addItemForm.value.name;
-        let itemUrl = this.addItemForm.value.url;
+        const itemParent = false;
+        const itemName = this.addItemForm.value.name;
+        const itemUrl = this.addItemForm.value.url;
 
-        if(this.addItemForm.value.parent != '')
-        {
-            let itemParentName = this.addItemForm.value.parent;
-            let inParent = true;
-            let children = {
-                id: this.itemId, 
-                parent: itemParent, 
-                parentName: itemParentName, 
-                name: itemName, 
+        if (this.addItemForm.value.parent != '') {
+            const itemParentName = this.addItemForm.value.parent;
+            const inParent = true;
+            const children = {
+                id: this.itemId,
+                parent: itemParent,
+                parentName: itemParentName,
+                name: itemName,
+                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 children: []
             };
 
-            this.items.forEach(item=>{
-                if(item.name==itemParentName){
+            this.items.forEach(item => {
+                if (item.name == itemParentName) {
                     item.children.push(children);
                 }
             });
 
-        }else{
-            let inParent = false;
+        } else {
+            const inParent = false;
 
             this.items.push(
                 {
-                    id: this.itemId, 
-                    parent: itemParent, 
-                    parentName: '', 
-                    name: itemName, 
+                    id: this.itemId,
+                    parent: itemParent,
+                    parentName: '',
+                    name: itemName,
+                    status: undefined,
                     url: itemUrl,
                     inParent: inParent,
                     children: []
@@ -293,13 +292,13 @@ export class AddNavbarComponent implements OnInit {
         this.addItemBlock.nativeElement.classList.add('hidden');
     }
 
-    editItem(itemId : number){
-        let itemParentName = this.editItemForm.value.parent;
-        let itemName = this.editItemForm.value.name;
-        let itemUrl = this.editItemForm.value.url;
+    editItem(itemId: number) {
+        const itemParentName = this.editItemForm.value.parent;
+        const itemName = this.editItemForm.value.name;
+        const itemUrl = this.editItemForm.value.url;
 
-        this.items.forEach(item=>{
-            if(item.id==itemId){
+        this.items.forEach(item => {
+            if (item.id == itemId) {
                 item.parentName = itemParentName;
                 item.name = itemName;
                 item.url = itemUrl;
@@ -310,21 +309,22 @@ export class AddNavbarComponent implements OnInit {
         this.editItemBlock.nativeElement.classList.add('hidden');
     }
 
-    addParentItem(){
+    addParentItem() {
         this.itemId++;
-        
-        let itemParent = true;
-        let itemParentName = this.addParentForm.value.name;
-        let itemName = this.addParentForm.value.name;
-        let itemUrl = '';
-        let inParent = false;
+
+        const itemParent = true;
+        const itemParentName = this.addParentForm.value.name;
+        const itemName = this.addParentForm.value.name;
+        const itemUrl = '';
+        const inParent = false;
 
         this.items.push(
             {
-                id: this.itemId, 
-                parent: itemParent, 
-                parentName: itemParentName, 
-                name: itemName, 
+                id: this.itemId,
+                parent: itemParent,
+                parentName: itemParentName,
+                name: itemName,
+                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 children: []
@@ -335,47 +335,48 @@ export class AddNavbarComponent implements OnInit {
         this.addParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    editParentItem(editParentItemId : number){
-        let itemName = this.editParentForm.value.name;
+    editParentItem(editParentItemId: number) {
+        const itemName = this.editParentForm.value.name;
 
-        this.items.forEach( item =>
-            {
-                if(item.id==editParentItemId){
-                    item.name = itemName;
-                }
+        this.items.forEach(item => {
+            if (item.id == editParentItemId) {
+                item.name = itemName;
             }
+        }
         );
 
         this.editParentItemBlock.nativeElement.classList.remove('grid');
         this.editParentItemBlock.nativeElement.classList.add('hidden');
     }
 
-    deleteItem(value: number){
-        this.items.forEach( (item,index) =>
-            {
-                if(item.id==value) this.items.splice(index,1);
-            }
+    deleteItem(value: number) {
+        this.items.forEach((item, index) => {
+            if (item.id == value) this.items.splice(index, 1);
+        }
         );
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drop(event: CdkDragDrop<any[]>) {
         moveItemInArray(this.items, event.previousIndex, event.currentIndex);
     }
 
-    dropChild(event: CdkDragDrop<any[]>, itemParent : any) {
-        
-        this.items.forEach(item=>{
-            if(item.id === itemParent.id){
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dropChild(event: CdkDragDrop<any[]>, itemParent: any) {
+
+        this.items.forEach(item => {
+            if (item.id === itemParent.id) {
                 moveItemInArray(item.children, event.previousIndex, event.currentIndex);
             }
         });
     }
 
-    addNavbarForm(){
-        let navbarName = this._navbarName.nativeElement.value;
+    addNavbarForm() {
+        const navbarName = this._navbarName.nativeElement.value;
         const body = {
             name: navbarName,
-            items : [ this.items ]
+            status: false,
+            items: [this.items]
         };
 
         this.navbar.addNavbar(body);

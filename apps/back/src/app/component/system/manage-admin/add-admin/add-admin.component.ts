@@ -6,10 +6,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { AdminAccountService } from '../../../../service/adminAccount/adminAccount.service';
-import { IAdminAccount } from '../../../../model/adminAccount';
 
 @Component({
-    selector: 'app-add-admin',
+    selector: 'omicron-nx-add-admin',
     standalone: true,
     imports: [
         CommonModule,
@@ -27,8 +26,8 @@ export class AddAdminComponent implements OnInit {
 
     faEye = faEye
     faEyeSlash = faEyeSlash
-
-    showPassword: boolean = false;
+    showPassword = false;
+    superAdmin!: boolean;
 
     adminForm = this.formBuilder.group(
         {
@@ -40,18 +39,18 @@ export class AddAdminComponent implements OnInit {
     );
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private admin : AdminAccountService,
-        public router : Router
-        ) { }
+        private admin: AdminAccountService,
+        public router: Router
+    ) { }
 
     ngOnInit() {
         this.breadcrumbs.setLevel(3);
         this.breadcrumbs.setLevelOneValue('System');
         this.breadcrumbs.setLevelTwoValue('Admin Accounts');
         this.breadcrumbs.setLevelThreeValue('Add Admin');
-        
+
         this.adminForm = new FormGroup({
             username: new FormControl('', [
                 Validators.required,
@@ -76,38 +75,38 @@ export class AddAdminComponent implements OnInit {
     }
 
     get usernameInput() {
-        return this.adminForm.get('username') !;
+        return this.adminForm.get('username');
     }
 
     get passwordInput() {
-        return this.adminForm.get('password') !;
+        return this.adminForm.get('password');
     }
 
     get emailInput() {
-        return this.adminForm.get('email') !;
+        return this.adminForm.get('email');
     }
 
-    togglePasswordVisibility(){
+    togglePasswordVisibility() {
         this.showPassword = !this.showPassword;
     }
 
-    addAdminForm(){
-        let username = this.adminForm.value.username;
-        let email = this.adminForm.value.email;
-        let password = this.adminForm.value.password;
+    addAdminForm() {
+        const username = this.adminForm.value.username;
+        const email = this.adminForm.value.email;
+        const password = this.adminForm.value.password;
 
         // BUG checkbox at render dont have value so here a quick fix
-        if(this.adminForm.value.superAdmin){
-            var superAdmin = Boolean(this.adminForm.value.superAdmin);
-        }else{
-            var superAdmin = false;
+        if (this.adminForm.value.superAdmin) {
+            this.superAdmin = Boolean(this.adminForm.value.superAdmin);
+        } else {
+            this.superAdmin = false;
         }
 
         const body = {
             username: username,
-            email : email,
+            email: email,
             plainPassword: password,
-            superadmin: superAdmin
+            superadmin: this.superAdmin
         };
 
         this.admin.addAdminAccount(body);

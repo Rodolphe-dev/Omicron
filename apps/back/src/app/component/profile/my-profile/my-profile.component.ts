@@ -6,10 +6,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { BreadcrumbsService } from '../../../service/breadcrumbs/breadcrumbs.service';
 import { AdminAccountService } from '../../../service/adminAccount/adminAccount.service';
-import { IAdminAccount } from '../../../model/adminAccount';
 
 @Component({
-    selector: 'app-my-profile',
+    selector: 'omicron-nx-my-profile',
     standalone: true,
     imports: [
         CommonModule,
@@ -27,9 +26,7 @@ export class MyProfileComponent implements OnInit {
 
     faEye = faEye
     faEyeSlash = faEyeSlash
-
-    showPassword: boolean = false;
-
+    showPassword = false;
     id!: string | null;
     actualAdmin: any = {};
     adminIdValue!: number;
@@ -37,6 +34,7 @@ export class MyProfileComponent implements OnInit {
     adminEmailValue!: string;
     adminPasswordValue!: string;
     adminSuperAdminValue!: boolean;
+    superAdmin!: boolean;
 
     adminForm = this.formBuilder.group(
         {
@@ -54,77 +52,74 @@ export class MyProfileComponent implements OnInit {
     );
 
     constructor(
-        private breadcrumbs : BreadcrumbsService,
+        private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
-        private admin : AdminAccountService,
-        public router : Router,
+        private admin: AdminAccountService,
+        public router: Router,
         private route: ActivatedRoute
-        ) { }
+    ) { }
 
 
-        ngOnInit() {
-            this.breadcrumbs.setLevel(1);
-            this.breadcrumbs.setLevelOneValue('My Profile');
-            this.breadcrumbs.setLevelTwoValue('');
-            this.breadcrumbs.setLevelThreeValue('');
-    
-            this.id = this.route.snapshot.paramMap.get('id');
-    
-            this.admin.getThisAdminAccount(this.id)
-                .subscribe({
-                    next: value => {
-                        this.actualAdmin = value;
-                        this.adminIdValue = this.actualAdmin.id;
-                        this.adminUsernameValue = this.actualAdmin.username;
-                        this.adminEmailValue = this.actualAdmin.email;
-                        this.adminSuperAdminValue = this.actualAdmin.superadmin;
-                        
-                        this.adminForm.setValue({username: this.actualAdmin.username, email: this.actualAdmin.email, superAdmin: this.actualAdmin.superadmin});
-                    },
-                    error: () => { },
-                    complete: () => { }
-                });
-            
+    ngOnInit() {
+        this.breadcrumbs.setLevel(1);
+        this.breadcrumbs.setLevelOneValue('My Profile');
+        this.breadcrumbs.setLevelTwoValue('');
+        this.breadcrumbs.setLevelThreeValue('');
+
+        this.id = this.route.snapshot.paramMap.get('id');
+
+        this.admin.getThisAdminAccount(this.id)
+            .subscribe({
+                next: value => {
+                    this.actualAdmin = value;
+                    this.adminIdValue = this.actualAdmin.id;
+                    this.adminUsernameValue = this.actualAdmin.username;
+                    this.adminEmailValue = this.actualAdmin.email;
+                    this.adminSuperAdminValue = this.actualAdmin.superadmin;
+
+                    this.adminForm.setValue({ username: this.actualAdmin.username, email: this.actualAdmin.email, superAdmin: this.actualAdmin.superadmin });
+                }
+            });
+
+    }
+
+    togglePasswordVisibility() {
+        this.showPassword = !this.showPassword;
+    }
+
+    editAdminForm() {
+        const username = this.adminForm.value.username;
+        const email = this.adminForm.value.email;
+
+        // BUG checkbox at render dont have value so here a quick fix
+        if (this.adminForm.value.superAdmin) {
+            this.superAdmin = Boolean(this.adminForm.value.superAdmin);
+        } else {
+            this.superAdmin = false;
         }
 
-        togglePasswordVisibility(){
-            this.showPassword = !this.showPassword;
-        }
-    
-        editAdminForm() {
-            let username = this.adminForm.value.username;
-            let email = this.adminForm.value.email;
-    
-            // BUG checkbox at render dont have value so here a quick fix
-            if(this.adminForm.value.superAdmin){
-                var superAdmin = Boolean(this.adminForm.value.superAdmin);
-            }else{
-                var superAdmin = false;
-            }
-    
+        const body = {
+            username: username,
+            email: email,
+            superadmin: this.superAdmin
+        };
+
+        this.admin.editMyAdminAccount(this.adminIdValue, body);
+    }
+
+    editAdminPasswordForm() {
+        const password = this.adminPasswordForm.value.password;
+        const confirmPassword = this.adminPasswordForm.value.confirmPassword;
+
+        if (confirmPassword === password) {
             const body = {
-                username: username,
-                email : email,
-                superadmin: superAdmin
+                plainPassword: password
             };
-    
-            this.admin.editAdminAccount(this.adminIdValue, body);
+
+            this.admin.editMyAdminAccount(this.adminIdValue, body);
+        } else {
+            // TODO : need add toast error and put red label on password input
         }
-    
-        editAdminPasswordForm() {
-            let password = this.adminPasswordForm.value.password;
-            let confirmPassword = this.adminPasswordForm.value.confirmPassword;
-    
-            if(confirmPassword === password)
-            {
-                const body = {
-                    plainPassword: password
-                };
-    
-                this.admin.editAdminAccount(this.adminIdValue, body);
-            }else{
-                // TODO : need add toast error and put red label on password input
-            }
-        }
+    }
 
 }

@@ -21,7 +21,7 @@ export class SettingService {
         ) { }
 
     /** Get Setting by id */
-    getThisSetting(value : any){
+    getThisSetting(value : number){
         return this.httpClient.get(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader});
     }
 
@@ -30,7 +30,7 @@ export class SettingService {
         this.httpClient.patch(this.baseUrl + this.getUrl + id,  value, {headers: this.MergeJsonHeader})
         .subscribe({
             next: () => {
-                let options = {
+                const options = {
                     autoClose: true,
                     keepAfterRouteChange: true
                 }
@@ -38,14 +38,13 @@ export class SettingService {
                 this.alert.success('Settings are edited', options);
             },
             error: () => {
-                let options = {
+                const options = {
                     autoClose: true,
                     keepAfterRouteChange: true
                 }
 
                 this.alert.error('Settings are not edited', options);
-            },
-            complete: () => {}
+            }
         });
     }
 }

@@ -1,0 +1,14 @@
+{
+    "/api": {
+        "target": "https://localhost:8000",
+        "secure": false
+    },
+    "/auth": {
+        "target": "https://localhost:8000/",
+        "secure": false
+    },
+    "/logout": {
+        "target": "https://localhost:8000/",
+        "secure": false
+    }
+}

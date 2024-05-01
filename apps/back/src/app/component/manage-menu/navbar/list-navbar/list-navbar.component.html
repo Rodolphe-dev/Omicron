@@ -16,32 +16,44 @@
             <tr>
                 <th class="w-4">
                     <label>
-                        <input type="checkbox" class="checkbox" [checked]="checked" [ngModel]="checked" (click)="toggleCheckbox()" />
+                        <input type="checkbox" class="checkbox" [checked]="checked" [ngModel]="checked"
+                            (click)="toggleCheckbox()" />
                     </label>
                 </th>
                 <th>Name</th>
+                <th>Status</th>
                 <th class="w-1/5">Actions</th>
             </tr>
         </thead>
-        
+
         <!-- body -->
         <tbody>
             @for(item of navbars; track $index){
-                <tr>
-                    <th class="w-4">
-                        <label>
-                            <input type="checkbox" class="checkbox" (change)="onCheckboxChange($event)" [ngModel]="checked" name="checkbox" value="{{item.id}}" />
-                        </label>
-                    </th>
-                    <td>
-                        {{item.name}}
-                    </td>
-                    <th class="w-1/5">
-                        <a class="btn mx-1 btn-info btn-xs" routerLink="/navbar/view/{{item.id}}">Details</a>
-                        <a class="btn mx-1 btn-warning btn-xs" routerLink="/navbar/edit/{{item.id}}">Edit</a>
-                        <a class="btn mx-1 btn-error btn-xs" (click)="deleteNavbar(item.id)">Delete</a>
-                    </th>
-                </tr>
+            <tr>
+                <th class="w-4">
+                    <label>
+                        <input type="checkbox" class="checkbox" (change)="onCheckboxChange($event)" [ngModel]="checked"
+                            name="checkbox" value="{{item.id}}" />
+                    </label>
+                </th>
+                <td>
+                    {{item.name}}
+                </td>
+                <td>
+                    <span class="btn mx-1 btn-info btn-xs" id="status_item" (click)=" toggleNavbar(item.id)">
+                        @if(item.status === true){
+                        Enabled
+                        }@else {
+                        Disabled
+                        }
+                    </span>
+                </td>
+                <th class=" w-1/5">
+                    <a class="btn mx-1 btn-info btn-xs" routerLink="/navbar/view/{{item.id}}">Details</a>
+                    <a class="btn mx-1 btn-warning btn-xs" routerLink="/navbar/edit/{{item.id}}">Edit</a>
+                    <a class="btn mx-1 btn-error btn-xs" (click)="deleteNavbar(item.id)">Delete</a>
+                </th>
+            </tr>
             }
         </tbody>
     </table>
@@ -49,26 +61,26 @@
     <div class="grid gap-4 place-items-center p-3 bg-base-200">
         <div class="join">
             @if (previousPage === undefined) {
-                <a class="join-item btn" disabled>«</a>
+            <a class="join-item btn" disabled>«</a>
             }
             @else{
-                <a (click)="switchPage(previousPage)" class="join-item btn">«</a>
+            <a (click)="switchPage(previousPage)" class="join-item btn">«</a>
             }
 
             @for(item of listNumberPage; track $index){
-                @if (numberActualPage == item) {
-                    <a class="join-item btn btn-active cursor-default">{{item}}</a>
-                }
-                @else {
-                    <a (click)="switchPage('/api/navbars?page='+item)" class="join-item btn">{{item}}</a>
-                }
+            @if (numberActualPage == item) {
+            <a class="join-item btn btn-active cursor-default">{{item}}</a>
             }
-            
+            @else {
+            <a (click)="switchPage('/api/navbars?page='+item)" class="join-item btn">{{item}}</a>
+            }
+            }
+
             @if (nextPage === undefined) {
-                <a class="join-item btn" disabled>»</a>
+            <a class="join-item btn" disabled>»</a>
             }
             @else{
-                <a (click)="switchPage(nextPage)" class="join-item btn">»</a>
+            <a (click)="switchPage(nextPage)" class="join-item btn">»</a>
             }
         </div>
     </div>

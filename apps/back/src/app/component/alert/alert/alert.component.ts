@@ -11,7 +11,7 @@ import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 import { faXmark, faCircleExclamation, faCircleInfo, faCircleRadiation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-    selector: 'app-alert',
+    selector: 'omicron-nx-alert',
     standalone: true,
     imports: [
         CommonModule,
@@ -93,14 +93,14 @@ export class AlertComponent implements OnInit, OnDestroy {
         if (!alert) return;
 
         const classes = ['alert', 'alert-dismissible'];
-                
+
         const alertTypeClass = {
             [AlertType.Success]: 'alert-success',
             [AlertType.Error]: 'alert-error',
             [AlertType.Info]: 'alert-info',
             [AlertType.Warning]: 'alert-warning'
         }
-        
+
         if (alert.type !== undefined) {
             classes.push(alertTypeClass[alert.type]);
         }

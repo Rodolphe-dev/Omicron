@@ -6,9 +6,9 @@ import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.
 import { FooterService } from '../../../../service/footer/footer.service';
 
 @Component({
-    selector: 'app-view-footer',
+    selector: 'omicron-nx-view-footer',
     standalone: true,
-	imports: [
+    imports: [
         CommonModule,
         RouterLink,
         RouterLinkActive,
@@ -25,6 +25,7 @@ export class ViewFooterComponent implements OnInit {
     actualFooter: any = {};
     footerIdValue!: number;
     footerNameValue!: string;
+    footerStatus!: string;
     footerContentValue!: string;
 
     constructor(
@@ -48,10 +49,15 @@ export class ViewFooterComponent implements OnInit {
                     this.actualFooter = value;
                     this.footerIdValue = this.actualFooter.id;
                     this.footerNameValue = this.actualFooter.name;
+
+                    if (this.actualFooter.status === true) {
+                        this.footerStatus = "Enabled";
+                    } else {
+                        this.footerStatus = "Disabled";
+                    }
+
                     this.footerContentValue = this.actualFooter.content;
-                },
-                error: () => { },
-                complete: () => { }
+                }
             });
     }
 

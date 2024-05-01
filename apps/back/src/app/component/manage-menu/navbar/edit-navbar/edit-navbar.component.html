@@ -7,20 +7,37 @@
 </div>
 
 <div [formGroup]="editNavbarFormGroup" class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
-    <label class="form-control w-full max-w-xs">
-        <div class="label">
-            <span class="label-text font-semibold">Name</span>
-        </div>
-        <input type="text" name="navbarName" formControlName="navbarName" #navbarName placeholder="Type here" class="{{ navbarNameInput.invalid && (navbarNameInput.dirty || navbarNameInput.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+    <div class="col-span-2 justify-self-start self-start">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text font-semibold">Name</span>
+            </div>
+            <input type="text" name="navbarName" formControlName="navbarName" #navbarName placeholder="Type here"
+                class="{{ navbarNameInput?.invalid && (navbarNameInput?.dirty || navbarNameInput?.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
 
-        @if(navbarNameInput.invalid && (navbarNameInput.dirty || navbarNameInput.touched)){
-            @if(navbarNameInput.errors?.['required']){
-                <div class="label">
-                    <span class="label-text-alt text-error">Navbar name is required.</span>
-                </div>
+            @if(navbarNameInput?.invalid && (navbarNameInput?.dirty || navbarNameInput?.touched)){
+            @if(navbarNameInput?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error">Navbar name is required.</span>
+            </div>
             }
-        }
-    </label>
+            }
+        </label>
+    </div>
+    <div class="col-span-2 justify-self-start self-start">
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text font-semibold">Status:</span>
+            </div>
+            <span class="btn mx-1 btn-info btn-xs" id="status_item" (click)=" toggleNavbar(navbarIdValue)">
+                @if(navbarStatus === true){
+                Enabled
+                }@else {
+                Disabled
+                }
+            </span>
+        </label>
+    </div>
 </div>
 
 <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
@@ -37,31 +54,34 @@
             <select id="parent" formControlName="parent" class="select select-md select-bordered max-w-xs mx-1">
                 <option selected value="">No parent</option>
                 @for(item of items; track $index){
-                    @if(item.parent === true){
-                        <option>{{item.name}}</option>
-                    }
+                @if(item.parent === true){
+                <option>{{item.name}}</option>
+                }
                 }
             </select>
 
-            <input type="text" id="name" formControlName="name" placeholder="Item name" class="{{ nameItem.invalid && (nameItem.dirty || nameItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" id="name" formControlName="name" placeholder="Item name"
+                class="{{ nameItem?.invalid && (nameItem?.dirty || nameItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
-            <input type="text" id="url" formControlName="url" placeholder="Item url" class="{{ urlItem.invalid && (urlItem.dirty || urlItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" id="url" formControlName="url" placeholder="Item url"
+                class="{{ urlItem?.invalid && (urlItem?.dirty || urlItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideItemHtml()">Cancel</a>
 
-            @if(nameItem.invalid && (nameItem.dirty || nameItem.touched) || urlItem.invalid && (urlItem.dirty || urlItem.touched)){
-                @if(nameItem.errors?.['required']){
-                    <div class="label">
-                        <span class="label-text-alt text-error">Name is required.</span>
-                    </div>
-                }
+            @if(nameItem?.invalid && (nameItem?.dirty || nameItem?.touched) || urlItem?.invalid && (urlItem?.dirty ||
+            urlItem?.touched)){
+            @if(nameItem?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error">Name is required.</span>
+            </div>
+            }
 
-                @if(urlItem.errors?.['required']){
-                    <div class="label">
-                        <span class="label-text-alt text-error">Url is required.</span>
-                    </div>
-                }
+            @if(urlItem?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error">Url is required.</span>
+            </div>
+            }
             }
         </form>
     </div>
@@ -74,34 +94,37 @@
             <select id="parent" formControlName="parent" class="select select-md select-bordered max-w-xs mx-1">
                 <option selected value="">No parent</option>
                 @for(item of items; track $index){
-                    @if(item.parent === true && editParentItemName === item.parentName){
-                        <option selected>{{item.name}}</option>
-                    }
-                    @else if(item.parent === true) {
-                        <option>{{item.name}}</option>
-                    }
+                @if(item.parent === true && editParentItemName === item.parentName){
+                <option selected>{{item.name}}</option>
+                }
+                @else if(item.parent === true) {
+                <option>{{item.name}}</option>
+                }
                 }
             </select>
 
-            <input type="text" value="{{editItemName}}" id="name" formControlName="name" placeholder="Item name" class="{{ nameEditItem.invalid && (nameEditItem.dirty || nameEditItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" value="{{editItemName}}" id="name" formControlName="name" placeholder="Item name"
+                class="{{ nameEditItem?.invalid && (nameEditItem?.dirty || nameEditItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
-            <input type="text" value="{{editItemUrl}}" id="url" formControlName="url" placeholder="Item url" class="{{ urlEditItem.invalid && (urlEditItem.dirty || urlEditItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" value="{{editItemUrl}}" id="url" formControlName="url" placeholder="Item url"
+                class="{{ urlEditItem?.invalid && (urlEditItem?.dirty || urlEditItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Edit</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideEditItemHtml()">Cancel</a>
 
-            @if(nameEditItem.invalid && (nameEditItem.dirty || nameEditItem.touched) || urlEditItem.invalid && (urlEditItem.dirty || urlEditItem.touched)){
-                @if(nameEditItem.errors?.['required']){
-                    <div class="label">
-                        <span class="label-text-alt text-error">Name is required.</span>
-                    </div>
-                }
+            @if(nameEditItem?.invalid && (nameEditItem?.dirty || nameEditItem?.touched) || urlEditItem?.invalid &&
+            (urlEditItem?.dirty || urlEditItem?.touched)){
+            @if(nameEditItem?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error">Name is required.</span>
+            </div>
+            }
 
-                @if(urlEditItem.errors?.['required']){
-                    <div class="label">
-                        <span class="label-text-alt text-error">Url is required.</span>
-                    </div>
-                }
+            @if(urlEditItem?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error">Url is required.</span>
+            </div>
+            }
             }
         </form>
     </div>
@@ -111,17 +134,18 @@
 <div #addParentItemBlock class="hidden grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <div>
         <form [formGroup]="addParentForm" (ngSubmit)="addParentItem()">
-            <input type="text" id="name" formControlName="name" placeholder="Parent item name" class="{{ nameParentItem.invalid && (nameParentItem.dirty || nameParentItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" id="name" formControlName="name" placeholder="Parent item name"
+                class="{{ nameParentItem?.invalid && (nameParentItem?.dirty || nameParentItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideParentItemHtml()">Cancel</a>
 
-            @if(nameParentItem.invalid && (nameParentItem.dirty || nameParentItem.touched)){
-                @if(nameParentItem.errors?.['required']){
-                    <div class="label">
-                        <span class="label-text-alt text-error">Parent name is required.</span>
-                    </div>
-                }
+            @if(nameParentItem?.invalid && (nameParentItem?.dirty || nameParentItem?.touched)){
+            @if(nameParentItem?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error">Parent name is required.</span>
+            </div>
+            }
             }
         </form>
     </div>
@@ -131,17 +155,19 @@
 <div #editParentItemBlock class="hidden grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <div>
         <form [formGroup]="editParentForm" (ngSubmit)="editParentItem(editParentItemId)">
-            <input type="text" value="{{editParentName}}" id="name" formControlName="name" placeholder="Parent item name" class="{{ nameEditParentItem.invalid && (nameEditParentItem.dirty || nameEditParentItem.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
+            <input type="text" value="{{editParentName}}" id="name" formControlName="name"
+                placeholder="Parent item name"
+                class="{{ nameEditParentItem?.invalid && (nameEditParentItem?.dirty || nameEditParentItem?.touched) ? 'input-error' : '' }} input input-md input-bordered max-w-xs mx-1" />
 
             <button class="btn mx-1 btn-primary btn-md" type="submit">Ok</button>
             <a class="btn mx-1 btn-primary btn-md" (click)="hideEditParentItemHtml()">Cancel</a>
 
-            @if(nameEditParentItem.invalid && (nameEditParentItem.dirty || nameEditParentItem.touched)){
-                @if(nameEditParentItem.errors?.['required']){
-                    <div class="label">
-                        <span class="label-text-alt text-error">Parent name is required.</span>
-                    </div>
-                }
+            @if(nameEditParentItem?.invalid && (nameEditParentItem?.dirty || nameEditParentItem?.touched)){
+            @if(nameEditParentItem?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error">Parent name is required.</span>
+            </div>
+            }
             }
         </form>
     </div>
@@ -154,40 +180,56 @@
             <a class="btn btn-ghost text-xl">{{website}}</a>
         </div>
         <div class="flex-none">
-            <ul class="menu menu-horizontal px-1" cdkDropList [cdkDropListData]="items" cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+            <ul class="menu menu-horizontal px-1" cdkDropList [cdkDropListData]="items"
+                cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
                 @for (item of items; track item) {
-                    @if(item.inParent === false && item.parent === false){
-                        <li class="indicator" cdkDrag cdkDragLockAxis="x">
-                            <a routerLink="{{item.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
+                @if(item.inParent === false && item.parent === false){
+                <li class="indicator" cdkDrag cdkDragLockAxis="x">
+                    <a routerLink="{{item.url}}" routerLinkActive="activebutton"
+                        [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
 
-                            <span (click)="showEditItemHtml(item)" class="indicator-item right-6 p-1 badge badge-warning"><fa-icon [icon]="faPencil" class="fa-xs leading-lg"></fa-icon></span>
-                            <span (click)="deleteItem(item.id)" class="indicator-item p-1 badge badge-error"><fa-icon [icon]="faTrash" class="fa-xs leading-lg"></fa-icon></span>
-                        </li>
-                    }
-                    @if(item.parent === true){
-                        <li class="indicator" cdkDrag cdkDragLockAxis="x">
-                            <details>
-                                <summary>
-                                    {{item.name}}
-                                </summary>
-                                <ul class="p-2 bg-base-100 rounded-t-none" cdkDropList [cdkDropListData]="items[$index].children" cdkDropListOrientation="vertical" (cdkDropListDropped)="dropChild($event, item)">
-                                    @for (itemChildren of items[$index].children; track $index) {
-                                        @if(itemChildren.parentName != '' && itemChildren.parent === false && itemChildren.inParent === true){
-                                            <li cdkDrag cdkDragLockAxis="y">
-                                                <a routerLink="{{itemChildren.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{itemChildren.name}}</a>
+                    <span (click)="showEditItemHtml(item)"
+                        class="indicator-item right-6 p-1 badge badge-warning"><fa-icon [icon]="faPencil"
+                            class="fa-xs leading-lg"></fa-icon></span>
+                    <span (click)="deleteItem(item.id)" class="indicator-item p-1 badge badge-error"><fa-icon
+                            [icon]="faTrash" class="fa-xs leading-lg"></fa-icon></span>
+                </li>
+                }
+                @if(item.parent === true){
+                <li class="indicator" cdkDrag cdkDragLockAxis="x">
+                    <details>
+                        <summary>
+                            {{item.name}}
+                        </summary>
+                        <ul class="p-2 bg-base-100 rounded-t-none" cdkDropList
+                            [cdkDropListData]="items[$index].children" cdkDropListOrientation="vertical"
+                            (cdkDropListDropped)="dropChild($event, item)">
+                            @for (itemChildren of items[$index].children; track $index) {
+                            @if(itemChildren.parentName != '' && itemChildren.parent === false && itemChildren.inParent
+                            === true){
+                            <li cdkDrag cdkDragLockAxis="y">
+                                <a routerLink="{{itemChildren.url}}" routerLinkActive="activebutton"
+                                    [routerLinkActiveOptions]="{exact: true}">{{itemChildren.name}}</a>
 
-                                                <span (click)="showEditItemHtml(itemChildren)" class="indicator-item right-6 p-1 badge badge-warning"><fa-icon [icon]="faPencil" class="fa-xs leading-lg"></fa-icon></span>
-                                                <span (click)="deleteItem(itemChildren.id)" class="indicator-item p-1 badge badge-error"><fa-icon [icon]="faTrash" class="fa-xs leading-lg"></fa-icon></span>
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-                            </details>
+                                <span (click)="showEditItemHtml(itemChildren)"
+                                    class="indicator-item right-6 p-1 badge badge-warning"><fa-icon [icon]="faPencil"
+                                        class="fa-xs leading-lg"></fa-icon></span>
+                                <span (click)="deleteItem(itemChildren.id)"
+                                    class="indicator-item p-1 badge badge-error"><fa-icon [icon]="faTrash"
+                                        class="fa-xs leading-lg"></fa-icon></span>
+                            </li>
+                            }
+                            }
+                        </ul>
+                    </details>
 
-                            <span (click)="showEditParentItemHtml(item)" class="indicator-item right-6 p-1 badge badge-warning"><fa-icon [icon]="faPencil" class="fa-xs leading-lg"></fa-icon></span>
-                            <span (click)="deleteItem(item.id)" class="indicator-item p-1 badge badge-error"><fa-icon [icon]="faTrash" class="fa-xs leading-lg"></fa-icon></span>
-                        </li>
-                    }
+                    <span (click)="showEditParentItemHtml(item)"
+                        class="indicator-item right-6 p-1 badge badge-warning"><fa-icon [icon]="faPencil"
+                            class="fa-xs leading-lg"></fa-icon></span>
+                    <span (click)="deleteItem(item.id)" class="indicator-item p-1 badge badge-error"><fa-icon
+                            [icon]="faTrash" class="fa-xs leading-lg"></fa-icon></span>
+                </li>
+                }
                 }
             </ul>
         </div>
@@ -195,13 +237,13 @@
 </div>
 
 <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
-    @if(navbarNameInput.invalid && (navbarNameInput.dirty || navbarNameInput.touched)){
-        <a class="btn btn-success" disabled>
-            Confirm
-        </a>
+    @if(navbarNameInput?.invalid && (navbarNameInput?.dirty || navbarNameInput?.touched)){
+    <a class="btn btn-success" disabled>
+        Confirm
+    </a>
     }@else {
-        <a (click)="editNavbarForm()" class="btn btn-success">
-            Confirm
-        </a>
+    <a (click)="editNavbarForm()" class="btn btn-success">
+        Confirm
+    </a>
     }
 </div>

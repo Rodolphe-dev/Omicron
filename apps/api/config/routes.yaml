@@ -8,9 +8,15 @@ auth:
   path: /auth
   methods: ["POST"]
 
+logout:
+  path: /logout
+  methods: ["POST"]
+  defaults:
+    _controller: App\Controller\AuthController::logout
+
 verify:
   path: /verify
-  methods: ["POST"]
+  methods: ["GET"]
   defaults:
     _controller: App\Controller\AuthController::verify
 
@@ -25,3 +31,21 @@ getPageByRoute:
   methods: ["GET"]
   defaults:
     _controller: App\Controller\PageController::getPageByRoute
+
+updateNavbarStatus:
+  path: /api/navbars/updateNavbarStatus/{id}
+  methods: ["PATCH"]
+  defaults:
+    _controller: App\Controller\NavbarController::updateNavbarStatus
+
+updateSidebarStatus:
+  path: /api/sidebars/updateSidebarStatus/{id}
+  methods: ["PATCH"]
+  defaults:
+    _controller: App\Controller\SidebarController::updateSidebarStatus
+
+updateFooterStatus:
+  path: /api/footers/updateFooterStatus/{id}
+  methods: ["PATCH"]
+  defaults:
+    _controller: App\Controller\FooterController::updateFooterStatus

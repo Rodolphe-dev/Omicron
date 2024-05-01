@@ -27,16 +27,46 @@ class AuthController extends AbstractController
         $this->jwtManager = $jwtManager;
         $this->jwtEncoder = $jwtEncoder;
     }
+    
+    #[Route(
+        name: 'logout',
+        path: '/logout',
+        methods: ['POST'],
+    )]
+    public function logout()
+    {
+        if (isset($_COOKIE['PHPSESSID'])) {
+            unset($_COOKIE['PHPSESSID']);
+            setcookie('PHPSESSID', '', time() - 3600, '/');
+
+        }
+
+        if (isset($_COOKIE['BEARER'])) {
+            unset($_COOKIE['BEARER']);
+            setcookie('BEARER', '', time() - 3600, '/');
+
+        }
+
+        return new JsonResponse(
+            [
+                'logoutStatus' => true
+            ]
+        );
+    }
 
     #[Route(
         name: 'verify',
         path: '/verify',
-        methods: ['POST'],
+        methods: ['GET'],
     )]
-    public function verify(Request $request)
+    public function verify()
     {
-        //$token = $request->get('token');
-
+        return new JsonResponse(
+            [
+                'test' => 'test'
+            ]
+        );
+        /*
         $parameters = json_decode($request->getContent(), true);
 
         try {
@@ -70,5 +100,6 @@ class AuthController extends AbstractController
                 );
             }
         }
+        */
     }
 }
