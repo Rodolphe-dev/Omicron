@@ -11,6 +11,8 @@ export class AuthService {
     private baseUrl = environment.apiURL;
     private authUrl = '/auth';
     private logoutUrl = '/logout';
+    private refreshTokenUrl = '/api/token/refresh';
+    private invalidateTokenUrl = '/api/token/invalidate';
     private verifyUrl = '/verify';
     private JsonHeader = new HttpHeaders()
         .set('Accept', 'application/json')
@@ -21,6 +23,12 @@ export class AuthService {
         public router : Router,
         private alert : AlertService
         ) { }
+
+    clearLocalStorage(){
+        localStorage.removeItem('isLogged');
+        localStorage.removeItem('superadmin');
+        localStorage.removeItem('userId');
+    }
 
     getIsLogged(){
         return localStorage.getItem('isLogged');
@@ -48,18 +56,35 @@ export class AuthService {
         }
     }
 
-    logout() {
-        this.httpClient.post(this.baseUrl + this.logoutUrl, { headers: this.JsonHeader });
-        localStorage.removeItem('isLogged');
-        localStorage.removeItem('superadmin');
-        localStorage.removeItem('userId');
+    refreshToken(){
+        return this.httpClient.post(this.baseUrl + this.refreshTokenUrl, { headers: this.JsonHeader });
+    }
 
-        const options = {
-            autoClose: true,
-            keepAfterRouteChange: true
-        };
-        this.alert.success('Logout successful', options);
-        this.router.navigate(['login']);
+    invalidateToken(){
+        return this.httpClient.post(this.baseUrl + this.invalidateTokenUrl, { headers: this.JsonHeader });
+    }
+
+    logout() {
+        this.httpClient.post(this.baseUrl + this.logoutUrl, { headers: this.JsonHeader })
+            .subscribe({
+                next: (value: any) => {
+                    this.clearLocalStorage();
+                    
+                    this.invalidateToken()
+                        .subscribe({
+                            next: (value: any) => {
+                                console.log(value);
+                            }
+                        });
+
+                    const options = {
+                        autoClose: true,
+                        keepAfterRouteChange: true
+                    };
+                    this.alert.success('Logout successful', options);
+                    this.router.navigate(['login']);
+                }
+            });
     }
 
     verifyToken(){

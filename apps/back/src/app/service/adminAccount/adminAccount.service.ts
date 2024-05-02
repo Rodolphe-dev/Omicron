@@ -63,12 +63,12 @@ export class AdminAccountService {
     }
 
     /** Get Admin Account by id */
-    getThisAdminAccount(value: number) {
+    getThisAdminAccount(value: any) {
         return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
     }
 
     /** Get Admin Account by username */
-    getThisAdminAccountByUsername(value: string) {
+    getThisAdminAccountByUsername(value: any) {
         return this.httpClient.get(this.baseUrl + this.getUrlByName + value, { headers: this.JsonHeader });
     }
 
@@ -96,7 +96,7 @@ export class AdminAccountService {
     }
 
     /** Edit Admin Account */
-    editAdminAccount(id: number, value: any) {
+    editAdminAccount(id: any, value: any) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -119,7 +119,7 @@ export class AdminAccountService {
     }
 
     /** Edit My Admin Account */
-    editMyAdminAccount(id: number, value: any) {
+    editMyAdminAccount(id: any, value: any) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -142,7 +142,7 @@ export class AdminAccountService {
     }
 
     /** Delete Admin Account */
-    deleteAdminAccount(value: number) {
+    deleteAdminAccount(value: any) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

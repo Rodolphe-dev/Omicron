@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.docAPIUrl = environment.apiURL + '/api';
+        this.docAPIUrl = environment.docURL;
 
         this.isSuperAdmin = this.auth.getSuperAdmin();
 

@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
 
     faEye = faEye
     faEyeSlash = faEyeSlash
-
     showPassword = false;
 
     loginForm = this.formBuilder.group(
@@ -50,6 +49,33 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        if(this.auth.getIsLogged() === 'true'){
+            this.auth.refreshToken()
+                .subscribe({
+                    next: (value: any) => {
+                        if(value.token){
+                            this.appComp.changeIsLoggedIn(true);
+
+                            this.router.navigate(['dashboard']);
+                        }else{
+                            this.auth.logout();
+                            this.router.navigate(['/login']).then(() => {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    error: (value: any) => {
+                        console.log(value.error);
+                        if(value.error.message === "JWT Refresh Token Not Found" && value.error.code === 401){
+                            this.auth.logout();
+                            this.router.navigate(['/login']).then(() => {
+                                window.location.reload();
+                            });
+                        }
+                    }
+                });
+        }
+
         this.loginForm = new FormGroup({
             username: new FormControl('', [
                 Validators.required,

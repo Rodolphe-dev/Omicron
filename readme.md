@@ -1,4 +1,4 @@
-# Omicron CMS V0.2
+# Omicron CMS V0.2.2
 
 ## Description
 
@@ -13,8 +13,8 @@ We use monorepo NX and this come with a new CLI => https://nx.dev/
 Serve the apps:
 
 ```
-nx serve front
-nx serve back
+nx serve front --ssl true
+nx serve back --ssl true
 nx serve api
 ```
 

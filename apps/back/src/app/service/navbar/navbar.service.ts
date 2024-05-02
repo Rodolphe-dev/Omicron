@@ -43,7 +43,7 @@ export class NavbarService {
     }
 
     /** Refresh List + Pagination */
-    getNavbarsByPage(pageValue: string) {
+    getNavbarsByPage(pageValue: any) {
         return this.httpClient.get(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
             .pipe(
                 map((res: any) => ({
@@ -59,7 +59,7 @@ export class NavbarService {
     }
 
     /** Get Navbar by id */
-    getThisNavbar(value: number) {
+    getThisNavbar(value: any) {
         return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
     }
 
@@ -110,7 +110,7 @@ export class NavbarService {
     }
 
     /** Toggle Navbar Status */
-    toggleNavbarStatus(id: number) {
+    toggleNavbarStatus(id: any) {
         const subject = new Subject<boolean>();
 
         this.httpClient.patch(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
@@ -147,7 +147,7 @@ export class NavbarService {
     }
 
     /** Delete Navbar */
-    deleteNavbar(value: number) {
+    deleteNavbar(value: any) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

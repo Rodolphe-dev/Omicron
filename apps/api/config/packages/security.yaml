@@ -19,7 +19,18 @@ security:
       pattern: ^/api/
       stateless: true
       provider: users
+      entry_point: jwt
       jwt: ~
+      refresh_jwt:
+        check_path: /api/token/refresh
+        provider: users
+      logout:
+        path: api_token_invalidate
+    api_token_refresh:
+      pattern: ^/api/token/refresh
+      stateless: true
+      user_checker: security.user.provider.concrete.users
+      refresh_jwt: ~
     verify:
       pattern: ^/verify
       stateless: true
@@ -48,6 +59,7 @@ security:
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
   access_control:
+    - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
     - { path: ^/auth, roles: PUBLIC_ACCESS }
     - { path: ^/verify, roles: IS_AUTHENTICATED_FULLY }
     - { path: '^/api/navbars/updateNavbarStatus/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }

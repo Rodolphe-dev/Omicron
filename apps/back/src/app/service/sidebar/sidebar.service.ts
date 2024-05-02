@@ -43,7 +43,7 @@ export class SidebarService {
     }
 
     /** Refresh List + Pagination */
-    getSidebarsByPage(pageValue: string) {
+    getSidebarsByPage(pageValue: any) {
         return this.httpClient.get(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
             .pipe(
                 map((res: any) => ({
@@ -59,7 +59,7 @@ export class SidebarService {
     }
 
     /** Get Sidebar by id */
-    getThisSidebar(value: number) {
+    getThisSidebar(value: any) {
         return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
     }
 
@@ -87,7 +87,7 @@ export class SidebarService {
     }
 
     /** Edit Sidebar */
-    editSidebar(id: number, value: any) {
+    editSidebar(id: any, value: any) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -110,7 +110,7 @@ export class SidebarService {
     }
 
     /** Toggle Sidebar Status */
-    toggleSidebarStatus(id: number) {
+    toggleSidebarStatus(id: any) {
         const subject = new Subject<boolean>();
 
         this.httpClient.patch(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
@@ -147,7 +147,7 @@ export class SidebarService {
     }
 
     /** Delete Sidebar */
-    deleteSidebar(value: number) {
+    deleteSidebar(value: any) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

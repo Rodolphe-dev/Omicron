@@ -43,7 +43,7 @@ export class FooterService {
     }
 
     /** Refresh List + Pagination */
-    getFootersByPage(pageValue: string) {
+    getFootersByPage(pageValue: any) {
         return this.httpClient.get(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
             .pipe(
                 map((res: any) => ({
@@ -59,7 +59,7 @@ export class FooterService {
     }
 
     /** Get Footer by id */
-    getThisFooter(value: number) {
+    getThisFooter(value: any) {
         return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
     }
 
@@ -87,7 +87,7 @@ export class FooterService {
     }
 
     /** Edit Footer */
-    editFooter(id: number, value: any) {
+    editFooter(id: any, value: any) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -110,7 +110,7 @@ export class FooterService {
     }
 
     /** Toggle Footer Status */
-    toggleFooterStatus(id: number) {
+    toggleFooterStatus(id: any) {
         const subject = new Subject<boolean>();
 
         this.httpClient.patch(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
@@ -147,7 +147,7 @@ export class FooterService {
     }
 
     /** Delete Footer */
-    deleteFooter(value: number) {
+    deleteFooter(value: any) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

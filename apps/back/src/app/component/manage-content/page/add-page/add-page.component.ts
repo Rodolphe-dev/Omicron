@@ -41,7 +41,6 @@ export class AddPageComponent implements OnInit {
         public router: Router
     ) { }
 
-
     ngOnInit() {
         this.breadcrumbs.setLevel(2);
         this.breadcrumbs.setLevelOneValue('Content');

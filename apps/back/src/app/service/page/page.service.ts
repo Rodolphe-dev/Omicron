@@ -42,7 +42,7 @@ export class PageService {
     }
     
     /** Refresh List + Pagination */
-    getPagesByPage(pageValue: string){
+    getPagesByPage(pageValue: any){
         return this.httpClient.get(this.baseUrl + pageValue, {headers: this.LDJsonHeader})
             .pipe(
                 map((res: any) => ({
@@ -58,7 +58,7 @@ export class PageService {
     }
 
     /** Get Page by id */
-    getThisPage(value : number){
+    getThisPage(value : any){
         return this.httpClient.get(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader});
     }
 
@@ -86,7 +86,7 @@ export class PageService {
     }
 
     /** Edit Page */
-    editPage(id : number, value : any){
+    editPage(id : any, value : any){
         this.httpClient.patch(this.baseUrl + this.getUrl + id,  value, {headers: this.MergeJsonHeader})
         .subscribe({
             next: () => {
@@ -109,7 +109,7 @@ export class PageService {
     }
 
     /** Delete Page */
-    deletePage(value : number){
+    deletePage(value : any){
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
         .subscribe({
             next: () => {

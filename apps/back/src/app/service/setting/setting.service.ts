@@ -21,12 +21,12 @@ export class SettingService {
         ) { }
 
     /** Get Setting by id */
-    getThisSetting(value : number){
+    getThisSetting(value : any){
         return this.httpClient.get(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader});
     }
 
     /** Edit Setting */
-    editSetting(id : number, value : any){
+    editSetting(id : any, value : any){
         this.httpClient.patch(this.baseUrl + this.getUrl + id,  value, {headers: this.MergeJsonHeader})
         .subscribe({
             next: () => {

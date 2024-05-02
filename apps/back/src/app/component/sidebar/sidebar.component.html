@@ -1,6 +1,6 @@
 <div class="w-full min-h-screen menu bg-base-300 p-0 [&_li>*]:rounded-none border-r border-primary">
     <ul>
-        <li class="mx-2 font-extrabold"><a routerLink="/dashboard" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">Dashboard <div class="badge badge-ghost badge-xs">WIP 3</div></a></li>
+        <li class="mx-2 font-extrabold"><a routerLink="/dashboard" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">Dashboard <div class="badge badge-warning badge-xs">WIP 2</div></a></li>
         <li class="mx-2 border-y border-primary">
             <details #detailsMenu>
                 <summary class="rounded-none font-extrabold">Menus</summary>
@@ -40,10 +40,10 @@
         </li>
         <li class="mx-2 border-y border-primary">
             <details #detailsDesign>
-                <summary class="rounded-none font-extrabold">Design <div class="badge badge-ghost badge-xs">WIP 2</div></summary>
+                <summary class="rounded-none font-extrabold">Design <div class="badge badge-ghost badge-xs">WIP 3</div></summary>
                 <ul class="[&_li>*]:rounded-none">
-                    <li class="font-semibold"><a routerLink="/theme/list" routerLinkActive="activebutton">List themes <div class="badge badge-ghost badge-xs">WIP 2</div></a></li>
-                    <li class="font-semibold"><a routerLink="/theme/add" routerLinkActive="activebutton">Add theme <div class="badge badge-ghost badge-xs">WIP 2</div></a></li>
+                    <li class="font-semibold"><a routerLink="/theme/list" routerLinkActive="activebutton">List themes <div class="badge badge-ghost badge-xs">WIP 3</div></a></li>
+                    <li class="font-semibold"><a routerLink="/theme/add" routerLinkActive="activebutton">Add theme <div class="badge badge-ghost badge-xs">WIP 3</div></a></li>
                 </ul>
             </details>
         </li>
@@ -58,14 +58,14 @@
         </li>
         <li class="mx-2 border-y border-primary">
             <details #detailsSystem>
-                <summary class="rounded-none font-extrabold">System <div class="badge badge-ghost badge-xs">WIP 2</div></summary>
+                <summary class="rounded-none font-extrabold">System <div class="badge badge-ghost badge-xs">WIP 3</div></summary>
                 <ul class="[&_li>*]:rounded-none">
                     <li class="font-semibold"><a routerLink="/system/settings" routerLinkActive="activebutton">Settings</a></li>
                     @if(isSuperAdmin === 'true')
                     {
                         <li class="font-semibold"><a routerLink="/system/admin/list" routerLinkActive="activebutton">Admin Accounts</a></li>
                     }
-                    <li class="font-semibold"><a routerLink="/system/components" routerLinkActive="activebutton">Components  <div class="badge badge-ghost badge-xs">WIP 2</div></a></li>
+                    <li class="font-semibold"><a routerLink="/system/components" routerLinkActive="activebutton">Components  <div class="badge badge-ghost badge-xs">WIP 3</div></a></li>
                     <li class="font-semibold"><a href="{{docAPIUrl}}" target="_blank">Docs API</a></li>
                 </ul>
             </details>

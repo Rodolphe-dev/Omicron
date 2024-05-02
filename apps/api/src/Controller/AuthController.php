@@ -40,7 +40,6 @@ class AuthController extends AbstractController
             setcookie('PHPSESSID', '', time() - 3600, '/');
 
         }
-
         if (isset($_COOKIE['BEARER'])) {
             unset($_COOKIE['BEARER']);
             setcookie('BEARER', '', time() - 3600, '/');

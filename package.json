@@ -1,6 +1,6 @@
 {
     "name": "@omicron-nx/source",
-    "version": "0.2",
+    "version": "0.2.2",
     "license": "MIT",
     "scripts": {},
     "private": true,

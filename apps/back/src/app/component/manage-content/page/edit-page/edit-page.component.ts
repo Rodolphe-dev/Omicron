@@ -88,11 +88,11 @@ export class EditPageComponent implements OnInit {
     }
 
     get namePage() {
-        return this.pageForm.get('name')!;
+        return this.pageForm.get('name');
     }
 
     get routePage() {
-        return this.pageForm.get('route')!;
+        return this.pageForm.get('route');
     }
 
     editPageForm() {
