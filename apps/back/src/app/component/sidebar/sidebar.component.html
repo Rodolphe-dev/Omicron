@@ -61,7 +61,7 @@
                 <summary class="rounded-none font-extrabold">System <div class="badge badge-ghost badge-xs">WIP 3</div></summary>
                 <ul class="[&_li>*]:rounded-none">
                     <li class="font-semibold"><a routerLink="/system/settings" routerLinkActive="activebutton">Settings</a></li>
-                    @if(isSuperAdmin === 'true')
+                    @if(isSuperAdmin === true)
                     {
                         <li class="font-semibold"><a routerLink="/system/admin/list" routerLinkActive="activebutton">Admin Accounts</a></li>
                     }

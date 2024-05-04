@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, map } from 'rxjs';
 import { AlertService } from '../../service/alert/alert.service';
 import { environment } from '../../../environments/environment';
+import { JSONldListFooter } from '../../model/footer';
+import { IFooter } from '../../model/footer';
 
 @Injectable()
 export class FooterService {
@@ -28,9 +30,9 @@ export class FooterService {
 
     /** Inital List + Pagination */
     getFooters() {
-        return this.httpClient.get(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
+        return this.httpClient.get<JSONldListFooter>(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -43,10 +45,10 @@ export class FooterService {
     }
 
     /** Refresh List + Pagination */
-    getFootersByPage(pageValue: any) {
-        return this.httpClient.get(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
+    getFootersByPage(pageValue: string) {
+        return this.httpClient.get<JSONldListFooter>(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -59,12 +61,20 @@ export class FooterService {
     }
 
     /** Get Footer by id */
-    getThisFooter(value: any) {
-        return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
+    getThisFooter(value: number) {
+        return this.httpClient.get<IFooter>(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader })
+        .pipe(
+            map(res => ({
+                id: res['id'],
+                name: res['name'],
+                status: res['status'],
+                content: res['content']
+            }))
+        );
     }
 
     /** Add Footer */
-    addFooter(value: any) {
+    addFooter(value: object) {
         this.httpClient.post(this.baseUrl + this.normalUrl, value)
             .subscribe({
                 next: () => {
@@ -87,7 +97,7 @@ export class FooterService {
     }
 
     /** Edit Footer */
-    editFooter(id: any, value: any) {
+    editFooter(id: number, value: object) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -110,12 +120,12 @@ export class FooterService {
     }
 
     /** Toggle Footer Status */
-    toggleFooterStatus(id: any) {
-        const subject = new Subject<boolean>();
+    toggleFooterStatus(id: number) {
+        const subject = new Subject<boolean|null|undefined>();
 
-        this.httpClient.patch(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
+        this.httpClient.patch<IFooter>(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
             .subscribe({
-                next: (value: any) => {
+                next: value => {
                     const options = {
                         autoClose: true,
                         keepAfterRouteChange: true
@@ -127,10 +137,9 @@ export class FooterService {
                         this.alert.success('Footer succesfully disabled', options);
                     }
 
-                    const successValue = value.status;
-                    subject.next(successValue);
+                    subject.next(value.status);
                 },
-                error: (value: any) => {
+                error: value => {
                     const options = {
                         autoClose: false,
                         keepAfterRouteChange: true
@@ -147,7 +156,7 @@ export class FooterService {
     }
 
     /** Delete Footer */
-    deleteFooter(value: any) {
+    deleteFooter(value: number) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

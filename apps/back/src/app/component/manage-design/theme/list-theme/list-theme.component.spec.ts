@@ -1,22 +1,15 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListThemeComponent } from './list-theme.component';
 
 describe('ListThemeComponent', () => {
   let component: ListThemeComponent;
   let fixture: ComponentFixture<ListThemeComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ListThemeComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ListThemeComponent],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ListThemeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -21,12 +21,11 @@ import { FooterService } from '../../../../service/footer/footer.service';
 })
 export class ViewFooterComponent implements OnInit {
 
-    id!: string | null;
-    actualFooter: any = {};
+    id!: number | null;
     footerIdValue!: number;
-    footerNameValue!: string;
-    footerStatus!: string;
-    footerContentValue!: string;
+    footerNameValue: string | null | undefined;
+    footerStatus: string | null | undefined;
+    footerContentValue: string | null | undefined;
 
     constructor(
         private breadcrumbs: BreadcrumbsService,
@@ -41,22 +40,21 @@ export class ViewFooterComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Footer');
         this.breadcrumbs.setLevelThreeValue('Edit Footer');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.footer.getThisFooter(this.id)
             .subscribe({
                 next: value => {
-                    this.actualFooter = value;
-                    this.footerIdValue = this.actualFooter.id;
-                    this.footerNameValue = this.actualFooter.name;
+                    this.footerIdValue = value.id;
+                    this.footerNameValue = value.name;
 
-                    if (this.actualFooter.status === true) {
+                    if (value.status === true) {
                         this.footerStatus = "Enabled";
                     } else {
                         this.footerStatus = "Disabled";
                     }
 
-                    this.footerContentValue = this.actualFooter.content;
+                    this.footerContentValue = value.content;
                 }
             });
     }

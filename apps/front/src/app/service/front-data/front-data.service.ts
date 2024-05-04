@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { IFrontData } from '../../model/front-data';
 
 @Injectable()
 export class FrontDataService {
@@ -15,6 +16,6 @@ export class FrontDataService {
     ) { }
 
     getFrontData() {
-        return this.httpClient.get(this.baseUrl + this.normalUrl, {headers: this.JsonHeader});
+        return this.httpClient.get<IFrontData>(this.baseUrl + this.normalUrl, {headers: this.JsonHeader});
     }
 }

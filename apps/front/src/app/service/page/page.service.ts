@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { IPage } from '../../model/page';
 
 @Injectable()
 export class PageService {
@@ -15,7 +16,7 @@ export class PageService {
         ) { }
 
     /** Get Page by route */
-    getThisPageByRoute(value : any){
-        return this.httpClient.get(this.baseUrl + this.getUrlByRoute + value, {headers: this.JsonHeader});
+    getThisPageByRoute(value : string | null){
+        return this.httpClient.get<IPage>(this.baseUrl + this.getUrlByRoute + value, {headers: this.JsonHeader});
     }
 }

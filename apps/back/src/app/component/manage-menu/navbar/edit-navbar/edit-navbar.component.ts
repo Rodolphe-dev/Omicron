@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { NavbarService } from '../../../../service/navbar/navbar.service';
-import { INavbar } from '../../../../model/navbar';
+import { INavbarItems } from '../../../../model/navbar';
 import { SettingService } from '../../../../service/setting/setting.service';
 
 @Component({
@@ -32,27 +32,23 @@ import { SettingService } from '../../../../service/setting/setting.service';
 })
 export class EditNavbarComponent implements OnInit {
 
-    id!: string | null;
-    actualNavbar: any = {};
-    navbarIdValue!: number;
-    navbarNameValue!: string;
-    navbarStatus!: boolean;
-
     faTrash = faTrash;
     faPencil = faPencil;
+    
+    id!: number | null;
+    navbarIdValue!: number;
+    navbarNameValue: string | null | undefined;
+    navbarStatus: boolean | null | undefined;
+    appName: string | null | undefined;
+    items: INavbarItems[] = [];
+    itemId = 0;
+    website!: string;
 
     @ViewChild('navbarName') _navbarName!: ElementRef;
     @ViewChild('addItemBlock') addItemBlock!: ElementRef;
     @ViewChild('editItemBlock') editItemBlock!: ElementRef;
     @ViewChild('addParentItemBlock') addParentItemBlock!: ElementRef;
     @ViewChild('editParentItemBlock') editParentItemBlock!: ElementRef;
-
-    actualSetting: any = {};
-    website!: string;
-
-    itemId = 0;
-
-    items: INavbar[] = [];
 
     editNavbarFormGroup = this.formBuilder.group(
         {
@@ -114,23 +110,21 @@ export class EditNavbarComponent implements OnInit {
         this.setting.getThisSetting(1)
             .subscribe({
                 next: value => {
-                    this.actualSetting = value;
-                    this.website = this.actualSetting.nameApp;
+                    this.website = value.nameApp;
                 }
             });
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.navbar.getThisNavbar(this.id)
             .subscribe({
                 next: value => {
-                    this.actualNavbar = value;
-                    this.navbarIdValue = this.actualNavbar.id;
-                    this.navbarNameValue = this.actualNavbar.name;
-                    this.navbarStatus = this.actualNavbar.status;
-                    this.items = this.actualNavbar.items[0];
+                    this.navbarIdValue = value.id;
+                    this.navbarNameValue = value.name;
+                    this.navbarStatus = value.status;
+                    this.items = value.items;
 
-                    this.editNavbarFormGroup.setValue({ navbarName: this.actualNavbar.name });
+                    this.editNavbarFormGroup.setValue({ navbarName: value.name });
                 }
             });
 
@@ -245,7 +239,7 @@ export class EditNavbarComponent implements OnInit {
         this.hideEditParentItemHtml();
     }
 
-    showEditItemHtml(item: INavbar) {
+    showEditItemHtml(item: INavbarItems) {
         this.editItemBlock.nativeElement.classList.remove('hidden');
         this.editItemBlock.nativeElement.classList.add('grid');
 
@@ -268,7 +262,7 @@ export class EditNavbarComponent implements OnInit {
         this.hideEditParentItemHtml();
     }
 
-    showEditParentItemHtml(item: INavbar) {
+    showEditParentItemHtml(item: INavbarItems) {
         this.editParentItemBlock.nativeElement.classList.remove('hidden');
         this.editParentItemBlock.nativeElement.classList.add('grid');
 
@@ -295,7 +289,6 @@ export class EditNavbarComponent implements OnInit {
                 parent: itemParent,
                 parentName: itemParentName,
                 name: itemName,
-                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 children: []
@@ -316,7 +309,6 @@ export class EditNavbarComponent implements OnInit {
                     parent: itemParent,
                     parentName: '',
                     name: itemName,
-                    status: undefined,
                     url: itemUrl,
                     inParent: inParent,
                     children: []
@@ -360,7 +352,6 @@ export class EditNavbarComponent implements OnInit {
                 parent: itemParent,
                 parentName: itemParentName,
                 name: itemName,
-                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 children: []

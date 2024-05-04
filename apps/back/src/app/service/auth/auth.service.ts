@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 import { environment } from '../../../environments/environment';
+import { IRefreshToken } from '../../model/refreshToken';
+import { map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +19,7 @@ export class AuthService {
     private JsonHeader = new HttpHeaders()
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json');
+    private ttl = 604800;
 
     constructor(
         private httpClient: HttpClient,
@@ -30,19 +33,79 @@ export class AuthService {
         localStorage.removeItem('userId');
     }
 
-    getIsLogged(){
-        return localStorage.getItem('isLogged');
+    setIsLogged(value: string) {
+        const data = {
+            value: value,
+            expiry: new Date().getTime() + this.ttl
+        }
+        localStorage.setItem('isLogged', JSON.stringify(data));
+    }
+
+    getIsLogged() {
+        const keyStr = localStorage.getItem('isLogged');
+        if (keyStr) {
+            const now = new Date();
+            const item = JSON.parse(keyStr);
+            if (now.getTime() > item.expiry) {
+                localStorage.removeItem('isLogged');
+                localStorage.removeItem('superadmin');
+                localStorage.removeItem('userId');
+                return null;
+            }
+            return item.value;
+        }
+        return null;
+    }
+
+    setSuperAdmin(value: string) {
+        const data = {
+            value: value,
+            expiry: new Date().getTime() + this.ttl
+        }
+        localStorage.setItem('superadmin', JSON.stringify(data));
     }
 
     getSuperAdmin(){
-        return localStorage.getItem('superadmin');
+        const keyStr = localStorage.getItem('superadmin');
+        if (keyStr) {
+            const now = new Date();
+            const item = JSON.parse(keyStr);
+            if (now.getTime() > item.expiry) {
+                localStorage.removeItem('isLogged');
+                localStorage.removeItem('superadmin');
+                localStorage.removeItem('userId');
+                return null;
+            }
+            return item.value;
+        }
+        return null;
+    }
+
+    setUserId(value: string) {
+        const data = {
+            value: value,
+            expiry: new Date().getTime() + this.ttl
+        }
+        localStorage.setItem('userId', JSON.stringify(data));
     }
 
     getUserId(){
-        return localStorage.getItem('userId');
+        const keyStr = localStorage.getItem('userId');
+        if (keyStr) {
+            const now = new Date();
+            const item = JSON.parse(keyStr);
+            if (now.getTime() > item.expiry) {
+                localStorage.removeItem('isLogged');
+                localStorage.removeItem('superadmin');
+                localStorage.removeItem('userId');
+                return null;
+            }
+            return item.value;
+        }
+        return null;
     }
 
-    login(data : any){
+    login(data : object){
         return this.httpClient.post(this.baseUrl + this.authUrl, data, { headers: this.JsonHeader });
     }
 
@@ -57,7 +120,13 @@ export class AuthService {
     }
 
     refreshToken(){
-        return this.httpClient.post(this.baseUrl + this.refreshTokenUrl, { headers: this.JsonHeader });
+        return this.httpClient.post<IRefreshToken>(this.baseUrl + this.refreshTokenUrl, { headers: this.JsonHeader })
+            .pipe(
+                map(res => ({
+                    token: res['token'],
+                    refresh_token_expiration: res['refresh_token_expiration']
+                }))
+            );
     }
 
     invalidateToken(){
@@ -67,12 +136,12 @@ export class AuthService {
     logout() {
         this.httpClient.post(this.baseUrl + this.logoutUrl, { headers: this.JsonHeader })
             .subscribe({
-                next: (value: any) => {
+                next: () => {
                     this.clearLocalStorage();
                     
                     this.invalidateToken()
                         .subscribe({
-                            next: (value: any) => {
+                            next: (value: object) => {
                                 console.log(value);
                             }
                         });
@@ -90,7 +159,7 @@ export class AuthService {
     verifyToken(){
         return this.httpClient.get(this.baseUrl + this.verifyUrl)
         .subscribe({
-            next: (value : any) => {
+            next: (value : object) => {
                 console.log(value);
                 //result of value can be: valid, invalid, expired, unverified
             }

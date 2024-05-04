@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { SidebarService } from '../../../../service/sidebar/sidebar.service';
-import { ISidebar } from '../../../../model/sidebar';
+import { ISidebarItems } from '../../../../model/sidebar';
 
 @Component({
     selector: 'omicron-nx-view-sidebar',
@@ -19,13 +19,11 @@ import { ISidebar } from '../../../../model/sidebar';
 })
 export class ViewSidebarComponent implements OnInit {
 
-    id!: string | null;
-    actualSidebar: any = {};
+    id!: number | null;
     sidebarIdValue!: number;
-    sidebarNameValue!: string;
-    sidebarStatus!: string;
-
-    items: ISidebar[] = [];
+    sidebarNameValue: string | null | undefined;
+    sidebarStatus: string | null | undefined;
+    items: ISidebarItems[] = [];
 
     constructor(
         private breadcrumbs: BreadcrumbsService,
@@ -40,22 +38,21 @@ export class ViewSidebarComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Sidebar');
         this.breadcrumbs.setLevelThreeValue('View Sidebar');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.sidebar.getThisSidebar(this.id)
             .subscribe({
                 next: value => {
-                    this.actualSidebar = value;
-                    this.sidebarIdValue = this.actualSidebar.id;
-                    this.sidebarNameValue = this.actualSidebar.name;
+                    this.sidebarIdValue = value.id;
+                    this.sidebarNameValue = value.name;
 
-                    if (this.actualSidebar.status === true) {
+                    if (value.status === true) {
                         this.sidebarStatus = "Enabled";
                     } else {
                         this.sidebarStatus = "Disabled";
                     }
 
-                    this.items = this.actualSidebar.items[0];
+                    this.items = value.items;
                 }
             });
     }

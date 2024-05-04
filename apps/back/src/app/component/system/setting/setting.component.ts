@@ -23,14 +23,13 @@ import { SettingService } from '../../../service/setting/setting.service';
 })
 export class SettingComponent implements OnInit {
 
-    actualSetting: any = {};
     appName!: string;
     maintenanceStatus!: boolean;
 
     settingForm = this.formBuilder.group(
         {
-            appName: new FormControl<string>('', { validators: Validators.required }),
-            maintenanceStatus: ''
+            appName: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            maintenanceStatus: new FormControl<boolean | null | undefined>(false)
         }
     );
 
@@ -50,32 +49,29 @@ export class SettingComponent implements OnInit {
         this.setting.getThisSetting(1)
             .subscribe({
                 next: value => {
-                    this.actualSetting = value;
-                    this.appName = this.actualSetting.nameApp;
-                    this.maintenanceStatus = this.actualSetting.statusMaintenance;
+                    this.appName = value.nameApp;
+                    this.maintenanceStatus = value.statusMaintenance;
 
-                    this.settingForm.setValue({ appName: this.actualSetting.nameApp, maintenanceStatus: this.actualSetting.statusMaintenance });
-                },
-                error: () => { },
-                complete: () => { }
+                    this.settingForm.setValue({ appName: value.nameApp, maintenanceStatus: value.statusMaintenance });
+                }
             });
 
         this.settingForm = new FormGroup({
-            appName: new FormControl('', [
+            appName: new FormControl<string | null | undefined>('', [
                 Validators.required,
                 Validators.maxLength(25)
             ]),
-            maintenanceStatus: new FormControl('')
+            maintenanceStatus: new FormControl<boolean | null | undefined>(false)
         });
     }
 
     get nameApp() {
-        return this.settingForm.get('appName')!;
+        return this.settingForm.get('appName');
     }
 
     editSettingForm() {
-        let settingNameWebsite = this.settingForm.value.appName;
-        let settingMaintenance = this.settingForm.value.maintenanceStatus;
+        const settingNameWebsite = this.settingForm.value.appName;
+        const settingMaintenance = this.settingForm.value.maintenanceStatus;
         const body = {
             nameApp: settingNameWebsite,
             statusMaintenance: settingMaintenance

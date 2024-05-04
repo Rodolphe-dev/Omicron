@@ -18,13 +18,12 @@ import { AdminAccountService } from '../../../../service/adminAccount/adminAccou
 })
 export class ViewAdminComponent implements OnInit {
 
-    id!: string | null;
-    actualAdmin: any = {};
+    id!: number | null;
     adminIdValue!: number;
-    adminUsernameValue!: string;
-    adminEmailValue!: string;
-    adminPasswordValue!: string;
-    adminSuperAdminValue!: boolean;
+    adminUsernameValue: string | null | undefined;
+    adminEmailValue: string | null | undefined;
+    adminPasswordValue: string | null | undefined;
+    adminSuperAdminValue: boolean | null | undefined;
 
     constructor(
         private breadcrumbs: BreadcrumbsService,
@@ -39,16 +38,15 @@ export class ViewAdminComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Admin Accounts');
         this.breadcrumbs.setLevelThreeValue('Add Admin');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.admin.getThisAdminAccount(this.id)
             .subscribe({
                 next: value => {
-                    this.actualAdmin = value;
-                    this.adminIdValue = this.actualAdmin.id;
-                    this.adminUsernameValue = this.actualAdmin.username;
-                    this.adminEmailValue = this.actualAdmin.email;
-                    this.adminSuperAdminValue = this.actualAdmin.superadmin;
+                    this.adminIdValue = value.id;
+                    this.adminUsernameValue = value.username;
+                    this.adminEmailValue = value.email;
+                    this.adminSuperAdminValue = value.superadmin;
                 }
             });
 

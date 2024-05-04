@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { SidebarService } from '../../../../service/sidebar/sidebar.service';
-import { ISidebar } from '../../../../model/sidebar';
+import { ISidebarItems } from '../../../../model/sidebar';
 
 @Component({
     selector: 'omicron-nx-edit-sidebar',
@@ -28,13 +28,14 @@ import { ISidebar } from '../../../../model/sidebar';
 })
 export class EditSidebarComponent implements OnInit {
 
-    id!: string | null;
-    actualSidebar: any = {};
-    sidebarIdValue!: number;
-    sidebarNameValue!: string;
-    sidebarStatus!: boolean;
     faTrash = faTrash;
     faPencil = faPencil;
+    id!: number | null;
+    sidebarIdValue!: number;
+    sidebarNameValue: string | null | undefined;
+    sidebarStatus: boolean | null | undefined;
+    items: ISidebarItems[] = [];
+    itemId = 0;
     @ViewChild('sidebarName') _sidebarName!: ElementRef;
     @ViewChild('addItemBlock') addItemBlock!: ElementRef;
     @ViewChild('editItemBlock') editItemBlock!: ElementRef;
@@ -42,8 +43,6 @@ export class EditSidebarComponent implements OnInit {
     @ViewChild('editParentItemBlock') editParentItemBlock!: ElementRef;
     @ViewChild('addSubParentItemBlock') addSubParentItemBlock!: ElementRef;
     @ViewChild('editSubParentItemBlock') editSubParentItemBlock!: ElementRef;
-    itemId = 0;
-    items: ISidebar[] = [];
 
     addSidebarFormGroup = this.formBuilder.group(
         {
@@ -121,18 +120,17 @@ export class EditSidebarComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Sidebar');
         this.breadcrumbs.setLevelThreeValue('Edit Sidebar');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.sidebar.getThisSidebar(this.id)
             .subscribe({
                 next: value => {
-                    this.actualSidebar = value;
-                    this.sidebarIdValue = this.actualSidebar.id;
-                    this.sidebarNameValue = this.actualSidebar.name;
-                    this.sidebarStatus = this.actualSidebar.status;
-                    this.items = this.actualSidebar.items[0];
+                    this.sidebarIdValue = value.id;
+                    this.sidebarNameValue = value.name;
+                    this.sidebarStatus = value.status;
+                    this.items = value.items;
 
-                    this.addSidebarFormGroup.setValue({ sidebarName: this.actualSidebar.name });
+                    this.addSidebarFormGroup.setValue({ sidebarName: value.name });
                 }
             });
 
@@ -291,7 +289,7 @@ export class EditSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditItemHtml(item: ISidebar) {
+    showEditItemHtml(item: ISidebarItems) {
         this.hideItemHtml();
         this.hideParentItemHtml();
         this.hideEditParentItemHtml();
@@ -319,7 +317,7 @@ export class EditSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditParentItemHtml(item: ISidebar) {
+    showEditParentItemHtml(item: ISidebarItems) {
         this.hideItemHtml();
         this.hideParentItemHtml();
         this.hideEditParentItemHtml();
@@ -344,7 +342,7 @@ export class EditSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditSubParentItemHtml(item: ISidebar) {
+    showEditSubParentItemHtml(item: ISidebarItems) {
         this.hideItemHtml();
         this.hideEditItemHtml();
         this.hideEditParentItemHtml();
@@ -430,7 +428,6 @@ export class EditSidebarComponent implements OnInit {
                     parent: itemParent,
                     subParent: itemSubParent,
                     name: itemName,
-                    status: undefined,
                     url: itemUrl,
                     inParent: inParent,
                     inSubParent: inSubParent,
@@ -480,7 +477,6 @@ export class EditSidebarComponent implements OnInit {
                 subParent: itemSubParent,
                 parentName: itemParentName,
                 name: itemName,
-                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 inSubParent: inSubParent,

@@ -3,7 +3,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from '../../service/auth/auth.service';
-import { AlertService } from '../../service/alert/alert.service';
 import { AppComponent } from '../../app.component';
 
 @Component({
@@ -24,7 +23,6 @@ export class HeaderComponent implements OnInit {
 
     constructor(
         private auth: AuthService,
-        private alert: AlertService,
         private appComp: AppComponent
     ) { }
 

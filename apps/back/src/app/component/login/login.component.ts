@@ -37,8 +37,6 @@ export class LoginComponent implements OnInit {
         }
     );
 
-    actualAdmin: any = {};
-
     constructor(
         private formBuilder: FormBuilder,
         public router: Router,
@@ -52,7 +50,7 @@ export class LoginComponent implements OnInit {
         if(this.auth.getIsLogged() === 'true'){
             this.auth.refreshToken()
                 .subscribe({
-                    next: (value: any) => {
+                    next: value => {
                         if(value.token){
                             this.appComp.changeIsLoggedIn(true);
 
@@ -64,7 +62,7 @@ export class LoginComponent implements OnInit {
                             });
                         }
                     },
-                    error: (value: any) => {
+                    error: value => {
                         console.log(value.error);
                         if(value.error.message === "JWT Refresh Token Not Found" && value.error.code === 401){
                             this.auth.logout();
@@ -116,14 +114,13 @@ export class LoginComponent implements OnInit {
         this.admin.getThisAdminAccountByUsername(username)
             .subscribe({
                 next: value => {
-                    this.actualAdmin = value;
-                    localStorage.setItem('isLogged', 'true');
-                    localStorage.setItem('superadmin', this.actualAdmin.superadmin);
-                    localStorage.setItem('userId', this.actualAdmin.id);
+                    this.auth.setIsLogged('true');
+                    this.auth.setSuperAdmin(<string><unknown>value.superadmin);
+                    this.auth.setUserId(<string><unknown>value.id);
 
                     this.auth.login(body)
                         .subscribe({
-                            next: (value: any) => {
+                            next: () => {
 
                                 const options = {
                                     autoClose: true,

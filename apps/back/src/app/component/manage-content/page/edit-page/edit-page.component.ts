@@ -26,17 +26,15 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 })
 export class EditPageComponent implements OnInit {
 
-    id!: string | null;
-    actualPage: any = {};
+    id!: number | null;
     pageIdValue!: number;
-    pageNameValue!: string;
-    pageContentValue!: string;
-
+    pageNameValue: string | null | undefined;
+    pageContentValue: string | null | undefined;
     pageForm = this.formBuilder.group(
         {
-            name: new FormControl<string>('', { validators: Validators.required }),
-            route: new FormControl<string>('', { validators: Validators.required }),
-            content: ''
+            name: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            route: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            content: new FormControl<string | null | undefined>('')
         }
     );
 
@@ -54,20 +52,19 @@ export class EditPageComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Edit Page');
         this.breadcrumbs.setLevelThreeValue('');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.page.getThisPage(this.id)
             .subscribe({
                 next: value => {
-                    this.actualPage = value;
-                    this.pageIdValue = this.actualPage.id;
-                    this.pageNameValue = this.actualPage.name;
-                    this.pageContentValue = this.actualPage.content;
+                    this.pageIdValue = value.id;
+                    this.pageNameValue = value.name;
+                    this.pageContentValue = value.content;
                     this.pageForm.setValue(
                         {
-                            name: this.actualPage.name,
-                            route: this.actualPage.route,
-                            content: this.actualPage.content
+                            name: value.name,
+                            route: value.route,
+                            content: value.content
                         }
                     );
                 }
@@ -75,15 +72,15 @@ export class EditPageComponent implements OnInit {
 
 
         this.pageForm = new FormGroup({
-            name: new FormControl('', [
+            name: new FormControl<string | null | undefined>('', [
                 Validators.required,
                 Validators.maxLength(25)
             ]),
-            route: new FormControl('', [
+            route: new FormControl<string | null | undefined>('', [
                 Validators.required,
                 Validators.maxLength(100)
             ]),
-            content: new FormControl('')
+            content: new FormControl<string | null | undefined>('')
         });
     }
 

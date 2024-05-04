@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
     @ViewChild('detailsSystem') detailsSystem!: ElementRef;
 
     docAPIUrl!: string;
-    isSuperAdmin!: string | null;
+    isSuperAdmin!: boolean | null;
 
     constructor(
         public router: Router,
@@ -29,7 +29,6 @@ export class SidebarComponent implements OnInit {
 
     ngOnInit() {
         this.docAPIUrl = environment.docURL;
-
         this.isSuperAdmin = this.auth.getSuperAdmin();
 
         //Check if route contain parent menu for open/close the parent

@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ISidebar } from '../../model/sidebar';
+import { ISidebarItems } from '../../model/front-data';
 
 @Component({
     selector: 'omicron-nx-sidebar',
@@ -22,9 +22,9 @@ import { ISidebar } from '../../model/sidebar';
 export class SidebarComponent {
 
     appName!: string;
-    items: ISidebar[] = [];
+    items: ISidebarItems[] = [];
 
-    setSidebar(data: ISidebar[]){
+    setSidebar(data: ISidebarItems[]){
         this.items = data;
     }
 

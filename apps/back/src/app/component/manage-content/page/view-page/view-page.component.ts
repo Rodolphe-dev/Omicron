@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { PageService } from '../../../../service/page/page.service';
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @Component({
     selector: 'omicron-nx-view-page',
@@ -25,12 +25,11 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 })
 export class ViewPageComponent implements OnInit {
 
-    id!: string | null;
-    actualPage: any = {};
+    id!: number | null;
     pageIdValue!: number;
-    pageNameValue!: string;
-    pageRouteValue!: string;
-    pageContentValue!: string;
+    pageNameValue: string | null | undefined;
+    pageRouteValue: string | null | undefined;
+    pageContentValue: string | null | undefined;
 
     constructor(
         private breadcrumbs: BreadcrumbsService,
@@ -46,16 +45,15 @@ export class ViewPageComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('View Page');
         this.breadcrumbs.setLevelThreeValue('');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.page.getThisPage(this.id)
             .subscribe({
                 next: value => {
-                    this.actualPage = value;
-                    this.pageIdValue = this.actualPage.id;
-                    this.pageNameValue = this.actualPage.name;
-                    this.pageNameValue = this.actualPage.route;
-                    this.pageContentValue = this.actualPage.content;
+                    this.pageIdValue = value.id;
+                    this.pageNameValue = value.name;
+                    this.pageRouteValue = value.route;
+                    this.pageContentValue = value.content;
                 }
             });
     }

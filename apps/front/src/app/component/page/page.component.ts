@@ -14,7 +14,6 @@ import { PageService } from '../../service/page/page.service';
 export class PageComponent implements OnInit {
 
     routePage!: string | null;
-    actualPage: any = {};
     content: string | null | undefined;
 
     constructor(
@@ -34,9 +33,7 @@ export class PageComponent implements OnInit {
         this.page.getThisPageByRoute(this.routePage)
             .subscribe({
                 next: value => {
-                    this.actualPage = value;
-
-                    this.content = this.actualPage.content;
+                    this.content = value.content;
                 }
             });
 
@@ -47,9 +44,7 @@ export class PageComponent implements OnInit {
                 this.page.getThisPageByRoute(this.routePage)
                     .subscribe({
                         next: value => {
-                            this.actualPage = value;
-
-                            this.content = this.actualPage.content;
+                            this.content = value.content;
                         },
                     });
             }

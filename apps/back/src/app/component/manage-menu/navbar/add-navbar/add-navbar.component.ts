@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { NavbarService } from '../../../../service/navbar/navbar.service';
-import { INavbar } from '../../../../model/navbar';
+import { INavbarItems } from '../../../../model/navbar';
 import { SettingService } from '../../../../service/setting/setting.service';
 
 @Component({
@@ -34,19 +34,15 @@ export class AddNavbarComponent implements OnInit {
 
     faTrash = faTrash;
     faPencil = faPencil;
+    website!: string;
+    itemId = 0;
+    items: INavbarItems[] = [];
 
     @ViewChild('navbarName') _navbarName!: ElementRef;
     @ViewChild('addItemBlock') addItemBlock!: ElementRef;
     @ViewChild('editItemBlock') editItemBlock!: ElementRef;
     @ViewChild('addParentItemBlock') addParentItemBlock!: ElementRef;
     @ViewChild('editParentItemBlock') editParentItemBlock!: ElementRef;
-
-    actualSetting: any = {};
-    website!: string;
-
-    itemId = 0;
-
-    items: INavbar[] = [];
 
     addNavbarFormGroup = this.formBuilder.group(
         {
@@ -107,8 +103,7 @@ export class AddNavbarComponent implements OnInit {
         this.setting.getThisSetting(1)
             .subscribe({
                 next: value => {
-                    this.actualSetting = value;
-                    this.website = this.actualSetting.nameApp;
+                    this.website = value.nameApp;
                 }
             });
 
@@ -209,7 +204,7 @@ export class AddNavbarComponent implements OnInit {
         this.hideEditParentItemHtml();
     }
 
-    showEditItemHtml(item: INavbar) {
+    showEditItemHtml(item: INavbarItems) {
         this.editItemBlock.nativeElement.classList.remove('hidden');
         this.editItemBlock.nativeElement.classList.add('grid');
 
@@ -232,7 +227,7 @@ export class AddNavbarComponent implements OnInit {
         this.hideEditParentItemHtml();
     }
 
-    showEditParentItemHtml(item: INavbar) {
+    showEditParentItemHtml(item: INavbarItems) {
         this.editParentItemBlock.nativeElement.classList.remove('hidden');
         this.editParentItemBlock.nativeElement.classList.add('grid');
 
@@ -280,7 +275,6 @@ export class AddNavbarComponent implements OnInit {
                     parent: itemParent,
                     parentName: '',
                     name: itemName,
-                    status: undefined,
                     url: itemUrl,
                     inParent: inParent,
                     children: []
@@ -324,7 +318,6 @@ export class AddNavbarComponent implements OnInit {
                 parent: itemParent,
                 parentName: itemParentName,
                 name: itemName,
-                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 children: []

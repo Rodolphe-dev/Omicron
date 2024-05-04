@@ -27,20 +27,19 @@ export class EditAdminComponent implements OnInit {
     faEye = faEye
     faEyeSlash = faEyeSlash
     showPassword = false;
-    id!: string | null;
-    actualAdmin: any = {};
+    id!: number | null;
     adminIdValue!: number;
-    adminUsernameValue!: string;
-    adminEmailValue!: string;
-    adminPasswordValue!: string;
-    adminSuperAdminValue!: boolean;
-    superAdmin!: boolean;
+    adminUsernameValue: string | null | undefined;
+    adminEmailValue: string | null | undefined;
+    adminPasswordValue: string | null | undefined;
+    adminSuperAdminValue: boolean | null | undefined;
+    superAdmin: boolean | null | undefined;
 
     adminForm = this.formBuilder.group(
         {
-            username: new FormControl<string>('', { validators: Validators.required }),
-            email: new FormControl<string>('', { validators: Validators.required }),
-            superAdmin: ''
+            username: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            email: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            superAdmin: new FormControl<boolean | null | undefined>(false),
         }
     );
 
@@ -65,34 +64,33 @@ export class EditAdminComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Admin Accounts');
         this.breadcrumbs.setLevelThreeValue('Add Admin');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.admin.getThisAdminAccount(this.id)
             .subscribe({
                 next: value => {
-                    this.actualAdmin = value;
-                    this.adminIdValue = this.actualAdmin.id;
-                    this.adminUsernameValue = this.actualAdmin.username;
-                    this.adminEmailValue = this.actualAdmin.email;
-                    this.adminSuperAdminValue = this.actualAdmin.superadmin;
+                    this.adminIdValue = value.id;
+                    this.adminUsernameValue = value.username;
+                    this.adminEmailValue = value.email;
+                    this.adminSuperAdminValue = value.superadmin;
 
-                    this.adminForm.setValue({ username: this.actualAdmin.username, email: this.actualAdmin.email, superAdmin: this.actualAdmin.superadmin });
+                    this.adminForm.setValue({ username: value.username, email: value.email, superAdmin: value.superadmin });
                 }
             });
 
         this.adminForm = new FormGroup({
-            username: new FormControl('', [
+            username: new FormControl<string | null | undefined>('', [
                 Validators.required,
                 Validators.minLength(3),
                 Validators.maxLength(25),
                 Validators.pattern("^(?=[^a-z]*[a-z])[A-Za-z\\d!]{3,25}$")
             ]),
-            email: new FormControl('', [
+            email: new FormControl<string | null | undefined>('', [
                 Validators.required,
                 Validators.email,
                 Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
             ]),
-            superAdmin: new FormControl(''),
+            superAdmin: new FormControl<boolean | null | undefined>(false),
         });
 
         this.adminPasswordForm = new FormGroup({

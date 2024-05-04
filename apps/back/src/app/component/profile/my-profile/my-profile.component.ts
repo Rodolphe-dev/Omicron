@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule, FormControl, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { BreadcrumbsService } from '../../../service/breadcrumbs/breadcrumbs.service';
@@ -27,27 +27,27 @@ export class MyProfileComponent implements OnInit {
     faEye = faEye
     faEyeSlash = faEyeSlash
     showPassword = false;
-    id!: string | null;
-    actualAdmin: any = {};
+    id!: number | null;
     adminIdValue!: number;
-    adminUsernameValue!: string;
-    adminEmailValue!: string;
-    adminPasswordValue!: string;
-    adminSuperAdminValue!: boolean;
-    superAdmin!: boolean;
+    adminUsernameValue: string | null | undefined;
+    adminEmailValue: string | null | undefined;
+    adminPasswordValue: string | null | undefined;
+    adminSuperAdminValue: boolean | null | undefined;
+    superAdmin: boolean | null | undefined;
+
 
     adminForm = this.formBuilder.group(
         {
-            username: '',
-            email: '',
-            superAdmin: ''
+            username: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            email: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            superAdmin: new FormControl<boolean | null | undefined>(false),
         }
     );
 
     adminPasswordForm = this.formBuilder.group(
         {
-            password: '',
-            confirmPassword: ''
+            password: new FormControl<string>('', { validators: Validators.required }),
+            confirmPassword: new FormControl<string>('', { validators: Validators.required }),
         }
     );
 
@@ -66,18 +66,17 @@ export class MyProfileComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('');
         this.breadcrumbs.setLevelThreeValue('');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.admin.getThisAdminAccount(this.id)
             .subscribe({
                 next: value => {
-                    this.actualAdmin = value;
-                    this.adminIdValue = this.actualAdmin.id;
-                    this.adminUsernameValue = this.actualAdmin.username;
-                    this.adminEmailValue = this.actualAdmin.email;
-                    this.adminSuperAdminValue = this.actualAdmin.superadmin;
+                    this.adminIdValue = value.id;
+                    this.adminUsernameValue = value.username;
+                    this.adminEmailValue = value.email;
+                    this.adminSuperAdminValue = value.superadmin;
 
-                    this.adminForm.setValue({ username: this.actualAdmin.username, email: this.actualAdmin.email, superAdmin: this.actualAdmin.superadmin });
+                    this.adminForm.setValue({ username: value.username, email: value.email, superAdmin: value.superadmin });
                 }
             });
 

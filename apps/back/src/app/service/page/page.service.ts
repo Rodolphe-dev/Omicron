@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AlertService } from '../../service/alert/alert.service';
 import { environment } from '../../../environments/environment';
+import { JSONldListPage } from '../../model/page';
+import { IPage } from '../../model/page';
 
 @Injectable()
 export class PageService {
@@ -27,9 +29,9 @@ export class PageService {
 
     /** Inital List + Pagination */
     getPages(){
-        return this.httpClient.get(this.baseUrl + this.normalUrl, {headers: this.LDJsonHeader})
+        return this.httpClient.get<JSONldListPage>(this.baseUrl + this.normalUrl, {headers: this.LDJsonHeader})
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'] ,
@@ -42,10 +44,10 @@ export class PageService {
     }
     
     /** Refresh List + Pagination */
-    getPagesByPage(pageValue: any){
-        return this.httpClient.get(this.baseUrl + pageValue, {headers: this.LDJsonHeader})
+    getPagesByPage(pageValue: string){
+        return this.httpClient.get<JSONldListPage>(this.baseUrl + pageValue, {headers: this.LDJsonHeader})
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -58,12 +60,20 @@ export class PageService {
     }
 
     /** Get Page by id */
-    getThisPage(value : any){
-        return this.httpClient.get(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader});
+    getThisPage(value : number){
+        return this.httpClient.get<IPage>(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader})
+        .pipe(
+            map(res => ({
+                id: res['id'],
+                name: res['name'],
+                route: res['route'],
+                content: res['content'],
+            }))
+        );
     }
 
     /** Add Page */
-    addPage(value : any){
+    addPage(value : object){
         this.httpClient.post(this.baseUrl + this.normalUrl, value)
         .subscribe({
             next: () => {
@@ -86,7 +96,7 @@ export class PageService {
     }
 
     /** Edit Page */
-    editPage(id : any, value : any){
+    editPage(id : number, value : object){
         this.httpClient.patch(this.baseUrl + this.getUrl + id,  value, {headers: this.MergeJsonHeader})
         .subscribe({
             next: () => {
@@ -109,7 +119,7 @@ export class PageService {
     }
 
     /** Delete Page */
-    deletePage(value : any){
+    deletePage(value : number){
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
         .subscribe({
             next: () => {

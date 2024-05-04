@@ -5,10 +5,10 @@
             <div class="label">
                 <span class="label-text font-semibold">Name of the website</span>
             </div>
-            <input type="text" name="appName" #appName formControlName="appName" placeholder="Type here" class="{{ nameApp.invalid && (nameApp.dirty || nameApp.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+            <input type="text" name="appName" #appName formControlName="appName" placeholder="Type here" class="{{ nameApp?.invalid && (nameApp?.dirty || nameApp?.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
 
-            @if(nameApp.invalid && (nameApp.dirty || nameApp.touched)){
-                @if(nameApp.errors?.['required']){
+            @if(nameApp?.invalid && (nameApp?.dirty || nameApp?.touched)){
+                @if(nameApp?.errors?.['required']){
                     <div class="label">
                         <span class="label-text-alt text-error">Name of the app is required.</span>
                     </div>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
-        @if(nameApp.invalid && (nameApp.dirty || nameApp.touched)){
+        @if(nameApp?.invalid && (nameApp?.dirty || nameApp?.touched)){
             <button class="btn btn-success" disabled>
                 Confirm
             </button>

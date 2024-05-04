@@ -1,6 +1,6 @@
-import { Component, NgModule, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavigationEnd, NavigationStart, RouteReuseStrategy, Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from './component/login/login.component';
 import { HeaderComponent } from './component/header/header.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';

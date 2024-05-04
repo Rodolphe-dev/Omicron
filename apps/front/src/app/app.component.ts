@@ -32,15 +32,9 @@ export class AppComponent implements OnInit {
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json');
 
-    frontDataValue: any = {};
-
     @ViewChild('header', { static: false }) header!: HeaderComponent;
     @ViewChild('sidebar') sidebar!: SidebarComponent;
     @ViewChild('footer') footer!: FooterComponent;
-
-    headerStatus!: boolean | null;
-    sidebarStatus!: boolean | null;
-    footerStatus!: boolean | null;
 
     constructor(
         private frontData: FrontDataService
@@ -50,24 +44,18 @@ export class AppComponent implements OnInit {
         this.frontData.getFrontData()
             .subscribe({
                 next: value => {
-                    this.frontDataValue = value;
-
-                    this.headerStatus = this.frontDataValue.navbar.status;
-                    this.sidebarStatus = this.frontDataValue.sidebar.status;
-                    this.footerStatus = this.frontDataValue.footer.status;
-                    
-                    if(this.headerStatus === true){
-                        this.header.setNavbar(this.frontDataValue.navbar.items);
-                        this.header.setNameApp(this.frontDataValue.setting.nameApp);
+                    if(value.navbar.status === true){
+                        this.header.setNavbar(value.navbar.items);
+                        this.header.setNameApp(value.setting.nameApp);
                     }
                 
-                    if(this.sidebarStatus === true){
-                        this.sidebar.setSidebar(this.frontDataValue.sidebar.items);
-                        this.sidebar.setNameApp(this.frontDataValue.setting.nameApp);
+                    if(value.sidebar.status === true){
+                        this.sidebar.setSidebar(value.sidebar.items);
+                        this.sidebar.setNameApp(value.setting.nameApp);
                     }
                 
-                    if(this.footerStatus === true){
-                        this.footer.setContent(this.frontDataValue.footer.content);
+                    if(value.footer.status === true){
+                        this.footer.setContent(value.footer.content);
                     }
                     
                 }

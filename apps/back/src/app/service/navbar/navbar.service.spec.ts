@@ -1,16 +1,16 @@
-/* tslint:disable:no-unused-variable */
+import { TestBed } from '@angular/core/testing';
 
-import { TestBed, async, inject } from '@angular/core/testing';
 import { NavbarService } from './navbar.service';
 
-describe('Service: Navbar', () => {
+describe('NavbarService', () => {
+  let service: NavbarService;
+
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [NavbarService]
-    });
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(NavbarService);
   });
 
-  it('should ...', inject([NavbarService], (service: NavbarService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });

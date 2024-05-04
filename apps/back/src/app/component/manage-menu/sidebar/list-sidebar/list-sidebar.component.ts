@@ -60,35 +60,40 @@ export class ListSidebarComponent implements OnInit {
                     this.totalItems = value.totalItems;
 
                     if (value.actual != undefined) {
-                        this.numberActualPage = value.actual.match(/\d+/g).at(0);
+                        const resultMatchActual = value?.actual?.match(/\d+/g);
+                        this.numberActualPage = <number><unknown>resultMatchActual;
                     } else {
                         this.numberFirstPage = 1;
                     }
 
                     this.firstPage = value.first;
                     if (value.first != undefined) {
-                        this.numberFirstPage = value.first.match((/\d+/g)).at(0);
+                        const resultMatchFirst = value?.first?.match(/\d+/g);
+                        this.numberFirstPage = <number><unknown>resultMatchFirst;
                     } else {
                         this.numberFirstPage = 1;
                     }
 
                     this.lastPage = value.last;
                     if (value.last != undefined) {
-                        this.numberLastPage = value.last.match(/\d+/g).at(0);
+                        const resultMatchLast = value?.last?.match(/\d+/g);
+                        this.numberLastPage = <number><unknown>resultMatchLast;
                     } else {
                         this.numberLastPage = 1;
                     }
 
                     this.previousPage = value.previous;
                     if (value.previous != undefined) {
-                        this.numberPreviousPage = value.previous.match(/\d+/g).at(0);
+                        const resultMatchPrevious = value?.previous?.match(/\d+/g);
+                        this.numberPreviousPage = <number><unknown>resultMatchPrevious;
                     } else {
                         this.numberPreviousPage = 1;
                     }
 
                     this.nextPage = value.next;
                     if (value.next != undefined) {
-                        this.numberNextPage = value.next.match(/\d+/g).at(0);
+                        const resultMatchNext = value?.next?.match(/\d+/g);
+                        this.numberNextPage = <number><unknown>resultMatchNext;
                     } else {
                         this.numberNextPage = 1;
                     }
@@ -113,31 +118,36 @@ export class ListSidebarComponent implements OnInit {
                     this.sidebars = value.listItem;
 
                     this.totalItems = value.totalItems;
-                    this.numberActualPage = value.actual.match(/\d+/g).at(0);
+                    const resultMatchActual = value.actual.match(/\d+/g);
+                    this.numberActualPage = <number><unknown>resultMatchActual;
 
                     if (value.first != undefined) {
-                        this.numberFirstPage = value.first.match((/\d+/g)).at(0);
+                        const resultMatchFirst = value.first.match(/\d+/g);
+                        this.numberFirstPage = <number><unknown>resultMatchFirst;
                     } else {
                         this.numberFirstPage = 1;
                     }
 
                     this.lastPage = value.last;
                     if (value.last != undefined) {
-                        this.numberLastPage = value.last.match(/\d+/g).at(0);
+                        const resultMatchLast = value.last.match(/\d+/g);
+                        this.numberLastPage = <number><unknown>resultMatchLast;
                     } else {
                         this.numberLastPage = 1;
                     }
 
                     this.previousPage = value.previous;
                     if (value.previous != undefined) {
-                        this.numberPreviousPage = value.previous.match(/\d+/g).at(0);
+                        const resultMatchPrevious = value.previous.match(/\d+/g);
+                        this.numberPreviousPage = <number><unknown>resultMatchPrevious;
                     } else {
                         this.numberPreviousPage = 1;
                     }
 
                     this.nextPage = value.next;
                     if (value.next != undefined) {
-                        this.numberNextPage = value.next.match(/\d+/g).at(0);
+                        const resultMatchNext = value.next.match(/\d+/g);
+                        this.numberNextPage = <number><unknown>resultMatchNext;
                     } else {
                         this.numberNextPage = 1;
                     }

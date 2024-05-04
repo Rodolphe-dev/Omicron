@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
             private route : Router
         ) { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler) {
+    intercept(req: HttpRequest<unknown>, next: HttpHandler) {
         
         req = req.clone({
             withCredentials: true
@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 }else if(error.error.message === "JWT Token not found" && error.status === 401){
                     this.auth.refreshToken()
                         .subscribe({
-                            next: (value: any) => {
+                            next: value => {
                                 if(value.token){
                                     window.location.reload();
                                 }else{
@@ -39,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
                                     });
                                 }
                             },
-                            error: (value: any) => {
+                            error: value => {
                                 console.log(value.error);
                                 if(value.error.message === "JWT Refresh Token Not Found" && value.error.code === 401){
                                     this.auth.logout();
@@ -52,7 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 }else if(error.error.message === "Expired JWT Token" && error.status === 401){
                     this.auth.refreshToken()
                         .subscribe({
-                            next: (value: any) => {
+                            next: value => {
                                 if(value.token){
                                     window.location.reload();
                                 }else{
@@ -62,7 +62,7 @@ export class AuthInterceptor implements HttpInterceptor {
                                     });
                                 }
                             },
-                            error: (value: any) => {
+                            error: value => {
                                 if(value.error.message === "JWT Refresh Token Not Found" && value.error.code === 401){
                                     this.auth.logout();
                                     this.route.navigate(['/login']).then(() => {

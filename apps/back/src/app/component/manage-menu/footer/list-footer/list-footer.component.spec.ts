@@ -1,22 +1,15 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListFooterComponent } from './list-footer.component';
 
 describe('ListFooterComponent', () => {
   let component: ListFooterComponent;
   let fixture: ComponentFixture<ListFooterComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ListFooterComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ListFooterComponent],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ListFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -26,3 +19,4 @@ describe('ListFooterComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

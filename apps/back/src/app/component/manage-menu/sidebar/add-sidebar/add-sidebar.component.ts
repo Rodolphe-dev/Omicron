@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { SidebarService } from '../../../../service/sidebar/sidebar.service';
-import { ISidebar } from '../../../../model/sidebar';
+import { ISidebarItems } from '../../../../model/sidebar';
 
 @Component({
     selector: 'omicron-nx-add-sidebar',
@@ -38,7 +38,7 @@ export class AddSidebarComponent implements OnInit {
     @ViewChild('addSubParentItemBlock') addSubParentItemBlock!: ElementRef;
     @ViewChild('editSubParentItemBlock') editSubParentItemBlock!: ElementRef;
     itemId = 0;
-    items: ISidebar[] = [];
+    items: ISidebarItems[] = [];
 
     addSidebarFormGroup = this.formBuilder.group(
         {
@@ -258,7 +258,7 @@ export class AddSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditItemHtml(item: ISidebar) {
+    showEditItemHtml(item: ISidebarItems) {
         this.hideItemHtml();
         this.hideParentItemHtml();
         this.hideEditParentItemHtml();
@@ -286,7 +286,7 @@ export class AddSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditParentItemHtml(item: ISidebar) {
+    showEditParentItemHtml(item: ISidebarItems) {
         this.hideItemHtml();
         this.hideParentItemHtml();
         this.hideEditParentItemHtml();
@@ -311,7 +311,7 @@ export class AddSidebarComponent implements OnInit {
         this.hideEditSubParentItemHtml();
     }
 
-    showEditSubParentItemHtml(item: ISidebar) {
+    showEditSubParentItemHtml(item: ISidebarItems) {
         this.hideItemHtml();
         this.hideEditItemHtml();
         this.hideEditParentItemHtml();
@@ -347,7 +347,6 @@ export class AddSidebarComponent implements OnInit {
                 parentName: itemParentName,
                 subParentName: itemSubParentName,
                 name: itemName,
-                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 inSubParent: inSubParent,
@@ -373,7 +372,6 @@ export class AddSidebarComponent implements OnInit {
                 parentName: itemParentName,
                 subParentName: itemSubParentName,
                 name: itemName,
-                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 inSubParent: inSubParent,
@@ -397,7 +395,6 @@ export class AddSidebarComponent implements OnInit {
                     parent: itemParent,
                     subParent: itemSubParent,
                     name: itemName,
-                    status: undefined,
                     url: itemUrl,
                     inParent: inParent,
                     inSubParent: inSubParent,
@@ -447,7 +444,6 @@ export class AddSidebarComponent implements OnInit {
                 subParent: itemSubParent,
                 parentName: itemParentName,
                 name: itemName,
-                status: undefined,
                 url: itemUrl,
                 inParent: inParent,
                 inSubParent: inSubParent,

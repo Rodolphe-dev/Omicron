@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AlertService } from '../../service/alert/alert.service';
 import { environment } from '../../../environments/environment';
+import { ISetting } from '../../model/setting';
 
 @Injectable()
 export class SettingService {
@@ -21,12 +22,18 @@ export class SettingService {
         ) { }
 
     /** Get Setting by id */
-    getThisSetting(value : any){
-        return this.httpClient.get(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader});
+    getThisSetting(value : number){
+        return this.httpClient.get<ISetting>(this.baseUrl + this.getUrl + value, {headers: this.JsonHeader})
+        .pipe(
+            map(res => ({
+                nameApp: res['nameApp'],
+                statusMaintenance: res['statusMaintenance']
+            }))
+        );
     }
 
     /** Edit Setting */
-    editSetting(id : any, value : any){
+    editSetting(id : number, value : object){
         this.httpClient.patch(this.baseUrl + this.getUrl + id,  value, {headers: this.MergeJsonHeader})
         .subscribe({
             next: () => {

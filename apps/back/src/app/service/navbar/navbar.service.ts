@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, map } from 'rxjs';
 import { AlertService } from '../../service/alert/alert.service';
 import { environment } from '../../../environments/environment';
+import { JSONldListNavbar, INavbar } from '../../model/navbar';
 
 @Injectable()
 export class NavbarService {
@@ -28,9 +29,9 @@ export class NavbarService {
 
     /** Inital List + Pagination */
     getNavbars() {
-        return this.httpClient.get(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
+        return this.httpClient.get<JSONldListNavbar>(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -43,10 +44,10 @@ export class NavbarService {
     }
 
     /** Refresh List + Pagination */
-    getNavbarsByPage(pageValue: any) {
-        return this.httpClient.get(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
+    getNavbarsByPage(pageValue: string) {
+        return this.httpClient.get<JSONldListNavbar>(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -59,12 +60,20 @@ export class NavbarService {
     }
 
     /** Get Navbar by id */
-    getThisNavbar(value: any) {
-        return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
+    getThisNavbar(value: number) {
+        return this.httpClient.get<INavbar>(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader })
+        .pipe(
+            map(res => ({
+                id: res['id'],
+                name: res['name'],
+                status: res['status'],
+                items: res['items']
+            }))
+        );
     }
 
     /** Add Navbar */
-    addNavbar(value: any) {
+    addNavbar(value: object) {
         this.httpClient.post(this.baseUrl + this.normalUrl, value)
             .subscribe({
                 next: () => {
@@ -87,7 +96,7 @@ export class NavbarService {
     }
 
     /** Edit Navbar */
-    editNavbar(id: number, value: any) {
+    editNavbar(id: number, value: object) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -110,12 +119,12 @@ export class NavbarService {
     }
 
     /** Toggle Navbar Status */
-    toggleNavbarStatus(id: any) {
-        const subject = new Subject<boolean>();
+    toggleNavbarStatus(id: number) {
+        const subject = new Subject<boolean|null|undefined>();
 
-        this.httpClient.patch(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
+        this.httpClient.patch<INavbar>(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
             .subscribe({
-                next: (value: any) => {
+                next: value => {
                     const options = {
                         autoClose: true,
                         keepAfterRouteChange: true
@@ -130,7 +139,7 @@ export class NavbarService {
                     const successValue = value.status;
                     subject.next(successValue);
                 },
-                error: (value: any) => {
+                error: value => {
                     const options = {
                         autoClose: false,
                         keepAfterRouteChange: true
@@ -147,7 +156,7 @@ export class NavbarService {
     }
 
     /** Delete Navbar */
-    deleteNavbar(value: any) {
+    deleteNavbar(value: number) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

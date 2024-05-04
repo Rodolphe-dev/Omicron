@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { AlertService } from '../../service/alert/alert.service';
 import { environment } from '../../../environments/environment';
+import { JSONldListAdmin } from '../../model/adminAccount';
+import { IAdminAccount } from '../../model/adminAccount';
 
 @Injectable({
     providedIn: 'root'
@@ -32,9 +34,9 @@ export class AdminAccountService {
 
     /** Inital List + Pagination */
     getAdminAccounts() {
-        return this.httpClient.get(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
+        return this.httpClient.get<JSONldListAdmin>(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -48,9 +50,9 @@ export class AdminAccountService {
 
     /** Refresh List + Pagination */
     getadminAccountsByPage(pageValue: string) {
-        return this.httpClient.get(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
+        return this.httpClient.get<JSONldListAdmin>(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -63,17 +65,33 @@ export class AdminAccountService {
     }
 
     /** Get Admin Account by id */
-    getThisAdminAccount(value: any) {
-        return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
+    getThisAdminAccount(value: number) {
+        return this.httpClient.get<IAdminAccount>(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader })
+            .pipe(
+                map(res => ({
+                    id: res['id'],
+                    username: res['username'],
+                    email: res['email'],
+                    superadmin: res['superadmin']
+                }))
+            );
     }
 
     /** Get Admin Account by username */
-    getThisAdminAccountByUsername(value: any) {
-        return this.httpClient.get(this.baseUrl + this.getUrlByName + value, { headers: this.JsonHeader });
+    getThisAdminAccountByUsername(value: string | null | undefined) {
+        return this.httpClient.get<IAdminAccount>(this.baseUrl + this.getUrlByName + value, { headers: this.JsonHeader })
+            .pipe(
+                map(res => ({
+                    id: res['id'],
+                    username: res['username'],
+                    email: res['email'],
+                    superadmin: res['superadmin'],
+                }))
+            );
     }
 
     /** Add Admin Account */
-    addAdminAccount(value: any) {
+    addAdminAccount(value: object) {
         this.httpClient.post(this.baseUrl + this.normalUrl, value)
             .subscribe({
                 next: () => {
@@ -96,7 +114,7 @@ export class AdminAccountService {
     }
 
     /** Edit Admin Account */
-    editAdminAccount(id: any, value: any) {
+    editAdminAccount(id: number, value: object) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -119,7 +137,7 @@ export class AdminAccountService {
     }
 
     /** Edit My Admin Account */
-    editMyAdminAccount(id: any, value: any) {
+    editMyAdminAccount(id: number, value: object) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -142,7 +160,7 @@ export class AdminAccountService {
     }
 
     /** Delete Admin Account */
-    deleteAdminAccount(value: any) {
+    deleteAdminAccount(value: number) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

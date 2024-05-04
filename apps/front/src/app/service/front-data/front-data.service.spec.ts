@@ -1,16 +1,16 @@
-/* tslint:disable:no-unused-variable */
+import { TestBed } from '@angular/core/testing';
 
-import { TestBed, async, inject } from '@angular/core/testing';
 import { FrontDataService } from './front-data.service';
 
-describe('Service: FrontData', () => {
+describe('FrontDataService', () => {
+  let service: FrontDataService;
+
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [FrontDataService]
-    });
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(FrontDataService);
   });
 
-  it('should ...', inject([FrontDataService], (service: FrontDataService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });

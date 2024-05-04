@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, map } from 'rxjs';
 import { AlertService } from '../../service/alert/alert.service';
 import { environment } from '../../../environments/environment';
+import { ISidebar, JSONldListSidebar } from '../../model/sidebar';
 
 @Injectable()
 export class SidebarService {
@@ -28,9 +29,9 @@ export class SidebarService {
 
     /** Inital List + Pagination */
     getSidebars() {
-        return this.httpClient.get(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
+        return this.httpClient.get<JSONldListSidebar>(this.baseUrl + this.normalUrl, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -43,10 +44,10 @@ export class SidebarService {
     }
 
     /** Refresh List + Pagination */
-    getSidebarsByPage(pageValue: any) {
-        return this.httpClient.get(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
+    getSidebarsByPage(pageValue: string) {
+        return this.httpClient.get<JSONldListSidebar>(this.baseUrl + pageValue, { headers: this.LDJsonHeader })
             .pipe(
-                map((res: any) => ({
+                map(res => ({
                     listItem: res['hydra:member'],
                     totalItems: res['hydra:totalItems'],
                     actual: res['hydra:view']['@id'],
@@ -59,12 +60,20 @@ export class SidebarService {
     }
 
     /** Get Sidebar by id */
-    getThisSidebar(value: any) {
-        return this.httpClient.get(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader });
+    getThisSidebar(value: number) {
+        return this.httpClient.get<ISidebar>(this.baseUrl + this.getUrl + value, { headers: this.JsonHeader })
+        .pipe(
+            map(res => ({
+                id: res['id'],
+                name: res['name'],
+                status: res['status'],
+                items: res['items']
+            }))
+        );
     }
 
     /** Add Sidebar */
-    addSidebar(value: any) {
+    addSidebar(value: object) {
         this.httpClient.post(this.baseUrl + this.normalUrl, value)
             .subscribe({
                 next: () => {
@@ -87,7 +96,7 @@ export class SidebarService {
     }
 
     /** Edit Sidebar */
-    editSidebar(id: any, value: any) {
+    editSidebar(id: number, value: object) {
         this.httpClient.patch(this.baseUrl + this.getUrl + id, value, { headers: this.MergeJsonHeader })
             .subscribe({
                 next: () => {
@@ -110,12 +119,12 @@ export class SidebarService {
     }
 
     /** Toggle Sidebar Status */
-    toggleSidebarStatus(id: any) {
-        const subject = new Subject<boolean>();
+    toggleSidebarStatus(id: number) {
+        const subject = new Subject<boolean|null|undefined>();
 
-        this.httpClient.patch(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
+        this.httpClient.patch<ISidebar>(this.baseUrl + this.updateStatusUrl + id, { headers: this.MergeJsonHeader })
             .subscribe({
-                next: (value: any) => {
+                next: value => {
                     const options = {
                         autoClose: true,
                         keepAfterRouteChange: true
@@ -130,7 +139,7 @@ export class SidebarService {
                     const successValue = value.status;
                     subject.next(successValue);
                 },
-                error: (value: any) => {
+                error: value => {
                     const options = {
                         autoClose: false,
                         keepAfterRouteChange: true
@@ -147,7 +156,7 @@ export class SidebarService {
     }
 
     /** Delete Sidebar */
-    deleteSidebar(value: any) {
+    deleteSidebar(value: number) {
         this.httpClient.delete(this.baseUrl + this.deleteUrl + value)
             .subscribe({
                 next: () => {

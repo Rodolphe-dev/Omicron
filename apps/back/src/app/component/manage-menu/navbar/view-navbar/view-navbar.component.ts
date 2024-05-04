@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/r
 import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
 import { NavbarService } from '../../../../service/navbar/navbar.service';
 import { SettingService } from '../../../../service/setting/setting.service';
-import { INavbar } from '../../../../model/navbar';
+import { INavbarItems } from '../../../../model/navbar';
 
 @Component({
     selector: 'omicron-nx-view-navbar',
@@ -23,14 +23,12 @@ import { INavbar } from '../../../../model/navbar';
 })
 export class ViewNavbarComponent implements OnInit {
 
-    id!: string | null;
-    actualNavbar: any = {};
+    id!: number | null;
     navbarIdValue!: number;
-    navbarNameValue!: string;
-    navbarStatus!: string;
-    actualSetting: any = {};
-    appName!: string;
-    items: INavbar[] = [];
+    navbarNameValue: string | null | undefined;
+    navbarStatus: string | null | undefined;
+    appName: string | null | undefined;
+    items: INavbarItems[] = [];
 
 
     constructor(
@@ -47,22 +45,21 @@ export class ViewNavbarComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Navbar');
         this.breadcrumbs.setLevelThreeValue('View Navbar');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.navbar.getThisNavbar(this.id)
             .subscribe({
                 next: value => {
-                    this.actualNavbar = value;
-                    this.navbarIdValue = this.actualNavbar.id;
-                    this.navbarNameValue = this.actualNavbar.name;
+                    this.navbarIdValue = value.id;
+                    this.navbarNameValue = value.name;
 
-                    if (this.actualNavbar.status === true) {
+                    if (value.status === true) {
                         this.navbarStatus = "Enabled";
                     } else {
                         this.navbarStatus = "Disabled";
                     }
 
-                    this.items = this.actualNavbar.items[0];
+                    this.items = value.items;
                 }
             });
 
@@ -70,8 +67,7 @@ export class ViewNavbarComponent implements OnInit {
         this.setting.getThisSetting(1)
             .subscribe({
                 next: value => {
-                    this.actualSetting = value;
-                    this.appName = this.actualSetting.nameApp;
+                    this.appName = value.nameApp;
                 }
             });
     }

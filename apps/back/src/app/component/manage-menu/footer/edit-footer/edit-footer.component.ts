@@ -21,17 +21,16 @@ import { FooterService } from '../../../../service/footer/footer.service';
 })
 export class EditFooterComponent implements OnInit {
 
-    id!: string | null;
-    actualFooter: any = {};
+    id!: number | null;
     footerIdValue!: number;
-    footerNameValue!: string;
-    footerStatus!: boolean;
-    footerContentValue!: string;
+    footerNameValue: string | null | undefined;
+    footerStatus: boolean | null | undefined;
+    footerContentValue: string | null | undefined;
 
     editFooterForm = this.formBuilder.group(
         {
-            name: new FormControl<string>('', { validators: Validators.required }),
-            content: '',
+            name: new FormControl<string | null | undefined>('', { validators: Validators.required }),
+            content: new FormControl<string | null | undefined>('')
         }
     );
 
@@ -49,27 +48,26 @@ export class EditFooterComponent implements OnInit {
         this.breadcrumbs.setLevelTwoValue('Footer');
         this.breadcrumbs.setLevelThreeValue('Edit Footer');
 
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
 
         this.footer.getThisFooter(this.id)
             .subscribe({
                 next: value => {
-                    this.actualFooter = value;
-                    this.footerIdValue = this.actualFooter.id;
-                    this.footerNameValue = this.actualFooter.name;
-                    this.footerStatus = this.actualFooter.status;
-                    this.footerContentValue = this.actualFooter.content;
+                    this.footerIdValue = value.id;
+                    this.footerNameValue = value.name;
+                    this.footerStatus = value.status;
+                    this.footerContentValue = value.content;
 
-                    this.editFooterForm.setValue({ name: this.actualFooter.name, content: this.actualFooter.content });
+                    this.editFooterForm.setValue({ name: value.name, content: value.content });
                 }
             });
 
         this.editFooterForm = new FormGroup({
-            name: new FormControl('', [
+            name: new FormControl<string | null | undefined>('', [
                 Validators.required,
                 Validators.maxLength(255)
             ]),
-            content: new FormControl('', [
+            content: new FormControl<string | null | undefined>('', [
                 Validators.maxLength(300)
             ]),
         });
