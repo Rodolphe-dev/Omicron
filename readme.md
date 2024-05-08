@@ -54,6 +54,8 @@ every thing else is like a regular symfony app and angular app
 
 ## TODO
 
+[ ] Add unsubscribe where they are needed
+
 [ ] Clean the code
 
 [ ] Make all the tests
