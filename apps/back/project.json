@@ -8,21 +8,14 @@
     "targets": {
         "build": {
             "executor": "@angular-devkit/build-angular:application",
-            "outputs": [
-                "{options.outputPath}"
-            ],
+            "outputs": ["{options.outputPath}"],
             "options": {
                 "outputPath": "dist/apps/back",
                 "index": "apps/back/src/index.html",
                 "browser": "apps/back/src/main.ts",
-                "polyfills": [
-                    "zone.js"
-                ],
+                "polyfills": ["zone.js"],
                 "tsConfig": "apps/back/tsconfig.app.json",
-                "assets": [
-                    "apps/back/src/favicon.ico",
-                    "apps/back/src/assets"
-                ],
+                "assets": ["apps/back/src/favicon.ico", "apps/back/src/assets"],
                 "styles": [
                     "apps/back/src/assets/style.css",
                     "apps/back/src/assets/index.css"

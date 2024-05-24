@@ -1,15 +1,24 @@
 <div class="grid grid-cols-8">
-    <div *ngFor="let alert of alerts" class="{{cssClass(alert)}} fixed z-10 bottom-5 w-6/12 place-self-center" role="alert">
+    <div
+        *ngFor="let alert of alerts"
+        class="{{
+            cssClass(alert)
+        }} fixed z-10 bottom-5 w-6/12 place-self-center"
+        role="alert"
+    >
         @if(alert.type === 0){
-            <fa-icon [icon]="faCircleCheck" class="fa-xl leading-lg"></fa-icon>
+        <fa-icon [icon]="faCircleCheck" class="fa-xl leading-lg"></fa-icon>
         }@else if (alert.type === 1) {
-            <fa-icon [icon]="faCircleExclamation" class="fa-xl leading-lg"></fa-icon>
+        <fa-icon
+            [icon]="faCircleExclamation"
+            class="fa-xl leading-lg"
+        ></fa-icon>
         }@else if (alert.type === 2) {
-            <fa-icon [icon]="faCircleInfo" class="fa-xl leading-lg"></fa-icon>
+        <fa-icon [icon]="faCircleInfo" class="fa-xl leading-lg"></fa-icon>
         }@else if (alert.type === 3) {
-            <fa-icon [icon]="faCircleRadiation" class="fa-xl leading-lg"></fa-icon>
+        <fa-icon [icon]="faCircleRadiation" class="fa-xl leading-lg"></fa-icon>
         }
-        
+
         <div [innerHTML]="alert.message"></div>
         <button type="button" class="btn-close" (click)="removeAlert(alert)">
             <fa-icon [icon]="faXmark" class="fa-xl leading-lg"></fa-icon>

@@ -8,23 +8,20 @@
     "targets": {
         "build": {
             "executor": "@angular-devkit/build-angular:application",
-            "outputs": [
-                "{options.outputPath}"
-            ],
+            "outputs": ["{options.outputPath}"],
             "options": {
                 "outputPath": "dist/apps/front",
                 "index": "apps/front/src/index.html",
                 "browser": "apps/front/src/main.ts",
-                "polyfills": [
-                    "zone.js"
-                ],
+                "polyfills": ["zone.js"],
                 "tsConfig": "apps/front/tsconfig.app.json",
                 "assets": [
                     "apps/front/src/favicon.ico",
                     "apps/front/src/assets"
                 ],
                 "styles": [
-                    "apps/front/src/styles.css"
+                    "apps/back/src/assets/style.css",
+                    "apps/back/src/assets/index.css"
                 ],
                 "scripts": []
             },

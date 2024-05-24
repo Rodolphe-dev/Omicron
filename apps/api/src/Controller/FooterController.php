@@ -1,15 +1,15 @@
 <?php
+
 // api/src/Controller/FooterController.php
+
 namespace App\Controller;
 
+use App\Entity\Footer;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
-use App\Entity\Footer;
-
-use Doctrine\ORM\EntityManagerInterface;
 
 #[AsController]
 class FooterController extends AbstractController
@@ -28,15 +28,13 @@ class FooterController extends AbstractController
         $footer = $entityManager->getRepository(Footer::class)->find($id);
 
         if (!$footer) {
-            throw $this->createNotFoundException(
-                'No footer found for id : ' . $id
-            );
+            throw $this->createNotFoundException('No footer found for id : '.$id);
         }
 
         $checkIfFooterActive = $entityManager->getRepository(Footer::class)->findOneBy(['status' => true]);
 
         if (!$checkIfFooterActive || $checkIfFooterActive->getId() == $id) {
-            if ($footer->isStatus() === false) {
+            if (false === $footer->isStatus()) {
                 $footer->setStatus(true);
             } else {
                 $footer->setStatus(false);
@@ -49,13 +47,11 @@ class FooterController extends AbstractController
                     'id' => $footer->getId(),
                     'name' => $footer->getName(),
                     'status' => $footer->isStatus(),
-                    'content' => $footer->getContent()
+                    'content' => $footer->getContent(),
                 ]
             );
         } else {
-            throw $this->createNotFoundException(
-                'One footer already active, his id is : ' . $checkIfFooterActive->getId()
-            );
+            throw $this->createNotFoundException('One footer already active, his id is : '.$checkIfFooterActive->getId());
         }
     }
 }

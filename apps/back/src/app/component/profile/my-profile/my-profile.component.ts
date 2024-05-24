@@ -1,14 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, FormsModule, FormControl, Validators } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-import { BreadcrumbsService } from '../../../service/breadcrumbs/breadcrumbs.service';
-import { AdminAccountService } from '../../../service/adminAccount/adminAccount.service';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+    RouterLink,
+    RouterLinkActive,
+    Router,
+    ActivatedRoute,
+} from "@angular/router";
+import {
+    FormBuilder,
+    ReactiveFormsModule,
+    FormsModule,
+    FormControl,
+    Validators,
+} from "@angular/forms";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { BreadcrumbsService } from "../../../service/breadcrumbs/breadcrumbs.service";
+import { AdminAccountService } from "../../../service/adminAccount/adminAccount.service";
 
 @Component({
-    selector: 'omicron-nx-my-profile',
+    selector: "omicron-nx-my-profile",
     standalone: true,
     imports: [
         CommonModule,
@@ -16,16 +27,15 @@ import { AdminAccountService } from '../../../service/adminAccount/adminAccount.
         RouterLinkActive,
         FormsModule,
         ReactiveFormsModule,
-        FontAwesomeModule
+        FontAwesomeModule,
     ],
     providers: [AdminAccountService],
-    templateUrl: './my-profile.component.html',
-    styleUrls: ['./my-profile.component.css']
+    templateUrl: "./my-profile.component.html",
+    styleUrls: ["./my-profile.component.css"],
 })
 export class MyProfileComponent implements OnInit {
-
-    faEye = faEye
-    faEyeSlash = faEyeSlash
+    faEye = faEye;
+    faEyeSlash = faEyeSlash;
     showPassword = false;
     id!: number | null;
     adminIdValue!: number;
@@ -35,21 +45,24 @@ export class MyProfileComponent implements OnInit {
     adminSuperAdminValue: boolean | null | undefined;
     superAdmin: boolean | null | undefined;
 
+    adminForm = this.formBuilder.group({
+        username: new FormControl<string | null | undefined>("", {
+            validators: Validators.required,
+        }),
+        email: new FormControl<string | null | undefined>("", {
+            validators: Validators.required,
+        }),
+        superAdmin: new FormControl<boolean | null | undefined>(false),
+    });
 
-    adminForm = this.formBuilder.group(
-        {
-            username: new FormControl<string | null | undefined>('', { validators: Validators.required }),
-            email: new FormControl<string | null | undefined>('', { validators: Validators.required }),
-            superAdmin: new FormControl<boolean | null | undefined>(false),
-        }
-    );
-
-    adminPasswordForm = this.formBuilder.group(
-        {
-            password: new FormControl<string>('', { validators: Validators.required }),
-            confirmPassword: new FormControl<string>('', { validators: Validators.required }),
-        }
-    );
+    adminPasswordForm = this.formBuilder.group({
+        password: new FormControl<string>("", {
+            validators: Validators.required,
+        }),
+        confirmPassword: new FormControl<string>("", {
+            validators: Validators.required,
+        }),
+    });
 
     constructor(
         private breadcrumbs: BreadcrumbsService,
@@ -57,29 +70,30 @@ export class MyProfileComponent implements OnInit {
         private admin: AdminAccountService,
         public router: Router,
         private route: ActivatedRoute
-    ) { }
-
+    ) {}
 
     ngOnInit() {
         this.breadcrumbs.setLevel(1);
-        this.breadcrumbs.setLevelOneValue('My Profile');
-        this.breadcrumbs.setLevelTwoValue('');
-        this.breadcrumbs.setLevelThreeValue('');
+        this.breadcrumbs.setLevelOneValue("My Profile");
+        this.breadcrumbs.setLevelTwoValue("");
+        this.breadcrumbs.setLevelThreeValue("");
 
-        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
+        this.id = <number>(<unknown>this.route.snapshot.paramMap.get("id"));
 
-        this.admin.getThisAdminAccount(this.id)
-            .subscribe({
-                next: value => {
-                    this.adminIdValue = value.id;
-                    this.adminUsernameValue = value.username;
-                    this.adminEmailValue = value.email;
-                    this.adminSuperAdminValue = value.superadmin;
+        this.admin.getThisAdminAccount(this.id).subscribe({
+            next: (value) => {
+                this.adminIdValue = value.id;
+                this.adminUsernameValue = value.username;
+                this.adminEmailValue = value.email;
+                this.adminSuperAdminValue = value.superadmin;
 
-                    this.adminForm.setValue({ username: value.username, email: value.email, superAdmin: value.superadmin });
-                }
-            });
-
+                this.adminForm.setValue({
+                    username: value.username,
+                    email: value.email,
+                    superAdmin: value.superadmin,
+                });
+            },
+        });
     }
 
     togglePasswordVisibility() {
@@ -100,7 +114,7 @@ export class MyProfileComponent implements OnInit {
         const body = {
             username: username,
             email: email,
-            superadmin: this.superAdmin
+            superadmin: this.superAdmin,
         };
 
         this.admin.editMyAdminAccount(this.adminIdValue, body);
@@ -112,7 +126,7 @@ export class MyProfileComponent implements OnInit {
 
         if (confirmPassword === password) {
             const body = {
-                plainPassword: password
+                plainPassword: password,
             };
 
             this.admin.editMyAdminAccount(this.adminIdValue, body);
@@ -120,5 +134,4 @@ export class MyProfileComponent implements OnInit {
             // TODO : need add toast error and put red label on password input
         }
     }
-
 }

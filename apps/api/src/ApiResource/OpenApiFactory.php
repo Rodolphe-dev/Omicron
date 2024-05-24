@@ -3,8 +3,8 @@
 namespace App\ApiResource;
 
 use ApiPlatform\OpenApi\Factory\OpenApiFactoryInterface;
-use ApiPlatform\OpenApi\OpenApi;
 use ApiPlatform\OpenApi\Model;
+use ApiPlatform\OpenApi\OpenApi;
 
 final class OpenApiFactory implements OpenApiFactoryInterface
 {
@@ -18,7 +18,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         $openApi = $this->decorated->__invoke($context);
         $schemas = $openApi->getComponents()->getSchemas();
 
-        /** Schemas Auth */
+        /* Schemas Auth */
 
         $schemas['Auth'] = new \ArrayObject([
             'type' => 'object',
@@ -46,7 +46,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'required' => ['properties'],
         ]);
 
-        /** Schemas Logout */
+        /* Schemas Logout */
 
         $schemas['TokenStatus'] = new \ArrayObject([
             'type' => 'object',
@@ -59,30 +59,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'required' => ['properties'],
         ]);
 
-        /** Schemas Verify */
-
-        $schemas['Token'] = new \ArrayObject([
-            'type' => 'object',
-            'properties' => [
-                'token' => [
-                    'type' => 'string',
-                    'nullable' => false,
-                ],
-            ],
-            'required' => ['token'],
-        ]);
-        $schemas['TokenStatus'] = new \ArrayObject([
-            'type' => 'object',
-            'properties' => [
-                'tokenStatus' => [
-                    'type' => 'string',
-                    'example' => 'string',
-                ],
-            ],
-            'required' => ['properties'],
-        ]);
-
-        /** Schemas Get This Admin Account By Username */
+        /* Schemas Get This Admin Account By Username */
 
         $schemas['Username'] = new \ArrayObject([
             'type' => 'object',
@@ -117,7 +94,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'required' => ['properties'],
         ]);
 
-        /** Schemas Get This Page By Route */
+        /* Schemas Get This Page By Route */
 
         $schemas['Route'] = new \ArrayObject([
             'type' => 'object',
@@ -144,7 +121,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'required' => ['properties'],
         ]);
 
-        /** Schemas Update Navbar Status */
+        /* Schemas Update Navbar Status */
 
         $schemas['Id'] = new \ArrayObject([
             'type' => 'object',
@@ -175,7 +152,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'required' => ['properties'],
         ]);
 
-        /** Schemas Update Sidebar Status */
+        /* Schemas Update Sidebar Status */
 
         $schemas['Id'] = new \ArrayObject([
             'type' => 'object',
@@ -206,7 +183,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'required' => ['properties'],
         ]);
 
-        /** Schemas Update Footer Status */
+        /* Schemas Update Footer Status */
 
         $schemas['Id'] = new \ArrayObject([
             'type' => 'object',
@@ -237,7 +214,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'required' => ['properties'],
         ]);
 
-        /** Schemas Front Data */
+        /* Schemas Front Data */
 
         $schemas['Front-data'] = new \ArrayIterator([
             'type' => 'object',
@@ -256,7 +233,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
                         'items' => [
                             'type' => 'string',
                             'example' => 'string',
-                        ]
+                        ],
                     ],
                 ],
                 'sidebar' => [
@@ -273,7 +250,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
                         'items' => [
                             'type' => 'string',
                             'example' => 'string',
-                        ]
+                        ],
                     ],
                 ],
                 'footer' => [
@@ -290,7 +267,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
                         'content' => [
                             'type' => 'string',
                             'example' => 'string',
-                        ]
+                        ],
                     ],
                 ],
                 'setting' => [
@@ -303,7 +280,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
                         'statusMaintenance' => [
                             'type' => 'boolean',
                             'example' => true,
-                        ]
+                        ],
                     ],
                 ],
                 'page' => [
@@ -320,14 +297,14 @@ final class OpenApiFactory implements OpenApiFactoryInterface
                         'content' => [
                             'type' => 'string',
                             'example' => 'string',
-                        ]
+                        ],
                     ],
                 ],
             ],
             'required' => ['properties'],
         ]);
 
-        /** Schemas Not Found */
+        /* Schemas Not Found */
 
         $schemas['NotFound'] = new \ArrayObject([
             'type' => 'string',
@@ -342,7 +319,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         ]);
 
         /** Path Auth */
-
         $pathAuthItem = new Model\PathItem(
             ref: 'JWT Token',
             post: new Model\Operation(
@@ -379,7 +355,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         $openApi->getPaths()->addPath('/auth', $pathAuthItem);
 
         /** Path Logout */
-
         $pathItemLogout = new Model\PathItem(
             ref: 'JWT Token',
             post: new Model\Operation(
@@ -403,44 +378,7 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         );
         $openApi->getPaths()->addPath('/logout', $pathItemLogout);
 
-        /** Path Verify */
-
-        $pathItemVerify = new Model\PathItem(
-            ref: 'JWT Token',
-            get: new Model\Operation(
-                operationId: 'postTokenItem',
-                tags: ['Auth'],
-                description: 'Used to verify a token.',
-                responses: [
-                    '200' => [
-                        'description' => 'Token verified',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    '$ref' => '#/components/schemas/TokenStatus',
-                                ],
-                            ],
-                        ],
-                    ],
-                    '404' => [
-                        'description' => 'Resource not found',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    '$ref' => '#/components/schemas/NotFound',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                security: [],
-            ),
-        );
-
-        $openApi->getPaths()->addPath('/verify', $pathItemVerify);
-
         /** Path get admin account by username */
-
         $pathItemGetAdminUsername = new Model\PathItem(
             ref: 'Admin Account',
             get: new Model\Operation(
@@ -485,7 +423,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         $openApi->getPaths()->addPath('/api/admin_accounts/getAdminAccountByUsername/{username}', $pathItemGetAdminUsername);
 
         /** Path get page by route */
-
         $pathItemPageRoute = new Model\PathItem(
             ref: 'Page',
             get: new Model\Operation(
@@ -530,7 +467,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         $openApi->getPaths()->addPath('/api/pages/getPageByRoute/{route}', $pathItemPageRoute);
 
         /** Path update navbar status */
-
         $pathItemNavbarStatus = new Model\PathItem(
             ref: 'Navbar',
             patch: new Model\Operation(
@@ -575,7 +511,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         $openApi->getPaths()->addPath('/api/navbars/updateNavbarStatus/{id}', $pathItemNavbarStatus);
 
         /** Path update sidebar status */
-
         $pathItemSidebarStatus = new Model\PathItem(
             ref: 'Sidebar',
             patch: new Model\Operation(
@@ -620,7 +555,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         $openApi->getPaths()->addPath('/api/sidebars/updateSidebarStatus/{id}', $pathItemSidebarStatus);
 
         /** Path update footer status */
-
         $pathItemFooterStatus = new Model\PathItem(
             ref: 'Footer',
             patch: new Model\Operation(
@@ -665,7 +599,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
         $openApi->getPaths()->addPath('/api/footers/updateFooterStatus/{id}', $pathItemFooterStatus);
 
         /** Path get front data */
-
         $pathItemFrontData = new Model\PathItem(
             ref: 'Front-data',
             get: new Model\Operation(
@@ -699,7 +632,6 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             ),
         );
         $openApi->getPaths()->addPath('/api/frontdata/getFrontData', $pathItemFrontData);
-
 
         return $openApi;
     }

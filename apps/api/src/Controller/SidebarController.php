@@ -1,15 +1,15 @@
 <?php
+
 // api/src/Controller/SidebarController.php
+
 namespace App\Controller;
 
+use App\Entity\Sidebar;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
-use App\Entity\Sidebar;
-
-use Doctrine\ORM\EntityManagerInterface;
 
 #[AsController]
 class SidebarController extends AbstractController
@@ -28,15 +28,13 @@ class SidebarController extends AbstractController
         $sidebar = $entityManager->getRepository(Sidebar::class)->find($id);
 
         if (!$sidebar) {
-            throw $this->createNotFoundException(
-                'No sidebar found for id : ' . $id
-            );
+            throw $this->createNotFoundException('No sidebar found for id : '.$id);
         }
 
         $checkIfSidebarActive = $entityManager->getRepository(Sidebar::class)->findOneBy(['status' => true]);
 
         if (!$checkIfSidebarActive || $checkIfSidebarActive->getId() == $id) {
-            if ($sidebar->isStatus() === false) {
+            if (false === $sidebar->isStatus()) {
                 $sidebar->setStatus(true);
             } else {
                 $sidebar->setStatus(false);
@@ -49,13 +47,11 @@ class SidebarController extends AbstractController
                     'id' => $sidebar->getId(),
                     'name' => $sidebar->getName(),
                     'status' => $sidebar->isStatus(),
-                    'items' => $sidebar->getItems()
+                    'items' => $sidebar->getItems(),
                 ]
             );
         } else {
-            throw $this->createNotFoundException(
-                'One sidebar already active, his id is : ' . $checkIfSidebarActive->getId()
-            );
+            throw $this->createNotFoundException('One sidebar already active, his id is : '.$checkIfSidebarActive->getId());
         }
     }
 }

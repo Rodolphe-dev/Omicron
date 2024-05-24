@@ -1,19 +1,19 @@
 <?php
+
 // api/src/Controller/FrontController.php
+
 namespace App\Controller;
 
+use App\Entity\Footer;
+use App\Entity\Navbar;
+use App\Entity\Page;
+use App\Entity\Setting;
+use App\Entity\Sidebar;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
-use App\Entity\Navbar;
-use App\Entity\Sidebar;
-use App\Entity\Footer;
-use App\Entity\Setting;
-use App\Entity\Page;
-
-use Doctrine\ORM\EntityManagerInterface;
 
 #[AsController]
 class FrontController extends AbstractController
@@ -41,27 +41,27 @@ class FrontController extends AbstractController
                     'navbar' => [
                         'name' => null,
                         'status' => null,
-                        'items' => null
+                        'items' => null,
                     ],
                     'sidebar' => [
                         'name' => $sidebar->getName(),
                         'status' => $sidebar->isStatus(),
-                        'items' => $sidebar->getItems()
+                        'items' => $sidebar->getItems(),
                     ],
                     'footer' => [
                         'name' => $footer->getName(),
                         'status' => $footer->isStatus(),
-                        'content' => $footer->getContent()
+                        'content' => $footer->getContent(),
                     ],
                     'setting' => [
                         'nameApp' => $setting->getNameApp(),
-                        'statusMaintenance' => $setting->isStatusMaintenance()
+                        'statusMaintenance' => $setting->isStatusMaintenance(),
                     ],
                     'page' => [
                         'name' => $page->getName(),
                         'route' => $page->getRoute(),
-                        'content' => $page->getContent()
-                    ]
+                        'content' => $page->getContent(),
+                    ],
                 ]
             );
         } elseif (!$navbar && !$sidebar) {
@@ -70,27 +70,27 @@ class FrontController extends AbstractController
                     'navbar' => [
                         'name' => null,
                         'status' => null,
-                        'items' => null
+                        'items' => null,
                     ],
                     'sidebar' => [
                         'name' => null,
                         'status' => null,
-                        'items' => null
+                        'items' => null,
                     ],
                     'footer' => [
                         'name' => $footer->getName(),
                         'status' => $footer->isStatus(),
-                        'content' => $footer->getContent()
+                        'content' => $footer->getContent(),
                     ],
                     'setting' => [
                         'nameApp' => $setting->getNameApp(),
-                        'statusMaintenance' => $setting->isStatusMaintenance()
+                        'statusMaintenance' => $setting->isStatusMaintenance(),
                     ],
                     'page' => [
                         'name' => $page->getName(),
                         'route' => $page->getRoute(),
-                        'content' => $page->getContent()
-                    ]
+                        'content' => $page->getContent(),
+                    ],
                 ]
             );
         } elseif ($navbar && !$sidebar) {
@@ -99,27 +99,27 @@ class FrontController extends AbstractController
                     'navbar' => [
                         'name' => $navbar->getName(),
                         'status' => $navbar->isStatus(),
-                        'items' => $navbar->getItems()
+                        'items' => $navbar->getItems(),
                     ],
                     'sidebar' => [
                         'name' => null,
                         'status' => null,
-                        'items' => null
+                        'items' => null,
                     ],
                     'footer' => [
                         'name' => $footer->getName(),
                         'status' => $footer->isStatus(),
-                        'content' => $footer->getContent()
+                        'content' => $footer->getContent(),
                     ],
                     'setting' => [
                         'nameApp' => $setting->getNameApp(),
-                        'statusMaintenance' => $setting->isStatusMaintenance()
+                        'statusMaintenance' => $setting->isStatusMaintenance(),
                     ],
                     'page' => [
                         'name' => $page->getName(),
                         'route' => $page->getRoute(),
-                        'content' => $page->getContent()
-                    ]
+                        'content' => $page->getContent(),
+                    ],
                 ]
             );
         } else {
@@ -128,27 +128,27 @@ class FrontController extends AbstractController
                     'navbar' => [
                         'name' => $navbar->getName(),
                         'status' => $navbar->isStatus(),
-                        'items' => $navbar->getItems()
+                        'items' => $navbar->getItems(),
                     ],
                     'sidebar' => [
                         'name' => $sidebar->getName(),
                         'status' => $sidebar->isStatus(),
-                        'items' => $sidebar->getItems()
+                        'items' => $sidebar->getItems(),
                     ],
                     'footer' => [
                         'name' => $footer->getName(),
                         'status' => $footer->isStatus(),
-                        'content' => $footer->getContent()
+                        'content' => $footer->getContent(),
                     ],
                     'setting' => [
                         'nameApp' => $setting->getNameApp(),
-                        'statusMaintenance' => $setting->isStatusMaintenance()
+                        'statusMaintenance' => $setting->isStatusMaintenance(),
                     ],
                     'page' => [
                         'name' => $page->getName(),
                         'route' => $page->getRoute(),
-                        'content' => $page->getContent()
-                    ]
+                        'content' => $page->getContent(),
+                    ],
                 ]
             );
         }

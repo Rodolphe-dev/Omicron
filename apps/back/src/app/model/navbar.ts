@@ -1,56 +1,66 @@
-export interface INavbar {
-    id:     number;
-    name:   string;
+export interface Navbar {
+    id: number;
+    name: string;
     status: boolean;
-    items:  INavbarItems[];
+    items: NavbarItems[];
 }
 
-export interface INavbarItems {
+export interface NavbarItems {
     id: number;
     parent: boolean | null | undefined;
     parentName?: string | null | undefined;
     name: string | null | undefined;
     url: string | null | undefined;
     inParent: boolean | null | undefined;
-    children: INavbarItems[];
+    children: NavbarItems[];
+}
+
+export interface NavbarItems {
+    id: number;
+    parent: boolean | null | undefined;
+    parentName?: string | null | undefined;
+    name: string | null | undefined;
+    url: string | null | undefined;
+    inParent: boolean | null | undefined;
+    children: NavbarItems[];
 }
 
 export interface JSONldListNavbar {
-    "hydra:member":     INavbar[];
+    "hydra:member": Navbar[];
     "hydra:totalItems": number;
-    "hydra:view":       HydraView;
-    "hydra:search":     HydraSearch;
+    "hydra:view": HydraView;
+    "hydra:search": HydraSearch;
 }
 
 export interface HydraMember {
     "@context": string;
-    "@id":      string;
-    "@type":    string;
-    id:         number;
-    name:       string;
-    status:     boolean;
-    items:      string[];
+    "@id": string;
+    "@type": string;
+    id: number;
+    name: string;
+    status: boolean;
+    items: string[];
 }
 
 export interface HydraSearch {
-    "@type":                        string;
-    "hydra:template":               string;
+    "@type": string;
+    "hydra:template": string;
     "hydra:variableRepresentation": string;
-    "hydra:mapping":                HydraMapping[];
+    "hydra:mapping": HydraMapping[];
 }
 
 export interface HydraMapping {
-    "@type":  string;
+    "@type": string;
     variable: string;
     property: string;
     required: boolean;
 }
 
 export interface HydraView {
-    "@id":            string;
-    type:             string;
-    "hydra:first":    string;
-    "hydra:last":     string;
+    "@id": string;
+    type: string;
+    "hydra:first": string;
+    "hydra:last": string;
     "hydra:previous": string;
-    "hydra:next":     string;
+    "hydra:next": string;
 }

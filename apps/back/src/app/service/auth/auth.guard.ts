@@ -1,18 +1,18 @@
-import { inject } from '@angular/core';
-import { Router, CanActivateFn } from '@angular/router';
-import { AuthService } from '../../service/auth/auth.service';
+import { inject } from "@angular/core";
+import { Router, CanActivateFn } from "@angular/router";
+import { AuthService } from "../../service/auth/auth.service";
 
 export const AuthGuard: CanActivateFn = () => {
     const route = inject(Router);
     const auth = inject(AuthService);
     const isLogged = auth.getIsLogged();
-    
-    if(isLogged === 'true'){
+
+    if (isLogged === "true") {
         return true;
-    }else{
+    } else {
         window.alert("Access not allowed!");
 
-        route.navigate(['/login']).then(() => {
+        route.navigate(["/login"]).then(() => {
             window.location.reload();
         });
 

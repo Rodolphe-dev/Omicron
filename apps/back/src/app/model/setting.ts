@@ -1,5 +1,5 @@
-export interface ISetting {
-    id:                number;
-    nameApp:           string;
+export interface Setting {
+    id: number;
+    nameApp: string;
     statusMaintenance: boolean;
 }

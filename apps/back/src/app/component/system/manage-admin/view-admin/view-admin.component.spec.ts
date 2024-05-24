@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ViewAdminComponent } from './view-admin.component';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ViewAdminComponent } from "./view-admin.component";
 
-describe('ViewAdminComponent', () => {
-  let component: ViewAdminComponent;
-  let fixture: ComponentFixture<ViewAdminComponent>;
+describe("ViewAdminComponent", () => {
+    let component: ViewAdminComponent;
+    let fixture: ComponentFixture<ViewAdminComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ViewAdminComponent],
-    }).compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [ViewAdminComponent],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewAdminComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(ViewAdminComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it("should create", () => {
+        expect(component).toBeTruthy();
+    });
 });

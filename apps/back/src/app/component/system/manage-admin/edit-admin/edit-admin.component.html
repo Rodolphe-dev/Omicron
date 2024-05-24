@@ -1,4 +1,6 @@
-<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
+<div
+    class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200"
+>
     <div class="col-end-6 md:col-end-5">
         <a class="btn mx-1 btn-neutral" routerLink="/system/admin/list">
             Back
@@ -13,75 +15,124 @@
                 <div class="w-full min-w-full">
                     <label class="form-control w-full">
                         <div class="label">
-                            <span class="label-text font-semibold">Username</span>
+                            <span class="label-text font-semibold"
+                                >Username</span
+                            >
                         </div>
-                        <input type="text" name="username" #username formControlName="username" value="{{adminUsernameValue}}" placeholder="Type here" class="{{ usernameInput?.invalid && (usernameInput?.dirty || usernameInput?.touched) ? 'input-error' : '' }} input input-bordered w-full" />
-                
-                        @if(usernameInput?.invalid && (usernameInput?.dirty || usernameInput?.touched)){
-                            @if(usernameInput?.errors?.['required']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Username is required.</span>
-                                </div>
-                            }
-                            @if(usernameInput?.errors?.['minlength']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Username must be 3 characters minimum.</span>
-                                </div>
-                            }
-                            @if(usernameInput?.errors?.['maxlength']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Username must be 25 characters maximum.</span>
-                                </div>
-                            }
-                            @if(usernameInput?.errors?.['pattern']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Username must be only normal characters like letters, numbers, uppercase, lowercase.</span>
-                                </div>
-                            }
-                        }
+                        <input
+                            type="text"
+                            name="username"
+                            #username
+                            formControlName="username"
+                            value="{{ adminUsernameValue }}"
+                            placeholder="Type here"
+                            class="{{
+                                usernameInput?.invalid &&
+                                (usernameInput?.dirty || usernameInput?.touched)
+                                    ? 'input-error'
+                                    : ''
+                            }} input input-bordered w-full"
+                        />
+
+                        @if(usernameInput?.invalid && (usernameInput?.dirty ||
+                        usernameInput?.touched)){
+                        @if(usernameInput?.errors?.['required']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Username is required.</span
+                            >
+                        </div>
+                        } @if(usernameInput?.errors?.['minlength']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Username must be 3 characters minimum.</span
+                            >
+                        </div>
+                        } @if(usernameInput?.errors?.['maxlength']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Username must be 25 characters maximum.</span
+                            >
+                        </div>
+                        } @if(usernameInput?.errors?.['pattern']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Username must be only normal characters like
+                                letters, numbers, uppercase, lowercase.</span
+                            >
+                        </div>
+                        } }
                     </label>
                 </div>
-        
+
                 <div class="w-full min-w-full">
                     <label class="form-control w-full">
                         <div class="label">
                             <span class="label-text font-semibold">Email</span>
                         </div>
-                        <input type="email" name="email" #email formControlName="email" value="{{adminEmailValue}}" placeholder="Type here" class="{{ emailInput?.invalid && (emailInput?.dirty || emailInput?.touched) ? 'input-error' : '' }} input input-bordered w-full" />
-                
-                        @if(emailInput?.invalid && (emailInput?.dirty || emailInput?.touched)){
-                            @if(emailInput?.errors?.['required']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Email is required.</span>
-                                </div>
-                            }
-                            @if(emailInput?.errors?.['pattern']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">This does not look like an email.</span>
-                                </div>
-                            }
-                        }
+                        <input
+                            type="email"
+                            name="email"
+                            #email
+                            formControlName="email"
+                            value="{{ adminEmailValue }}"
+                            placeholder="Type here"
+                            class="{{
+                                emailInput?.invalid &&
+                                (emailInput?.dirty || emailInput?.touched)
+                                    ? 'input-error'
+                                    : ''
+                            }} input input-bordered w-full"
+                        />
+
+                        @if(emailInput?.invalid && (emailInput?.dirty ||
+                        emailInput?.touched)){
+                        @if(emailInput?.errors?.['required']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Email is required.</span
+                            >
+                        </div>
+                        } @if(emailInput?.errors?.['pattern']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >This does not look like an email.</span
+                            >
+                        </div>
+                        } }
                     </label>
                 </div>
-        
+
                 <div class="w-full min-w-full">
                     <label class="form-control w-full max-w-xs">
                         <div class="label">
-                            <span class="label-text font-semibold">Super Admin</span>
+                            <span class="label-text font-semibold"
+                                >Super Admin</span
+                            >
                         </div>
-                        <input type="checkbox" class="toggle"  name="superAdmin" #superAdmin formControlName="superAdmin" />
+                        <input
+                            type="checkbox"
+                            class="toggle"
+                            name="superAdmin"
+                            #superAdmin
+                            formControlName="superAdmin"
+                        />
                     </label>
                 </div>
-        
-                <div class="w-full min-w-full place-self-center flex justify-center">
-                    @if((usernameInput?.invalid && (usernameInput?.dirty || usernameInput?.touched)) || (emailInput?.invalid && (emailInput?.dirty || emailInput?.touched))){
-                        <button class="btn btn-success items-center" disabled>
-                            Confirm
-                        </button>
+
+                <div
+                    class="w-full min-w-full place-self-center flex justify-center"
+                >
+                    @if((usernameInput?.invalid && (usernameInput?.dirty ||
+                    usernameInput?.touched)) || (emailInput?.invalid &&
+                    (emailInput?.dirty || emailInput?.touched))){
+                    <button class="btn btn-success items-center" disabled>
+                        Confirm
+                    </button>
                     }@else {
-                        <button class="btn btn-success items-center" type="submit">
-                            Confirm
-                        </button>
+                    <button class="btn btn-success items-center" type="submit">
+                        Confirm
+                    </button>
                     }
                 </div>
             </div>
@@ -93,69 +144,121 @@
     </div>
 
     <div class="col-span-3 w-full min-w-full">
-        <form [formGroup]="adminPasswordForm" (ngSubmit)="editAdminPasswordForm()">
+        <form
+            [formGroup]="adminPasswordForm"
+            (ngSubmit)="editAdminPasswordForm()"
+        >
             <div class="grid grid-rows-4 grid-col-1 gap-4">
                 <div class="w-full min-w-full">
                     <label class="form-control w-full">
                         <div class="label">
-                            <span class="label-text font-semibold">New password</span>
+                            <span class="label-text font-semibold"
+                                >New password</span
+                            >
                         </div>
                         <div class="relative">
-                            <input type="{{ showPassword ? 'text' : 'password' }}" name="password" #password formControlName="password" placeholder="Type here" class="{{ passwordInput?.invalid && (passwordInput?.dirty || passwordInput?.touched) ? 'input-error' : '' }} input input-bordered w-full" />
-                            <fa-icon [icon]="showPassword ? faEyeSlash : faEye" class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg" (click)="togglePasswordVisibility()"></fa-icon>
+                            <input
+                                type="{{ showPassword ? 'text' : 'password' }}"
+                                name="password"
+                                #password
+                                formControlName="password"
+                                placeholder="Type here"
+                                class="{{
+                                    passwordInput?.invalid &&
+                                    (passwordInput?.dirty ||
+                                        passwordInput?.touched)
+                                        ? 'input-error'
+                                        : ''
+                                }} input input-bordered w-full"
+                            />
+                            <fa-icon
+                                [icon]="showPassword ? faEyeSlash : faEye"
+                                class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg"
+                                (click)="togglePasswordVisibility()"
+                            ></fa-icon>
                         </div>
-                
-                        @if(passwordInput?.invalid && (passwordInput?.dirty || passwordInput?.touched)){
-                            @if(passwordInput?.errors?.['required']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Password is required.</span>
-                                </div>
-                            }
-                            @if(passwordInput?.errors?.['minlength']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Password must be 8 characters minimum.</span>
-                                </div>
-                            }
-                            @if(passwordInput?.errors?.['maxlength']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Password must be 25 characters maximum.</span>
-                                </div>
-                            }
-                            @if(passwordInput?.errors?.['pattern']){
-                                <div class="label">
-                                    <span class="label-text-alt text-error">Password must be only normal characters like letters, numbers, uppercase, lowercase, special characters.</span>
-                                </div>
-                            }
-                        }
+
+                        @if(passwordInput?.invalid && (passwordInput?.dirty ||
+                        passwordInput?.touched)){
+                        @if(passwordInput?.errors?.['required']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Password is required.</span
+                            >
+                        </div>
+                        } @if(passwordInput?.errors?.['minlength']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Password must be 8 characters minimum.</span
+                            >
+                        </div>
+                        } @if(passwordInput?.errors?.['maxlength']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Password must be 25 characters maximum.</span
+                            >
+                        </div>
+                        } @if(passwordInput?.errors?.['pattern']){
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Password must be only normal characters like
+                                letters, numbers, uppercase, lowercase, special
+                                characters.</span
+                            >
+                        </div>
+                        } }
                     </label>
                 </div>
 
                 <div class="w-full min-w-full">
                     <label class="form-control w-full">
                         <div class="label">
-                            <span class="label-text font-semibold">Confirm New password</span>
+                            <span class="label-text font-semibold"
+                                >Confirm New password</span
+                            >
                         </div>
                         <div class="relative">
-                            <input type="{{ showPassword ? 'text' : 'password' }}" name="confirmPassword" #confirmPassword formControlName="confirmPassword" placeholder="Type here" class="{{ password.value !== confirmPassword.value ? 'input-error' : '' }} input input-bordered w-full" />
-                            <fa-icon [icon]="showPassword ? faEyeSlash : faEye" class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg" (click)="togglePasswordVisibility()"></fa-icon>
+                            <input
+                                type="{{ showPassword ? 'text' : 'password' }}"
+                                name="confirmPassword"
+                                #confirmPassword
+                                formControlName="confirmPassword"
+                                placeholder="Type here"
+                                class="{{
+                                    password.value !== confirmPassword.value
+                                        ? 'input-error'
+                                        : ''
+                                }} input input-bordered w-full"
+                            />
+                            <fa-icon
+                                [icon]="showPassword ? faEyeSlash : faEye"
+                                class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg"
+                                (click)="togglePasswordVisibility()"
+                            ></fa-icon>
                         </div>
                         @if(password.value != confirmPassword.value){
-                            <div class="label">
-                                <span class="label-text-alt text-error">Confirm password is not the same.</span>
-                            </div>
+                        <div class="label">
+                            <span class="label-text-alt text-error"
+                                >Confirm password is not the same.</span
+                            >
+                        </div>
                         }
                     </label>
                 </div>
-        
-                <div class="w-full min-w-full row-end-5 place-self-center flex justify-center">
-                    @if((passwordInput?.invalid && (passwordInput?.dirty || passwordInput?.touched)) || (password.value !== confirmPassword.value)){
-                        <button class="btn btn-success items-center" disabled>
-                            Change password
-                        </button>
+
+                <div
+                    class="w-full min-w-full row-end-5 place-self-center flex justify-center"
+                >
+                    @if((passwordInput?.invalid && (passwordInput?.dirty ||
+                    passwordInput?.touched)) || (password.value !==
+                    confirmPassword.value)){
+                    <button class="btn btn-success items-center" disabled>
+                        Change password
+                    </button>
                     }@else {
-                        <button class="btn btn-success items-center" type="submit">
-                            Change password
-                        </button>
+                    <button class="btn btn-success items-center" type="submit">
+                        Change password
+                    </button>
                     }
                 </div>
             </div>

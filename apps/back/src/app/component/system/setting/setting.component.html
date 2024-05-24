@@ -1,19 +1,32 @@
-
 <form [formGroup]="settingForm" (ngSubmit)="editSettingForm()">
     <div class="grid grid-cols-5 gap-4 p-3 bg-base-200">
         <label class="form-control w-full max-w-xs">
             <div class="label">
-                <span class="label-text font-semibold">Name of the website</span>
+                <span class="label-text font-semibold"
+                    >Name of the website</span
+                >
             </div>
-            <input type="text" name="appName" #appName formControlName="appName" placeholder="Type here" class="{{ nameApp?.invalid && (nameApp?.dirty || nameApp?.touched) ? 'input-error' : '' }} input input-bordered w-full max-w-xs" />
+            <input
+                type="text"
+                name="appName"
+                #appName
+                formControlName="appName"
+                placeholder="Type here"
+                class="{{
+                    nameApp?.invalid && (nameApp?.dirty || nameApp?.touched)
+                        ? 'input-error'
+                        : ''
+                }} input input-bordered w-full max-w-xs"
+            />
 
             @if(nameApp?.invalid && (nameApp?.dirty || nameApp?.touched)){
-                @if(nameApp?.errors?.['required']){
-                    <div class="label">
-                        <span class="label-text-alt text-error">Name of the app is required.</span>
-                    </div>
-                }
-            }
+            @if(nameApp?.errors?.['required']){
+            <div class="label">
+                <span class="label-text-alt text-error"
+                    >Name of the app is required.</span
+                >
+            </div>
+            } }
         </label>
     </div>
 
@@ -22,19 +35,21 @@
             <div class="label">
                 <span class="label-text font-semibold">Maintenance mode</span>
             </div>
-            <input type="checkbox" class="toggle"  name="maintenanceStatus" #maintenanceStatus formControlName="maintenanceStatus" />
+            <input
+                type="checkbox"
+                class="toggle"
+                name="maintenanceStatus"
+                #maintenanceStatus
+                formControlName="maintenanceStatus"
+            />
         </label>
     </div>
 
     <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
         @if(nameApp?.invalid && (nameApp?.dirty || nameApp?.touched)){
-            <button class="btn btn-success" disabled>
-                Confirm
-            </button>
+        <button class="btn btn-success" disabled>Confirm</button>
         }@else {
-            <button class="btn btn-success" type="submit">
-                Confirm
-            </button>
+        <button class="btn btn-success" type="submit">Confirm</button>
         }
     </div>
 </form>

@@ -1,18 +1,30 @@
-<omicron-nx-header [style.display]="headerStatus ? 'block' : 'none'" #header></omicron-nx-header>
-
+<omicron-nx-header
+    [style.display]="headerStatus ? 'block' : 'none'"
+    #header
+></omicron-nx-header>
 
 <main>
-        <div class="grid grid-cols-6 p-3 place-items-center bg-base-200">
-            <div [style.display]="sidebarStatus ? 'block' : 'none'" class="col-span-1 w-full min-w-full justify-self-start self-start">
-                <omicron-nx-sidebar #sidebar></omicron-nx-sidebar>
-            </div>
+    <div class="grid grid-cols-6 p-3 place-items-center bg-base-200">
+        <div
+            [style.display]="sidebarStatus ? 'block' : 'none'"
+            class="col-span-1 w-full min-w-full justify-self-start self-start"
+        >
+            <omicron-nx-sidebar #sidebar></omicron-nx-sidebar>
+        </div>
 
-            <div class="{{sidebarStatus ? 'col-span-5' : 'col-span-6' }} w-full min-w-full justify-self-start self-start">
-                <div class="grid grid-cols-1 p-3 place-items-center bg-base-200">
-                    <router-outlet></router-outlet>
-                </div>
+        <div
+            class="{{
+                sidebarStatus ? 'col-span-5' : 'col-span-6'
+            }} w-full min-w-full justify-self-start self-start"
+        >
+            <div class="grid grid-cols-1 p-3 place-items-center bg-base-200">
+                <router-outlet></router-outlet>
             </div>
         </div>
+    </div>
 </main>
 
-<omicron-nx-footer [style.display]="headerStatus ? 'block' : 'none'" #footer></omicron-nx-footer>
+<omicron-nx-footer
+    [style.display]="footerStatus ? 'block' : 'none'"
+    #footer
+></omicron-nx-footer>

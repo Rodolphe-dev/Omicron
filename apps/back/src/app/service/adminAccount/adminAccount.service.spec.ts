@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { AdminAccountService } from './adminAccount.service';
+import { AdminAccountService } from "./adminAccount.service";
 
-describe('AdminAccountService', () => {
-  let service: AdminAccountService;
+describe("AdminAccountService", () => {
+    let service: AdminAccountService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AdminAccountService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(AdminAccountService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it("should be created", () => {
+        expect(service).toBeTruthy();
+    });
 });

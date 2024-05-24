@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ViewFooterComponent } from './view-footer.component';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ViewFooterComponent } from "./view-footer.component";
 
-describe('ViewFooterComponent', () => {
-  let component: ViewFooterComponent;
-  let fixture: ComponentFixture<ViewFooterComponent>;
+describe("ViewFooterComponent", () => {
+    let component: ViewFooterComponent;
+    let fixture: ComponentFixture<ViewFooterComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ViewFooterComponent],
-    }).compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [ViewFooterComponent],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewFooterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(ViewFooterComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it("should create", () => {
+        expect(component).toBeTruthy();
+    });
 });

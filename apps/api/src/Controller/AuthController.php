@@ -1,18 +1,17 @@
 <?php
+
 // api/src/Controller/AuthController.php
+
 namespace App\Controller;
 
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\JWSProviderInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\JWSProviderInterface;
-
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
-use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 
 #[AsController]
 class AuthController extends AbstractController
@@ -27,7 +26,7 @@ class AuthController extends AbstractController
         $this->jwtManager = $jwtManager;
         $this->jwtEncoder = $jwtEncoder;
     }
-    
+
     #[Route(
         name: 'logout',
         path: '/logout',
@@ -38,17 +37,15 @@ class AuthController extends AbstractController
         if (isset($_COOKIE['PHPSESSID'])) {
             unset($_COOKIE['PHPSESSID']);
             setcookie('PHPSESSID', '', time() - 3600, '/');
-
         }
         if (isset($_COOKIE['BEARER'])) {
             unset($_COOKIE['BEARER']);
             setcookie('BEARER', '', time() - 3600, '/');
-
         }
 
         return new JsonResponse(
             [
-                'logoutStatus' => true
+                'logoutStatus' => true,
             ]
         );
     }
@@ -62,7 +59,7 @@ class AuthController extends AbstractController
     {
         return new JsonResponse(
             [
-                'test' => 'test'
+                'test' => 'test',
             ]
         );
         /*

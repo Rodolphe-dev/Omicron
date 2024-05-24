@@ -1,13 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
-import { PageService } from '../../../../service/page/page.service';
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+    RouterLink,
+    RouterLinkActive,
+    Router,
+    ActivatedRoute,
+} from "@angular/router";
+import {
+    FormBuilder,
+    ReactiveFormsModule,
+    FormsModule,
+    FormGroup,
+    FormControl,
+    Validators,
+} from "@angular/forms";
+import { BreadcrumbsService } from "../../../../service/breadcrumbs/breadcrumbs.service";
+import { PageService } from "../../../../service/page/page.service";
+import { EditorModule, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
 
 @Component({
-    selector: 'omicron-nx-edit-page',
+    selector: "omicron-nx-edit-page",
     standalone: true,
     imports: [
         CommonModule,
@@ -15,28 +27,29 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
         RouterLinkActive,
         EditorModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     providers: [
-        { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
-        PageService
+        { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },
+        PageService,
     ],
-    templateUrl: './edit-page.component.html',
-    styleUrls: ['./edit-page.component.css']
+    templateUrl: "./edit-page.component.html",
+    styleUrls: ["./edit-page.component.css"],
 })
 export class EditPageComponent implements OnInit {
-
     id!: number | null;
     pageIdValue!: number;
     pageNameValue: string | null | undefined;
     pageContentValue: string | null | undefined;
-    pageForm = this.formBuilder.group(
-        {
-            name: new FormControl<string | null | undefined>('', { validators: Validators.required }),
-            route: new FormControl<string | null | undefined>('', { validators: Validators.required }),
-            content: new FormControl<string | null | undefined>('')
-        }
-    );
+    pageForm = this.formBuilder.group({
+        name: new FormControl<string | null | undefined>("", {
+            validators: Validators.required,
+        }),
+        route: new FormControl<string | null | undefined>("", {
+            validators: Validators.required,
+        }),
+        content: new FormControl<string | null | undefined>(""),
+    });
 
     constructor(
         private breadcrumbs: BreadcrumbsService,
@@ -44,52 +57,48 @@ export class EditPageComponent implements OnInit {
         private page: PageService,
         public router: Router,
         private route: ActivatedRoute
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.breadcrumbs.setLevel(2);
-        this.breadcrumbs.setLevelOneValue('Content');
-        this.breadcrumbs.setLevelTwoValue('Edit Page');
-        this.breadcrumbs.setLevelThreeValue('');
+        this.breadcrumbs.setLevelOneValue("Content");
+        this.breadcrumbs.setLevelTwoValue("Edit Page");
+        this.breadcrumbs.setLevelThreeValue("");
 
-        this.id = <number><unknown>this.route.snapshot.paramMap.get('id');
+        this.id = <number>(<unknown>this.route.snapshot.paramMap.get("id"));
 
-        this.page.getThisPage(this.id)
-            .subscribe({
-                next: value => {
-                    this.pageIdValue = value.id;
-                    this.pageNameValue = value.name;
-                    this.pageContentValue = value.content;
-                    this.pageForm.setValue(
-                        {
-                            name: value.name,
-                            route: value.route,
-                            content: value.content
-                        }
-                    );
-                }
-            });
-
+        this.page.getThisPage(this.id).subscribe({
+            next: (value) => {
+                this.pageIdValue = value.id;
+                this.pageNameValue = value.name;
+                this.pageContentValue = value.content;
+                this.pageForm.setValue({
+                    name: value.name,
+                    route: value.route,
+                    content: value.content,
+                });
+            },
+        });
 
         this.pageForm = new FormGroup({
-            name: new FormControl<string | null | undefined>('', [
+            name: new FormControl<string | null | undefined>("", [
                 Validators.required,
-                Validators.maxLength(25)
+                Validators.maxLength(25),
             ]),
-            route: new FormControl<string | null | undefined>('', [
+            route: new FormControl<string | null | undefined>("", [
                 Validators.required,
-                Validators.maxLength(100)
+                Validators.maxLength(100),
             ]),
-            content: new FormControl<string | null | undefined>('')
+            content: new FormControl<string | null | undefined>(""),
         });
     }
 
     get namePage() {
-        return this.pageForm.get('name');
+        return this.pageForm.get("name");
     }
 
     get routePage() {
-        return this.pageForm.get('route');
+        return this.pageForm.get("route");
     }
 
     editPageForm() {
@@ -99,11 +108,11 @@ export class EditPageComponent implements OnInit {
         const body = {
             name: pageName,
             route: pageRoute,
-            content: pageContent
+            content: pageContent,
         };
 
         this.page.editPage(this.pageIdValue, body);
 
-        this.router.navigate(['/page/list']);
+        this.router.navigate(["/page/list"]);
     }
 }

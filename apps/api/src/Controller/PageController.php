@@ -1,15 +1,15 @@
 <?php
+
 // api/src/Controller/PageController.php
+
 namespace App\Controller;
 
+use App\Entity\Page;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
-use App\Entity\Page;
-
-use Doctrine\ORM\EntityManagerInterface;
 
 #[AsController]
 class PageController extends AbstractController
@@ -30,7 +30,7 @@ class PageController extends AbstractController
         return new JsonResponse(
             [
                 'route' => $page->getRoute(),
-                'content' => $page->getContent()
+                'content' => $page->getContent(),
             ]
         );
     }

@@ -1,45 +1,45 @@
-<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
-<div class="col-end-6 md:col-end-5">
-	<a class="btn mx-1 btn-neutral" routerLink="/page/list">
-		Back
-	</a>
-</div>
-</div>
-
-<div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
-<label class="form-control w-full">
-	<div class="label">
-		<span class="label-text font-semibold">Name</span>
-	</div>
-	<span class="w-full">{{pageNameValue}}</span>
-	<div class="label">
-		<span class="label-text-alt font-light">This name will not be show on your front office</span>
-	</div>
-</label>
+<div
+    class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200"
+>
+    <div class="col-end-6 md:col-end-5">
+        <a class="btn mx-1 btn-neutral" routerLink="/page/list"> Back </a>
+    </div>
 </div>
 
 <div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
-<label class="form-control w-full">
-	<div class="label">
-		<span class="label-text font-semibold">Route</span>
-	</div>
-	<span class="w-full">{{pageRouteValue}}</span>
-</label>
+    <label class="form-control w-full">
+        <div class="label">
+            <span class="label-text font-semibold">Name</span>
+        </div>
+        <span class="w-full">{{ pageNameValue }}</span>
+        <div class="label">
+            <span class="label-text-alt font-light"
+                >This name will not be show on your front office</span
+            >
+        </div>
+    </label>
 </div>
 
 <div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
-	<label class="form-control w-full col-span-5">
-	<div class="label">
-		<span class="label-text font-semibold">Content</span>
-	</div>
-	<div class="w-full">
-		{{pageContentValue}}
-	</div>
-	</label>
+    <label class="form-control w-full">
+        <div class="label">
+            <span class="label-text font-semibold">Route</span>
+        </div>
+        <span class="w-full">{{ pageRouteValue }}</span>
+    </label>
+</div>
+
+<div class="grid grid-cols-5 gap-4 place-items-center p-3 bg-base-200">
+    <label class="form-control w-full col-span-5">
+        <div class="label">
+            <span class="label-text font-semibold">Content</span>
+        </div>
+        <div class="w-full">
+            {{ pageContentValue }}
+        </div>
+    </label>
 </div>
 
 <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
-<a routerLink="/page/list" class="btn btn-success">
-	Quit
-</a>
+    <a routerLink="/page/list" class="btn btn-success"> Quit </a>
 </div>

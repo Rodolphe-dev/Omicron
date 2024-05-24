@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ViewPageComponent } from './view-page.component';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ViewPageComponent } from "./view-page.component";
 
-describe('ViewPageComponent', () => {
-  let component: ViewPageComponent;
-  let fixture: ComponentFixture<ViewPageComponent>;
+describe("ViewPageComponent", () => {
+    let component: ViewPageComponent;
+    let fixture: ComponentFixture<ViewPageComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ViewPageComponent],
-    }).compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [ViewPageComponent],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(ViewPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it("should create", () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -1,4 +1,4 @@
-export interface IPage {
-    route:   string;
+export interface Page {
+    route: string;
     content: string;
 }

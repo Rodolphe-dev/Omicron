@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\AdminAccountRepository;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -12,14 +11,14 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AdminAccountRepository;
 use App\State\UserPasswordHasher;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: AdminAccountRepository::class)]
 #[UniqueEntity('username')]
@@ -66,7 +65,7 @@ class AdminAccount implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['user:read'])]
-    #[ApiFilter(SearchFilter::class, strategy: "exact")]
+    #[ApiFilter(SearchFilter::class, strategy: 'exact')]
     private ?int $id = null;
 
     #[Groups(['user:read', 'user:create', 'user:update'])]
@@ -177,7 +176,7 @@ class AdminAccount implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        if ($this->superadmin === true) {
+        if (true === $this->superadmin) {
             $roles[] = 'ROLE_SUPER_ADMIN';
         } else {
             $roles[] = 'ROLE_ADMIN';
@@ -190,7 +189,7 @@ class AdminAccount implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles = $roles;
 
-        if ($this->superadmin === true) {
+        if (true === $this->superadmin) {
             $roles[] = 'ROLE_SUPER_ADMIN';
         } else {
             $roles[] = 'ROLE_ADMIN';

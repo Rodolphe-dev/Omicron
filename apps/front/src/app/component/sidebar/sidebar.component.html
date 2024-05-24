@@ -1,48 +1,62 @@
 <ul class="menu bg-base-100 w-56 rounded-box">
-    @for (item of items; track $index) {
-        @if(item.inParent === false && item.parent === false && item.inSubParent === false && item.subParent === false){
-            <li class="indicator" >
-                <a routerLink="{{item.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
-            </li>
-        }
-
-
-        @if(item.parent === true){
-            <li class="indicator">
-                <details open>
-                    <summary>
-                        {{item.name}}
-                    </summary>
-                    <ul>
-                        @for (itemChildren of item.children; track $index) {
-                            @if(itemChildren.parentName != '' && itemChildren.parent === false && itemChildren.inParent === true && itemChildren.subParent === false){
-                                <li>
-                                    <a routerLink="{{itemChildren.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{itemChildren.name}}</a>
-                                </li>
-                            }
-                        
-                            @if(itemChildren.subParentName != '' && itemChildren.parent === false && itemChildren.inParent === true && itemChildren.subParent === true){
-                                    <li class="indicator">
-                                        <details open>
-                                            <summary>
-                                                {{itemChildren.name}}
-                                            </summary>
-                                            <ul>
-                                                @for (itemFromSubParent of itemChildren.children; track $index) {
-                                                    @if(itemFromSubParent.parent === false  && itemFromSubParent.subParentName != '' && itemFromSubParent.subParent === false){
-                                                        <li>
-                                                            <a routerLink="{{itemFromSubParent.url}}" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">{{itemFromSubParent.name}}</a>
-                                                        </li>
-                                                    }
-                                                }
-                                            </ul>
-                                        </details>
-                                    </li>
-                            }
-                        }
-                    </ul>
-                </details>
-            </li>
-        }
-    }
+    @for (item of items; track $index) { @if(item.inParent === false &&
+    item.parent === false && item.inSubParent === false && item.subParent ===
+    false){
+    <li class="indicator">
+        <a
+            routerLink="{{ item.url }}"
+            routerLinkActive="activebutton"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ item.name }}</a
+        >
+    </li>
+    } @if(item.parent === true){
+    <li class="indicator">
+        <details open>
+            <summary>
+                {{ item.name }}
+            </summary>
+            <ul>
+                @for (itemChildren of item.children; track $index) {
+                @if(itemChildren.parentName != '' && itemChildren.parent ===
+                false && itemChildren.inParent === true &&
+                itemChildren.subParent === false){
+                <li>
+                    <a
+                        routerLink="{{ itemChildren.url }}"
+                        routerLinkActive="activebutton"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        >{{ itemChildren.name }}</a
+                    >
+                </li>
+                } @if(itemChildren.subParentName != '' && itemChildren.parent
+                === false && itemChildren.inParent === true &&
+                itemChildren.subParent === true){
+                <li class="indicator">
+                    <details open>
+                        <summary>
+                            {{ itemChildren.name }}
+                        </summary>
+                        <ul>
+                            @for (itemFromSubParent of itemChildren.children;
+                            track $index) { @if(itemFromSubParent.parent ===
+                            false && itemFromSubParent.subParentName != '' &&
+                            itemFromSubParent.subParent === false){
+                            <li>
+                                <a
+                                    routerLink="{{ itemFromSubParent.url }}"
+                                    routerLinkActive="activebutton"
+                                    [routerLinkActiveOptions]="{ exact: true }"
+                                    >{{ itemFromSubParent.name }}</a
+                                >
+                            </li>
+                            } }
+                        </ul>
+                    </details>
+                </li>
+                } }
+            </ul>
+        </details>
+    </li>
+    } }
 </ul>

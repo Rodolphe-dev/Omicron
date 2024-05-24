@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, FormsModule, FormControl, Validators, FormGroup } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-import { BreadcrumbsService } from '../../../../service/breadcrumbs/breadcrumbs.service';
-import { AdminAccountService } from '../../../../service/adminAccount/adminAccount.service';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterLink, RouterLinkActive, Router } from "@angular/router";
+import {
+    FormBuilder,
+    ReactiveFormsModule,
+    FormsModule,
+    FormControl,
+    Validators,
+    FormGroup,
+} from "@angular/forms";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { BreadcrumbsService } from "../../../../service/breadcrumbs/breadcrumbs.service";
+import { AdminAccountService } from "../../../../service/adminAccount/adminAccount.service";
 
 @Component({
-    selector: 'omicron-nx-add-admin',
+    selector: "omicron-nx-add-admin",
     standalone: true,
     imports: [
         CommonModule,
@@ -16,74 +23,77 @@ import { AdminAccountService } from '../../../../service/adminAccount/adminAccou
         RouterLinkActive,
         FormsModule,
         ReactiveFormsModule,
-        FontAwesomeModule
+        FontAwesomeModule,
     ],
     providers: [AdminAccountService],
-    templateUrl: './add-admin.component.html',
-    styleUrls: ['./add-admin.component.css']
+    templateUrl: "./add-admin.component.html",
+    styleUrls: ["./add-admin.component.css"],
 })
 export class AddAdminComponent implements OnInit {
-
-    faEye = faEye
-    faEyeSlash = faEyeSlash
+    faEye = faEye;
+    faEyeSlash = faEyeSlash;
     showPassword = false;
     superAdmin!: boolean;
 
-    adminForm = this.formBuilder.group(
-        {
-            username: new FormControl<string>('', { validators: Validators.required }),
-            password: new FormControl<string>('', { validators: Validators.required }),
-            email: new FormControl<string>('', { validators: Validators.required }),
-            superAdmin: ''
-        }
-    );
+    adminForm = this.formBuilder.group({
+        username: new FormControl<string>("", {
+            validators: Validators.required,
+        }),
+        password: new FormControl<string>("", {
+            validators: Validators.required,
+        }),
+        email: new FormControl<string>("", { validators: Validators.required }),
+        superAdmin: "",
+    });
 
     constructor(
         private breadcrumbs: BreadcrumbsService,
         private formBuilder: FormBuilder,
         private admin: AdminAccountService,
         public router: Router
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.breadcrumbs.setLevel(3);
-        this.breadcrumbs.setLevelOneValue('System');
-        this.breadcrumbs.setLevelTwoValue('Admin Accounts');
-        this.breadcrumbs.setLevelThreeValue('Add Admin');
+        this.breadcrumbs.setLevelOneValue("System");
+        this.breadcrumbs.setLevelTwoValue("Admin Accounts");
+        this.breadcrumbs.setLevelThreeValue("Add Admin");
 
         this.adminForm = new FormGroup({
-            username: new FormControl('', [
+            username: new FormControl("", [
                 Validators.required,
                 Validators.minLength(3),
                 Validators.maxLength(25),
-                Validators.pattern("^(?=[^a-z]*[a-z])[A-Za-z\\d!]{3,25}$")
+                Validators.pattern("^(?=[^a-z]*[a-z])[A-Za-z\\d!]{3,25}$"),
             ]),
-            password: new FormControl('', [
+            password: new FormControl("", [
                 Validators.required,
                 Validators.minLength(8),
                 Validators.maxLength(25),
-                Validators.pattern("^(?=[^a-z]*[a-z])[A-Za-z\\d!$%@/#£€*?&]{8,25}$")
+                Validators.pattern(
+                    "^(?=[^a-z]*[a-z])[A-Za-z\\d!$%@/#£€*?&]{8,25}$"
+                ),
             ]),
-            email: new FormControl('', [
+            email: new FormControl("", [
                 Validators.required,
                 Validators.email,
                 Validators.maxLength(255),
-                Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+                Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
             ]),
-            superAdmin: new FormControl(''),
+            superAdmin: new FormControl(""),
         });
     }
 
     get usernameInput() {
-        return this.adminForm.get('username');
+        return this.adminForm.get("username");
     }
 
     get passwordInput() {
-        return this.adminForm.get('password');
+        return this.adminForm.get("password");
     }
 
     get emailInput() {
-        return this.adminForm.get('email');
+        return this.adminForm.get("email");
     }
 
     togglePasswordVisibility() {
@@ -106,11 +116,11 @@ export class AddAdminComponent implements OnInit {
             username: username,
             email: email,
             plainPassword: password,
-            superadmin: this.superAdmin
+            superadmin: this.superAdmin,
         };
 
         this.admin.addAdminAccount(body);
 
-        this.router.navigate(['/system/admin/list']);
+        this.router.navigate(["/system/admin/list"]);
     }
 }

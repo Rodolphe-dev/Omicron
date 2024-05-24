@@ -1,13 +1,13 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
-import { PageComponent } from './component/page/page.component';
+import { PageComponent } from "./component/page/page.component";
 
-import { NotFoundComponent } from './component/not-found/NotFound.component';
+import { NotFoundComponent } from "./component/not-found/not-found.component";
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: PageComponent },
-    { path: ':route', component: PageComponent },
+    { path: "", redirectTo: "home", pathMatch: "full" },
+    { path: "home", component: PageComponent },
+    { path: ":route", component: PageComponent },
 
-    { path: '**', pathMatch: 'full', component: NotFoundComponent },
+    { path: "**", pathMatch: "full", component: NotFoundComponent },
 ];

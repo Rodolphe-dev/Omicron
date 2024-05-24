@@ -1,8 +1,8 @@
-<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
+<div
+    class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200"
+>
     <div class="col-end-6 md:col-end-5">
-        <a class="btn mx-1 btn-primary" routerLink="/page/add">
-            Add
-        </a>
+        <a class="btn mx-1 btn-primary" routerLink="/page/add"> Add </a>
         <a class="btn mx-1 btn-primary" (click)="deleteSelectionPage()">
             Delete selection
         </a>
@@ -16,32 +16,57 @@
             <tr>
                 <th class="w-4">
                     <label>
-                        <input type="checkbox" class="checkbox" [checked]="checked" [ngModel]="checked" (click)="toggleCheckbox()" />
+                        <input
+                            type="checkbox"
+                            class="checkbox"
+                            [checked]="checked"
+                            [ngModel]="checked"
+                            (click)="toggleCheckbox()"
+                        />
                     </label>
                 </th>
                 <th>Name</th>
                 <th class="w-1/5">Actions</th>
             </tr>
         </thead>
-        
+
         <!-- body -->
         <tbody>
             @for(item of pages; track $index){
-                <tr>
-                    <th class="w-4">
-                        <label>
-                            <input type="checkbox" class="checkbox" (change)="onCheckboxChange($event)" [ngModel]="checked" name="checkbox" value="{{item.id}}" />
-                        </label>
-                    </th>
-                    <td>
-                        {{item.name}}
-                    </td>
-                    <th class="w-1/5">
-                        <a class="btn mx-1 btn-info btn-xs" routerLink="/page/view/{{item.id}}">Details</a>
-                        <a class="btn mx-1 btn-warning btn-xs" routerLink="/page/edit/{{item.id}}">Edit</a>
-                        <a class="btn mx-1 btn-error btn-xs" (click)="deletePage(item.id)">Delete</a>
-                    </th>
-                </tr>
+            <tr>
+                <th class="w-4">
+                    <label>
+                        <input
+                            type="checkbox"
+                            class="checkbox"
+                            (change)="onCheckboxChange($event)"
+                            [ngModel]="checked"
+                            name="checkbox"
+                            value="{{ item.id }}"
+                        />
+                    </label>
+                </th>
+                <td>
+                    {{ item.name }}
+                </td>
+                <th class="w-1/5">
+                    <a
+                        class="btn mx-1 btn-info btn-xs"
+                        routerLink="/page/view/{{ item.id }}"
+                        >Details</a
+                    >
+                    <a
+                        class="btn mx-1 btn-warning btn-xs"
+                        routerLink="/page/edit/{{ item.id }}"
+                        >Edit</a
+                    >
+                    <a
+                        class="btn mx-1 btn-error btn-xs"
+                        (click)="deletePage(item.id)"
+                        >Delete</a
+                    >
+                </th>
+            </tr>
             }
         </tbody>
     </table>
@@ -49,26 +74,22 @@
     <div class="grid gap-4 place-items-center p-3 bg-base-200">
         <div class="join">
             @if (previousPage === undefined) {
-                <a class="join-item btn" disabled>«</a>
-            }
-            @else{
-                <a (click)="switchPage(previousPage)" class="join-item btn">«</a>
-            }
-
-            @for(item of listNumberPage; track $index){
-                @if (numberActualPage == item) {
-                    <a class="join-item btn btn-active cursor-default">{{item}}</a>
-                }
-                @else {
-                    <a (click)="switchPage('/api/navbars?page='+item)" class="join-item btn">{{item}}</a>
-                }
-            }
-            
-            @if (nextPage === undefined) {
-                <a class="join-item btn" disabled>»</a>
-            }
-            @else{
-                <a (click)="switchPage(nextPage)" class="join-item btn">»</a>
+            <a class="join-item btn" disabled>«</a>
+            } @else{
+            <a (click)="switchPage(previousPage)" class="join-item btn">«</a>
+            } @for(item of listNumberPage; track $index){ @if (numberActualPage
+            == item) {
+            <a class="join-item btn btn-active cursor-default">{{ item }}</a>
+            } @else {
+            <a
+                (click)="switchPage('/api/navbars?page=' + item)"
+                class="join-item btn"
+                >{{ item }}</a
+            >
+            } } @if (nextPage === undefined) {
+            <a class="join-item btn" disabled>»</a>
+            } @else{
+            <a (click)="switchPage(nextPage)" class="join-item btn">»</a>
             }
         </div>
     </div>

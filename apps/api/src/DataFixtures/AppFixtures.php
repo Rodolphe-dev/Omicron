@@ -2,15 +2,14 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Navbar;
-use App\Entity\Sidebar;
-use App\Entity\Footer;
-use App\Entity\Page;
 use App\Entity\AdminAccount;
+use App\Entity\Footer;
+use App\Entity\Navbar;
+use App\Entity\Page;
 use App\Entity\Setting;
+use App\Entity\Sidebar;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -25,11 +24,10 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         /** Create default navbar */
-
         $navbar = new Navbar();
         $navbar->setName('Default Navbar');
         $navbar->setStatus(true);
-        $items = array(
+        $items = [
             (object) [
                 'id' => 1,
                 'parent' => false,
@@ -37,7 +35,7 @@ class AppFixtures extends Fixture
                 'name' => 'Item 1',
                 'url' => 'home',
                 'inParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 2,
@@ -46,7 +44,7 @@ class AppFixtures extends Fixture
                 'name' => 'Item 2',
                 'url' => 'route_2',
                 'inParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 3,
@@ -55,7 +53,7 @@ class AppFixtures extends Fixture
                 'name' => 'Item 3',
                 'url' => 'route_3',
                 'inParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 4,
@@ -64,7 +62,7 @@ class AppFixtures extends Fixture
                 'name' => 'Item 4',
                 'url' => 'route_4',
                 'inParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 5,
@@ -73,18 +71,17 @@ class AppFixtures extends Fixture
                 'name' => 'Item 5',
                 'url' => 'route_5',
                 'inParent' => false,
-                'children' => ''
+                'children' => '',
             ],
-        );
+        ];
         $navbar->setitems($items);
         $manager->persist($navbar);
 
         /** Create default sidebar */
-
         $sidebar = new Sidebar();
         $sidebar->setName('Default Sidebar');
         $sidebar->setStatus(true);
-        $items = array(
+        $items = [
             (object) [
                 'id' => 1,
                 'parent' => false,
@@ -95,7 +92,7 @@ class AppFixtures extends Fixture
                 'url' => 'home',
                 'inParent' => false,
                 'inSubParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 2,
@@ -107,7 +104,7 @@ class AppFixtures extends Fixture
                 'url' => 'route_2',
                 'inParent' => false,
                 'inSubParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 3,
@@ -119,7 +116,7 @@ class AppFixtures extends Fixture
                 'url' => 'route_3',
                 'inParent' => false,
                 'inSubParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 4,
@@ -131,7 +128,7 @@ class AppFixtures extends Fixture
                 'url' => 'route_4',
                 'inParent' => false,
                 'inSubParent' => false,
-                'children' => ''
+                'children' => '',
             ],
             (object) [
                 'id' => 5,
@@ -143,14 +140,13 @@ class AppFixtures extends Fixture
                 'url' => 'route_5',
                 'inParent' => false,
                 'inSubParent' => false,
-                'children' => ''
+                'children' => '',
             ],
-        );
+        ];
         $sidebar->setitems($items);
         $manager->persist($sidebar);
 
         /** Create default footer */
-
         $footer = new Footer();
         $footer->setName('Default footer');
         $footer->setStatus(true);
@@ -158,7 +154,6 @@ class AppFixtures extends Fixture
         $manager->persist($footer);
 
         /** Create default page */
-
         $page = new Page();
         $page->setName('Home');
         $page->setRoute('home');
@@ -185,10 +180,10 @@ class AppFixtures extends Fixture
                 ');
         $manager->persist($page);
 
-        for ($i = 1; $i < 5; $i++) {
+        for ($i = 1; $i < 5; ++$i) {
             $page = new Page();
-            $page->setName('page name ' . $i);
-            $page->setRoute('route_' . $i);
+            $page->setName('page name '.$i);
+            $page->setRoute('route_'.$i);
             $page->setContent('
                     Aute ullamco labore adipisicing consequat eu adipisicing commodo et et minim ullamco Lorem. Voluptate nulla eiusmod sunt Lorem cupidatat occaecat non et cillum nisi velit esse. Sint id ipsum aliqua nisi excepteur aliqua incididunt officia aute reprehenderit.
 

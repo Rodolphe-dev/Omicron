@@ -1,15 +1,15 @@
 <?php
+
 // api/src/Controller/AdminAccountController.php
+
 namespace App\Controller;
 
+use App\Entity\AdminAccount;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
-use App\Entity\AdminAccount;
-
-use Doctrine\ORM\EntityManagerInterface;
 
 #[AsController]
 class AdminAccountController extends AbstractController
@@ -32,7 +32,7 @@ class AdminAccountController extends AbstractController
                 'id' => $adminAccount->getId(),
                 'username' => $adminAccount->getUsername(),
                 'email' => $adminAccount->getEmail(),
-                'superadmin' => $adminAccount->isSuperadmin()
+                'superadmin' => $adminAccount->isSuperadmin(),
             ]
         );
     }

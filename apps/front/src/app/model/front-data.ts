@@ -1,61 +1,61 @@
-export interface IFrontData {
-    navbar:  INavbar;
-    sidebar: ISidebar;
-    footer:  Footer;
+export interface FrontData {
+    navbar: Navbar;
+    sidebar: Sidebar;
+    footer: Footer;
     setting: Setting;
-    page:    Page;
+    page: Page;
 }
 
-export interface INavbar {
-    id:     number;
-    name:   string;
+export interface Navbar {
+    id: number;
+    name: string;
     status: boolean;
-    items:  INavbarItems[];
+    items: NavbarItems[];
 }
 
-export interface INavbarItems {
+export interface NavbarItems {
     id: number;
     parent: boolean | null | undefined;
     parentName?: string | null | undefined;
     name: string | null | undefined;
     url: string | null | undefined;
     inParent: boolean | null | undefined;
-    children: INavbarItems[];
+    children: NavbarItems[];
 }
 
-export interface ISidebar {
-    id:     number;
-    name:   string;
-    status: boolean;
-    items:  ISidebarItems[];
-}
-
-export interface ISidebarItems {
+export interface Sidebar {
     id: number;
-    parent: boolean|null|undefined;
-    subParent: boolean|null|undefined;
-    parentName?: string|null|undefined;
-    subParentName?: string|null|undefined;
-    name: string|null|undefined;
-    url: string|null|undefined;
-    inParent: boolean|null|undefined;
-    inSubParent: boolean|null|undefined;
-    children: ISidebarItems[];
+    name: string;
+    status: boolean;
+    items: SidebarItems[];
+}
+
+export interface SidebarItems {
+    id: number;
+    parent: boolean | null | undefined;
+    subParent: boolean | null | undefined;
+    parentName?: string | null | undefined;
+    subParentName?: string | null | undefined;
+    name: string | null | undefined;
+    url: string | null | undefined;
+    inParent: boolean | null | undefined;
+    inSubParent: boolean | null | undefined;
+    children: SidebarItems[];
 }
 
 export interface Footer {
-    name:    string;
-    status:  boolean;
+    name: string;
+    status: boolean;
     content: string;
 }
 
 export interface Page {
-    name:    string;
-    route:   string;
+    name: string;
+    route: string;
     content: string;
 }
 
 export interface Setting {
-    nameApp:           string;
+    nameApp: string;
     statusMaintenance: boolean;
 }

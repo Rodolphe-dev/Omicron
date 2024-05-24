@@ -1,8 +1,8 @@
-# Omicron CMS V0.2.3
+# Omicron CMS V0.2.4
 
 ## Description
 
-Omicron is a little CMS made with NX, Angular, Symfony, API Platform, Tailwind CSS and DaisyUI.
+Omicron is a CMS made with NX, Angular, Symfony, API Platform, Tailwind CSS and DaisyUI.
 
 This is open source and free to use.
 
@@ -56,9 +56,17 @@ every thing else is like a regular symfony app and angular app
 
 [ ] Add unsubscribe where they are needed
 
-[ ] Clean the code
+[ ] Fix error edit admin profile, password
+
+[ ] Fix security issue, change password need actual password
+
+[ ] Refactor items logic in navbar
+
+[ ] Refactor items logic in sidebar
 
 [ ] Make all the tests
+
+[ ] Add block doc
 
 [ ] Configure CI workflow
 

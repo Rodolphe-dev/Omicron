@@ -1,15 +1,15 @@
 <?php
+
 // api/src/Controller/NavbarController.php
+
 namespace App\Controller;
 
+use App\Entity\Navbar;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
-use App\Entity\Navbar;
-
-use Doctrine\ORM\EntityManagerInterface;
 
 #[AsController]
 class NavbarController extends AbstractController
@@ -28,15 +28,13 @@ class NavbarController extends AbstractController
         $navbar = $entityManager->getRepository(Navbar::class)->find($id);
 
         if (!$navbar) {
-            throw $this->createNotFoundException(
-                'No navbar found for id : ' . $id
-            );
+            throw $this->createNotFoundException('No navbar found for id : '.$id);
         }
 
         $checkIfNavbarActive = $entityManager->getRepository(Navbar::class)->findOneBy(['status' => true]);
 
         if (!$checkIfNavbarActive || $checkIfNavbarActive->getId() == $id) {
-            if ($navbar->isStatus() === false) {
+            if (false === $navbar->isStatus()) {
                 $navbar->setStatus(true);
             } else {
                 $navbar->setStatus(false);
@@ -49,13 +47,11 @@ class NavbarController extends AbstractController
                     'id' => $navbar->getId(),
                     'name' => $navbar->getName(),
                     'status' => $navbar->isStatus(),
-                    'items' => $navbar->getItems()
+                    'items' => $navbar->getItems(),
                 ]
             );
         } else {
-            throw $this->createNotFoundException(
-                'One navbar already active, his id is : ' . $checkIfNavbarActive->getId()
-            );
+            throw $this->createNotFoundException('One navbar already active, his id is : '.$checkIfNavbarActive->getId());
         }
     }
 }

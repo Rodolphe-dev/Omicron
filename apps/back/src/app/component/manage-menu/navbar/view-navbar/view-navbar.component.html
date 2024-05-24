@@ -1,8 +1,8 @@
-<div class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200">
+<div
+    class="grid grid-cols-5 md:grid-cols-4 gap-4 place-items-end p-3 bg-base-200"
+>
     <div class="col-end-6 md:col-end-5">
-        <a class="btn mx-1 btn-neutral" routerLink="/navbar/list">
-            Back
-        </a>
+        <a class="btn mx-1 btn-neutral" routerLink="/navbar/list"> Back </a>
     </div>
 </div>
 
@@ -12,9 +12,11 @@
             <div class="label">
                 <span class="label-text font-semibold">Name:</span>
             </div>
-            <span class="">{{navbarNameValue}}</span>
+            <span class="">{{ navbarNameValue }}</span>
             <div class="label">
-                <span class="label-text-alt font-light">This name will not be show on your front office</span>
+                <span class="label-text-alt font-light"
+                    >This name will not be show on your front office</span
+                >
             </div>
         </label>
     </div>
@@ -23,7 +25,7 @@
             <div class="label">
                 <span class="label-text font-semibold">Status:</span>
             </div>
-            <span class="">{{navbarStatus}}</span>
+            <span class="">{{ navbarStatus }}</span>
         </label>
     </div>
 </div>
@@ -31,44 +33,56 @@
 <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
     <div class="navbar bg-base-100">
         <div class="flex-1">
-            <a class="btn btn-ghost text-xl">{{appName}}</a>
+            <a class="btn btn-ghost text-xl">{{ appName }}</a>
         </div>
         <div class="flex-none">
-            <ul class="menu menu-horizontal px-1" cdkDropList cdkDropListOrientation="horizontal">
-                @for (item of items; track $index) {
-                @if(item.parentName === '' && item.parent === false){
+            <ul
+                class="menu menu-horizontal px-1"
+                cdkDropList
+                cdkDropListOrientation="horizontal"
+            >
+                @for (item of items; track $index) { @if(item.parentName === ''
+                && item.parent === false){
                 <li class="indicator" cdkDrag cdkDragLockAxis="x">
-                    <a routerLink="{{item.url}}" routerLinkActive="activebutton"
-                        [routerLinkActiveOptions]="{exact: true}">{{item.name}}</a>
+                    <a
+                        routerLink="{{ item.url }}"
+                        routerLinkActive="activebutton"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        >{{ item.name }}</a
+                    >
                 </li>
-                }
-                @if(item.parent === true){
+                } @if(item.parent === true){
                 <li class="indicator" cdkDrag cdkDragLockAxis="x">
                     <details>
                         <summary>
-                            {{item.name}}
+                            {{ item.name }}
                         </summary>
-                        <ul class="p-2 bg-base-100 rounded-t-none" cdkDropList cdkDropListOrientation="vertical">
+                        <ul
+                            class="p-2 bg-base-100 rounded-t-none"
+                            cdkDropList
+                            cdkDropListOrientation="vertical"
+                        >
                             @for (itemParent of items; track $index) {
-                            @if(itemParent.parentName != '' && itemParent.parent === false){
+                            @if(itemParent.parentName != '' && itemParent.parent
+                            === false){
                             <li cdkDrag cdkDragLockAxis="y">
-                                <a routerLink="{{itemParent.url}}" routerLinkActive="activebutton"
-                                    [routerLinkActiveOptions]="{exact: true}">{{itemParent.name}}</a>
+                                <a
+                                    routerLink="{{ itemParent.url }}"
+                                    routerLinkActive="activebutton"
+                                    [routerLinkActiveOptions]="{ exact: true }"
+                                    >{{ itemParent.name }}</a
+                                >
                             </li>
-                            }
-                            }
+                            } }
                         </ul>
                     </details>
                 </li>
-                }
-                }
+                } }
             </ul>
         </div>
     </div>
 </div>
 
 <div class="grid grid-cols-1 gap-4 place-items-center p-3 bg-base-200">
-    <a routerLink="/navbar/list" class="btn btn-success">
-        Quit
-    </a>
+    <a routerLink="/navbar/list" class="btn btn-success"> Quit </a>
 </div>
