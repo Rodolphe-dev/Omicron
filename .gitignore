@@ -19,6 +19,7 @@ node_modules
 
 # IDE - VSCode
 .vscode
+.vscode/extensions.json
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
