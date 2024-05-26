@@ -1,4 +1,4 @@
-# Omicron CMS V0.2.4
+# Omicron CMS V0.2.5
 
 ## Description
 
@@ -54,12 +54,6 @@ every thing else is like a regular symfony app and angular app
 
 ## TODO
 
-[ ] Add unsubscribe where they are needed
-
-[ ] Fix error edit admin profile, password
-
-[ ] Fix security issue, change password need actual password
-
 [ ] Refactor items logic in navbar
 
 [ ] Refactor items logic in sidebar
@@ -74,4 +68,8 @@ every thing else is like a regular symfony app and angular app
 
 [ ] Make a simple dashboard
 
-This list will grow up soon ...
+[ ] UI Component for page
+
+[ ] Theme system for front and back
+
+[ ] Account system for front

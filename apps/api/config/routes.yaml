@@ -55,3 +55,21 @@ updateFooterStatus:
   methods: ["PATCH"]
   defaults:
     _controller: App\Controller\FooterController::updateFooterStatus
+
+updateProfile:
+  path: /api/admin_accounts/updateProfile/{id}
+  methods: ["PATCH"]
+  defaults:
+    _controller: App\Controller\AdminAccountController::updateProfile
+
+updatePassword:
+  path: /api/admin_accounts/updatePassword/{id}
+  methods: ["PATCH"]
+  defaults:
+    _controller: App\Controller\AdminAccountController::updatePassword
+
+updateMyPassword:
+  path: /api/admin_accounts/updateMyPassword/{id}
+  methods: ["PATCH"]
+  defaults:
+    _controller: App\Controller\AdminAccountController::updateMyPassword

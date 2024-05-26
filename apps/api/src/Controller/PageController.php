@@ -27,6 +27,10 @@ class PageController extends AbstractController
     {
         $page = $entityManager->getRepository(Page::class)->findOneBy(['route' => $route]);
 
+        if (!$page) {
+            throw $this->createNotFoundException('No page found for this route : '.$route);
+        }
+
         return new JsonResponse(
             [
                 'route' => $page->getRoute(),

@@ -164,7 +164,7 @@ export class EditAdminComponent implements OnInit {
             superadmin: this.superAdmin,
         };
 
-        this.admin.editAdminAccount(this.adminIdValue, body);
+        this.admin.editAdminAccountProfile(this.adminIdValue, body);
     }
 
     editAdminPasswordForm() {
@@ -176,7 +176,7 @@ export class EditAdminComponent implements OnInit {
                 plainPassword: password,
             };
 
-            this.admin.editAdminAccount(this.adminIdValue, body);
+            this.admin.editAdminAccountPassword(this.adminIdValue, body);
         }
     }
 }

@@ -80,6 +80,31 @@
                     <label class="form-control w-full">
                         <div class="label">
                             <span class="label-text font-semibold"
+                                >Actual password</span
+                            >
+                        </div>
+                        <div class="relative">
+                            <input
+                                type="{{ showPassword ? 'text' : 'password' }}"
+                                name="actualPassword"
+                                #password
+                                formControlName="actualPassword"
+                                placeholder="Type here"
+                                class="input input-bordered w-full"
+                            />
+                            <fa-icon
+                                [icon]="showPassword ? faEyeSlash : faEye"
+                                class="absolute top-3 right-3 cursor-pointer fa-xl leading-lg"
+                                (click)="togglePasswordVisibility()"
+                            ></fa-icon>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="w-full min-w-full">
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text font-semibold"
                                 >New password</span
                             >
                         </div>
@@ -127,7 +152,7 @@
                 </div>
 
                 <div
-                    class="w-full min-w-full row-end-5 place-self-center flex justify-center"
+                    class="w-full min-w-full place-self-center flex justify-center"
                 >
                     <button class="btn btn-success items-center" type="submit">
                         Change password

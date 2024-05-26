@@ -117,7 +117,7 @@ export class MyProfileComponent implements OnInit {
             superadmin: this.superAdmin,
         };
 
-        this.admin.editMyAdminAccount(this.adminIdValue, body);
+        this.admin.editMyAdminAccountProfile(this.adminIdValue, body);
     }
 
     editAdminPasswordForm() {
@@ -129,7 +129,7 @@ export class MyProfileComponent implements OnInit {
                 plainPassword: password,
             };
 
-            this.admin.editMyAdminAccount(this.adminIdValue, body);
+            this.admin.editMyAdminAccountPassword(this.adminIdValue, body);
         } else {
             // TODO : need add toast error and put red label on password input
         }

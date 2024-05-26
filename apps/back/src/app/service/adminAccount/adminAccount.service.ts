@@ -13,6 +13,9 @@ export class AdminAccountService {
     private baseUrl = environment.apiURL;
     private normalUrl = "/api/admin_accounts";
     private getUrl = "/api/admin_accounts/";
+    private editUrlProfile = "/api/admin_accounts/updateProfile/";
+    private editUrlPassword = "/api/admin_accounts/updatePassword/";
+    private editUrlMyPassword = "/api/admin_accounts/updateMyPassword/";
     private getUrlByName = "/api/admin_accounts/getAdminAccountByUsername/";
     private deleteUrl = "/api/admin_accounts/";
 
@@ -120,10 +123,10 @@ export class AdminAccountService {
         });
     }
 
-    /** Edit Admin Account */
-    editAdminAccount(id: number, value: object) {
+    /** Edit Admin Account Profile */
+    editAdminAccountProfile(id: number, value: object) {
         this.httpClient
-            .patch(this.baseUrl + this.getUrl + id, value, {
+            .patch(this.baseUrl + this.editUrlProfile + id, value, {
                 headers: this.MergeJsonHeader,
             })
             .subscribe({
@@ -149,10 +152,65 @@ export class AdminAccountService {
             });
     }
 
-    /** Edit My Admin Account */
-    editMyAdminAccount(id: number, value: object) {
+    /** Edit Admin Account Password */
+    editAdminAccountPassword(id: number, value: object) {
         this.httpClient
-            .patch(this.baseUrl + this.getUrl + id, value, {
+            .patch(this.baseUrl + this.editUrlPassword + id, value, {
+                headers: this.MergeJsonHeader,
+            })
+            .subscribe({
+                next: () => {
+                    const options = {
+                        autoClose: false,
+                        keepAfterRouteChange: true,
+                    };
+
+                    this.alert.success("This admin account is edited", options);
+                },
+                error: () => {
+                    const options = {
+                        autoClose: false,
+                        keepAfterRouteChange: true,
+                    };
+
+                    this.alert.error(
+                        "This admin account is not edited",
+                        options
+                    );
+                },
+            });
+    }
+
+    /** Edit My Admin Account Profile */
+    editMyAdminAccountProfile(id: number, value: object) {
+        this.httpClient
+            .patch(this.baseUrl + this.editUrlProfile + id, value, {
+                headers: this.MergeJsonHeader,
+            })
+            .subscribe({
+                next: () => {
+                    const options = {
+                        autoClose: false,
+                        keepAfterRouteChange: true,
+                    };
+
+                    this.alert.success("Your profil is edited", options);
+                },
+                error: () => {
+                    const options = {
+                        autoClose: false,
+                        keepAfterRouteChange: true,
+                    };
+
+                    this.alert.error("Your profil is not edited", options);
+                },
+            });
+    }
+
+    /** Edit My Admin Account Password */
+    editMyAdminAccountPassword(id: number, value: object) {
+        this.httpClient
+            .patch(this.baseUrl + this.editUrlMyPassword + id, value, {
                 headers: this.MergeJsonHeader,
             })
             .subscribe({

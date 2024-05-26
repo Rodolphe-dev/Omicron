@@ -51,6 +51,21 @@ security:
       stateless: true
       provider: users
       jwt: ~
+    updateProfile:
+      pattern: ^/api/admin_accounts/updateProfile/[0-9]+$
+      stateless: true
+      provider: users
+      jwt: ~
+    updatePassword:
+      pattern: ^/api/admin_accounts/updatePassword/[0-9]+$
+      stateless: true
+      provider: users
+      jwt: ~
+    updateMyPassword:
+      pattern: ^/api/admin_accounts/updateMyPassword/[0-9]+$
+      stateless: true
+      provider: users
+      jwt: ~
     main:
       json_login:
         check_path: /auth # The name in routes.yaml is enough for mapping
@@ -61,7 +76,11 @@ security:
   access_control:
     - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
     - { path: ^/auth, roles: PUBLIC_ACCESS }
-    - { path: ^/verify, roles: IS_AUTHENTICATED_FULLY }
+    - { path: '^/api', roles: PUBLIC_ACCESS }
+    - { path: '^/api/admin_accounts/getAdminAccountByUsername/[0-9]+$', roles: PUBLIC_ACCESS }
     - { path: '^/api/navbars/updateNavbarStatus/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }
     - { path: '^/api/sidebars/updateSidebarStatus/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }
     - { path: '^/api/footers/updateFooterStatus/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }
+    - { path: '^/api/admin_accounts/updateProfile/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }
+    - { path: '^/api/admin_accounts/updatePassword/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }
+    - { path: '^/api/admin_accounts/updateMyPassword/[0-9]+$', roles: IS_AUTHENTICATED_FULLY }

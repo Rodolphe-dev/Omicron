@@ -1,7 +1,7 @@
 api_platform:
   show_webby: false
   title: Back office Omicron CMS API
-  version: 0.2.4
+  version: 0.2.5
   eager_loading:
     # To enable or disable eager loading.
     enabled: true
