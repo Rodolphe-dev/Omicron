@@ -1,0 +1,107 @@
+# api/config/packages/security.yaml
+security:
+    # https://symfony.com/doc/current/security.html#c-hashing-passwords
+    password_hashers:
+        App\Entity\AdminAccount: 'auto'
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        users:
+            entity:
+                class: App\Entity\AdminAccount
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/_(profiler|wdt)
+            security: false
+        api:
+            pattern: ^/api/
+            stateless: true
+            provider: users
+            entry_point: jwt
+            jwt: ~
+            refresh_jwt:
+                check_path: /api/token/refresh
+                provider: users
+            logout:
+                path: api_token_invalidate
+        api_token_refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            user_checker: security.user.provider.concrete.users
+            refresh_jwt: ~
+        verify:
+            pattern: ^/verify
+            stateless: true
+            provider: users
+            jwt: ~
+        updateNavbarStatus:
+            pattern: ^/api/navbars/updateNavbarStatus/[0-9]+$
+            stateless: true
+            provider: users
+            jwt: ~
+        updateSidebarStatus:
+            pattern: ^/api/sidebars/updateSidebarStatus/[0-9]+$
+            stateless: true
+            provider: users
+            jwt: ~
+        updateFooterStatus:
+            pattern: ^/api/footers/updateFooterStatus/[0-9]+$
+            stateless: true
+            provider: users
+            jwt: ~
+        updateProfile:
+            pattern: ^/api/admin_accounts/updateProfile/[0-9]+$
+            stateless: true
+            provider: users
+            jwt: ~
+        updatePassword:
+            pattern: ^/api/admin_accounts/updatePassword/[0-9]+$
+            stateless: true
+            provider: users
+            jwt: ~
+        updateMyPassword:
+            pattern: ^/api/admin_accounts/updateMyPassword/[0-9]+$
+            stateless: true
+            provider: users
+            jwt: ~
+        main:
+            json_login:
+                check_path: /auth # The name in routes.yaml is enough for mapping
+                username_path: username
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+    access_control:
+        - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
+        - { path: ^/auth, roles: PUBLIC_ACCESS }
+        - { path: '^/api', roles: PUBLIC_ACCESS }
+        - {
+              path: '^/api/admin_accounts/getAdminAccountByUsername/[0-9]+$',
+              roles: PUBLIC_ACCESS,
+          }
+        - {
+              path: '^/api/navbars/updateNavbarStatus/[0-9]+$',
+              roles: IS_AUTHENTICATED_FULLY,
+          }
+        - {
+              path: '^/api/sidebars/updateSidebarStatus/[0-9]+$',
+              roles: IS_AUTHENTICATED_FULLY,
+          }
+        - {
+              path: '^/api/footers/updateFooterStatus/[0-9]+$',
+              roles: IS_AUTHENTICATED_FULLY,
+          }
+        - {
+              path: '^/api/admin_accounts/updateProfile/[0-9]+$',
+              roles: IS_AUTHENTICATED_FULLY,
+          }
+        - {
+              path: '^/api/admin_accounts/updatePassword/[0-9]+$',
+              roles: IS_AUTHENTICATED_FULLY,
+          }
+        - {
+              path: '^/api/admin_accounts/updateMyPassword/[0-9]+$',
+              roles: IS_AUTHENTICATED_FULLY,
+          }

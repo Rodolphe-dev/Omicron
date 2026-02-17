@@ -1,0 +1,63 @@
+FROM php:8.3-fpm
+
+# Informations : image PHP-FPM 8.3, extensions requises pour Symfony 7 (pdo_mysql, intl, zip, xml, gd, opcache, pcntl)
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    autoconf \
+    git \
+    unzip \
+    zip \
+    libzip-dev \
+    libicu-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libwebp-dev \
+    libfreetype6-dev \
+    zlib1g-dev \
+    libxml2-dev \
+    libonig-dev \
+    libmariadb-dev \
+    default-mysql-client \
+    ca-certificates
+
+RUN docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype
+
+RUN docker-php-ext-install -j"$(nproc)" pdo_mysql mysqli zip intl gd xml opcache pcntl
+
+RUN docker-php-ext-enable pdo_mysql mysqli
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Installer Composer (depuis l'image officielle composer)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Définir le répertoire de travail sur l'application Symfony située dans apps/api
+WORKDIR /var/www/apps/api
+
+# Si le contexte de build est la racine du monorepo, copier uniquement les manifests de l'app pour profiter du cache
+COPY apps/api/composer.json apps/api/composer.lock ./
+
+# Installer les dépendances (avec les dépendances de dev pour les commandes CLI)
+RUN if [ -f composer.json ]; then composer install --optimize-autoloader --no-interaction --no-scripts; fi
+
+# Copier le reste du code de l'application
+COPY apps/api/. .
+
+# Générer les fichiers d'environnement compilés
+RUN composer dump-env dev || true
+
+# Créer un fichier php.ini pour charger les extensions
+RUN echo "extension=pdo_mysql" > /usr/local/etc/php/conf.d/pdo-mysql.ini && \
+    echo "extension=mysqli" > /usr/local/etc/php/conf.d/mysqli.ini
+
+# Copier le script d'initialisation
+COPY apps/api/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Exposer le port FPM
+EXPOSE 9000
+
+# Utiliser le script d'initialisation comme point d'entrée
+ENTRYPOINT ["docker-entrypoint.sh"]

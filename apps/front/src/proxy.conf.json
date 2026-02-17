@@ -1,0 +1,6 @@
+{
+    "/api": {
+        "target": "https://omicrondev.com/api",
+        "secure": false
+    }
+}

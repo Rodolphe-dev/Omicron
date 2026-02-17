@@ -1,0 +1,4 @@
+/usr/local/apache2/conf/original/extra/httpd-ssl.conf:<VirtualHost _default_:443>
+/usr/local/apache2/conf/original/extra/httpd-ssl.conf:ServerName www.example.com:443
+/usr/local/apache2/conf/extra/httpd-ssl.conf:<VirtualHost _default_:443>
+/usr/local/apache2/conf/extra/httpd-ssl.conf:ServerName www.example.com:443

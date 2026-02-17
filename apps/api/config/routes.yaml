@@ -1,0 +1,78 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+api_platform:
+    resource: ./routes/api_platform.yaml
+
+auth:
+    path: /auth
+    methods: ['POST']
+
+api_refresh_token:
+    path: /token/refresh
+
+api_token_invalidate:
+    path: /token/invalidate
+
+logout:
+    path: /logout
+    methods: ['POST']
+    defaults:
+        _controller: App\Controller\AuthController::logout
+
+verify:
+    path: /verify
+    methods: ['GET']
+    defaults:
+        _controller: App\Controller\AuthController::verify
+
+getAdminAccountByUsername:
+    path: /api/admin_accounts/getAdminAccountByUsername/{username}
+    methods: ['GET']
+    defaults:
+        _controller: App\Controller\AdminAccountController::getAdminAccountByUsername
+
+getPageByRoute:
+    path: /pages/getPageByRoute/{route}
+    methods: ['GET']
+    defaults:
+        _controller: App\Controller\PageController::getPageByRoute
+
+updateNavbarStatus:
+    path: /navbars/updateNavbarStatus/{id}
+    methods: ['PATCH']
+    defaults:
+        _controller: App\Controller\NavbarController::updateNavbarStatus
+
+updateSidebarStatus:
+    path: /sidebars/updateSidebarStatus/{id}
+    methods: ['PATCH']
+    defaults:
+        _controller: App\Controller\SidebarController::updateSidebarStatus
+
+updateFooterStatus:
+    path: /footers/updateFooterStatus/{id}
+    methods: ['PATCH']
+    defaults:
+        _controller: App\Controller\FooterController::updateFooterStatus
+
+updateProfile:
+    path: /admin_accounts/updateProfile/{id}
+    methods: ['PATCH']
+    defaults:
+        _controller: App\Controller\AdminAccountController::updateProfile
+
+updatePassword:
+    path: /admin_accounts/updatePassword/{id}
+    methods: ['PATCH']
+    defaults:
+        _controller: App\Controller\AdminAccountController::updatePassword
+
+updateMyPassword:
+    path: /admin_accounts/updateMyPassword/{id}
+    methods: ['PATCH']
+    defaults:
+        _controller: App\Controller\AdminAccountController::updateMyPassword

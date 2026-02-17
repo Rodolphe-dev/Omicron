@@ -4,6 +4,7 @@
 dist
 tmp
 /out-tsc
+mariadb/
 
 # dependencies
 node_modules

@@ -1,0 +1,14 @@
+{
+    "/api": {
+        "target": "https://omicrondev.com/api",
+        "secure": false
+    },
+    "/auth": {
+        "target": "https://omicrondev.com/api",
+        "secure": false
+    },
+    "/logout": {
+        "target": "https://omicrondev.com/api",
+        "secure": false
+    }
+}

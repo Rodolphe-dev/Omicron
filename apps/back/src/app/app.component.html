@@ -1,0 +1,24 @@
+@if (loggedIn === true) {
+<omicron-nx-header></omicron-nx-header>
+
+<main>
+    <div class="grid grid-cols-8">
+        <div class="col-span-1">
+            <omicron-nx-sidebar></omicron-nx-sidebar>
+        </div>
+        <div class="col-span-7 p-5">
+            <omicron-nx-breadcrumbs></omicron-nx-breadcrumbs>
+            <div class="p-5">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</main>
+
+<omicron-nx-footer></omicron-nx-footer>
+}@else {
+<main>
+    <router-outlet></router-outlet>
+</main>
+}
+<omicron-nx-alert></omicron-nx-alert>

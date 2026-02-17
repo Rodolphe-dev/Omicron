@@ -1,0 +1,110 @@
+services:
+    front-dev:
+        container_name: front-dev
+        build:
+            context: .
+            dockerfile: apps/front/Dockerfile.dev
+        ports:
+            - '4201:4201'
+        volumes:
+            - ./:/app
+            - /app/node_modules
+        profiles: ['dev']
+
+    back-dev:
+        container_name: back-dev
+        build:
+            context: .
+            dockerfile: apps/back/Dockerfile.dev
+        ports:
+            - '4202:4202'
+        volumes:
+            - ./:/app
+            - /app/node_modules
+        profiles: ['dev']
+
+    api-dev:
+        container_name: api-dev
+        build:
+            context: .
+            dockerfile: apps/api/Dockerfile.dev
+        ports:
+            - '9003:9000'
+        volumes:
+            - ./:/app
+            - /app/vendor
+        depends_on:
+            - apache-dev
+            - mariadb-dev
+        profiles: ['dev']
+
+    nginx-dev:
+        container_name: nginx-dev
+        image: nginx:alpine
+        ports:
+            - '80:80'
+        volumes:
+            - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+        depends_on:
+            - front-dev
+            - back-dev
+            - api-dev
+        profiles: ['dev']
+
+    apache-dev:
+        container_name: apache-dev
+        build:
+            context: .
+            dockerfile: apps/api/apache/Dockerfile.dev
+        ports:
+            - '8000:80'
+        volumes:
+            - ./:/app
+        profiles: ['dev']
+
+    mariadb-dev:
+        image: mariadb:10.6
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_DATABASE: omicron
+            MYSQL_PASSWORD: password
+            MYSQL_USER: user
+            MYSQL_ROOT_PASSWORD: password
+        volumes:
+            - ./mariadb:/var/lib/mysql
+        user: '999:999'
+        profiles: ['dev']
+
+    front:
+        container_name: front
+        build:
+            context: .
+            dockerfile: apps/front/Dockerfile
+        ports:
+            - '81:80'
+        profiles: ['prod']
+
+    back:
+        container_name: back
+        build:
+            context: .
+            dockerfile: apps/back/Dockerfile
+        ports:
+            - '82:80'
+        profiles: ['prod']
+
+    nginx:
+        container_name: nginx
+        image: nginx:alpine
+        ports:
+            - '80:80'
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf:ro
+        depends_on:
+            - front
+            - back
+        profiles: ['prod']
+networks:
+    default:
+        name: omicron-network
